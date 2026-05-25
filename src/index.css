@@ -49,8 +49,29 @@ body {
   }
 }
 
-main {
+/* === LAYERED REVEAL ARCHITECTURE === */
+.main-content-layer {
   padding-top: 70px;
+  position: relative;
+  z-index: 10;
+  background-color: var(--bg-primary);
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15);
+  border-bottom-left-radius: 48px;
+  border-bottom-right-radius: 48px;
+  padding-bottom: 4rem; /* Extra space before bottom cut-off */
+  transition: background-color 0.3s ease;
+}
+
+body.dark .main-content-layer {
+  box-shadow: 0 35px 60px -15px rgba(0,0,0,0.8);
+}
+
+.footer-reveal-layer {
+  position: relative;
+  z-index: 1;
+  background-color: var(--bg-secondary);
+  padding-top: 8rem; /* Space for overlap */
+  margin-top: -4rem; /* Pull under main content */
 }
 
 a {
@@ -163,6 +184,51 @@ body.dark .main-header {
   margin: 0 auto 2rem;
 }
 
+/* --- NEO TOKYO HERO STYLES --- */
+.hero-tategaki {
+  position: absolute;
+  top: 10%;
+  right: 5%;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  font-size: clamp(3rem, 10vw, 8rem);
+  font-weight: 900;
+  font-family: 'Noto Sans JP', sans-serif; /* Japanese font fallback */
+  color: var(--text-primary);
+  opacity: 0.03; /* Sangat tipis sebagai watermark */
+  letter-spacing: 0.5em;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+body.dark .hero-tategaki {
+  opacity: 0.04;
+}
+
+.hero-name-decode {
+  display: inline-block;
+  min-width: 1ch; 
+  font-family: inherit;
+}
+
+.hero-name-typewriter {
+  color: var(--text-primary);
+}
+
+.typewriter-cursor {
+  color: var(--accent-color);
+  animation: blink 1s step-end infinite;
+  font-weight: 300;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+/* ----------------------------- */
+
 /* === BUTTONS === */
 .btn {
   display: inline-block;
@@ -171,11 +237,17 @@ body.dark .main-header {
   font-weight: 700;
   cursor: pointer;
   text-align: center;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease;
   border: 2px solid var(--accent-color);
+  background-color: transparent;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 1rem;
 }
 .btn:hover {
   transform: translateY(-3px);
+  background-color: var(--accent-color);
+  color: var(--bg-primary);
 }
 .btn--hero {
   background-color: var(--accent-color);
@@ -327,7 +399,7 @@ body.dark .btn:not(.btn--hero) {
   transform-origin: bottom left;
 }
 
-/* === CLEAN CONTACT FORM STYLING === */
+/* === NEO-TOKYO CONTACT FORM STYLING === */
 .contact-form {
   display: flex;
   flex-direction: column;
@@ -336,27 +408,53 @@ body.dark .btn:not(.btn--hero) {
 .contact-form input,
 .contact-form textarea {
   width: 100%;
-  padding: 1rem;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  background-color: var(--bg-secondary);
+  padding: 1.2rem 1rem;
+  border: none;
+  border-bottom: 2px solid var(--border-color);
+  border-radius: 0; /* Sharp edges untuk Cyberpunk feel */
+  background-color: rgba(0,0,0,0.03);
   color: var(--text-primary);
-  font-family: var(--font-main);
+  font-family: 'Inter', monospace; /* Monospace/Technical font touch */
   font-size: 1rem;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+body.dark .contact-form input,
+body.dark .contact-form textarea {
+  background-color: rgba(255,255,255,0.03);
+}
+
 .contact-form input:focus,
 .contact-form textarea:focus {
   outline: none;
-  border-color: var(--accent-color);
-  box-shadow: 0 0 0 2px var(--bg-primary), 0 0 0 4px var(--accent-color);
+  border-bottom: 2px solid var(--accent-color);
+  background-color: transparent;
+  box-shadow: 0 15px 30px -15px var(--accent-color);
+  transform: translateY(-2px);
 }
 .contact-form textarea {
   resize: vertical;
   min-height: 120px;
 }
+
+/* Tombol Send Message Spesifik (Glitch/Sharp Aesthetic) */
 .contact-form .btn {
   align-self: flex-start;
+  border-radius: 0; /* Edge tajam */
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 800;
+}
+
+.contact-form .btn:hover {
+  background-color: var(--accent-color);
+  color: var(--bg-primary); /* Default behavior */
+}
+
+body.dark .contact-form .btn:hover {
+  /* Pastikan benar-benar hitam pekat di dark mode agar kontras maksimal */
+  color: #000000 !important; 
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
 }
 
 @media (max-width: 850px) {

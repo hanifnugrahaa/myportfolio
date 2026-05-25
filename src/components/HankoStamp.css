@@ -1,0 +1,101 @@
+/* src/components/HankoStamp.css */
+
+.hanko-stamp-container {
+  position: absolute;
+  bottom: 10%;
+  right: 5%;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  pointer-events: none;
+  opacity: 0.9;
+  mix-blend-mode: exclusion; /* Membuatnya terlihat keren di light/dark mode */
+}
+
+/* Fallback blend mode untuk dark mode */
+body.dark .hanko-stamp-container {
+  mix-blend-mode: normal;
+  opacity: 0.85;
+}
+
+.hanko-spin-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  animation: hanko-spin 15s linear infinite;
+}
+
+@keyframes hanko-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.hanko-svg {
+  width: 100%;
+  height: 100%;
+  fill: #E63946; /* Merah Hanko (Inkan) tradisional */
+}
+
+body.dark .hanko-svg {
+  fill: #FF4D5E; /* Merah lebih terang untuk dark mode */
+}
+
+.hanko-circular-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.hanko-center-badge {
+  width: 50px;
+  height: 50px;
+  background-color: #E63946;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(230, 57, 70, 0.4);
+}
+
+body.dark .hanko-center-badge {
+  background-color: #FF4D5E;
+  box-shadow: 0 4px 15px rgba(255, 77, 94, 0.5);
+}
+
+.hanko-kanji {
+  color: #FFFFFF;
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  font-weight: 900;
+  line-height: 1;
+  margin-top: -2px; /* Optical alignment */
+}
+
+/* Responsive Position */
+@media (max-width: 768px) {
+  .hanko-stamp-container {
+    bottom: 5%;
+    right: 5%;
+    width: 90px;
+    height: 90px;
+  }
+  
+  .hanko-center-badge {
+    width: 38px;
+    height: 38px;
+  }
+  
+  .hanko-kanji {
+    font-size: 20px;
+  }
+  
+  .hanko-circular-text {
+    font-size: 13px;
+  }
+}

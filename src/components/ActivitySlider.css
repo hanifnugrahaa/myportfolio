@@ -69,12 +69,21 @@ body.dark .activity-section-subtitle {
   border: 3px solid var(--accent-color);
   color: var(--accent-color);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.1s ease;
   z-index: 50;
   box-shadow: 0 6px 0 var(--accent-color);
+}
+
+.nav-key-hint {
+  font-size: 0.65rem;
+  font-weight: 800;
+  opacity: 0.6;
+  margin-top: -6px;
+  pointer-events: none;
 }
 
 /* Previous button positioning */
@@ -118,14 +127,14 @@ body.dark .activity-nav-btn {
 
 /* Swiper instance styling */
 .activity-swiper {
-  width: 350px;
+  width: 400px;
   overflow: visible !important;
   padding: 2rem 0 !important;
 }
 
 /* Individual slide styling */
 .activity-slide {
-  width: 350px !important;
+  width: 400px !important;
   border-radius: 24px;
 }
 

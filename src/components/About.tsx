@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from 'react-i18next';
+import DocumentModal from './DocumentModal';
 
 function About() {
   const { t } = useTranslation();
+  const [activeDoc, setActiveDoc] = useState<{url: string, title: string} | null>(null);
 
   return (
     <>
@@ -11,23 +13,27 @@ function About() {
         {t('about.description')}
       </p>
       <div className="button-container">
-        <a 
-          href="/assets/docs/CV_Hanif Nugraha.pdf" 
-          target="_blank" 
-          rel="noopener noreferrer" 
+        <button 
+          onClick={() => setActiveDoc({ url: '/assets/docs/CV_Hanif Nugraha.pdf', title: 'Curriculum Vitae' })}
           className="btn"
         >
           {t('about.view_cv')}
-        </a>
-        <a 
-          href="/assets/docs/Shokumukeirekisho_Hanif_Ardiyanta_Nugraha.pdf" 
-          target="_blank" 
-          rel="noopener noreferrer" 
+        </button>
+        <button 
+          onClick={() => setActiveDoc({ url: '/assets/docs/Shokumukeirekisho_Hanif_Ardiyanta_Nugraha.pdf', title: 'Shokumukeirekisho (Resume)' })}
           className="btn"
         >
           {t('about.view_shokumukeirekisho')}
-        </a>
+        </button>
       </div>
+
+      {/* Modern Cinematic Document Viewer */}
+      <DocumentModal 
+        isOpen={activeDoc !== null} 
+        onClose={() => setActiveDoc(null)} 
+        pdfUrl={activeDoc?.url || ''} 
+        title={activeDoc?.title || ''} 
+      />
     </>
   );
 }

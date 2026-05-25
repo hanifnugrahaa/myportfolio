@@ -7,9 +7,10 @@ interface ProjectCardProps {
   project: Project;
   isActive: boolean;
   onClick: () => void;
+  index: number;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ project, isActive, onClick }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({ project, isActive, onClick, index }) => {
   const isVideo = project.imageUrl?.endsWith('.mp4');
 
   return (
@@ -39,6 +40,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isActive, onClick })
       
       {/* Overlay gradien agar teks lebih terbaca */}
       <div className="image-overlay"></div>
+
+      {/* Neo-Tokyo Editorial Badge */}
+      <div className="japan-badge">
+        作品 — {String(index + 1).padStart(2, '0')}
+      </div>
 
       {/* Panel Liquid Glass di bagian bawah */}
       <div className="glass-panel">

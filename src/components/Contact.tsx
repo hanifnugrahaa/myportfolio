@@ -24,7 +24,7 @@ function Contact() {
             <input type="text" name="name" placeholder="Your Name" aria-label="Nama Anda" required />
             <input type="email" name="email" placeholder="Email" aria-label="Email Anda" required />
             <textarea name="message" placeholder="Message..." aria-label="Pesan Anda" rows="5" required></textarea>
-            <button type="submit" className="btn btn--hero">Send Message</button>
+            <button type="submit" className="btn">Send Message</button>
           </form>
         </div>
       </div>

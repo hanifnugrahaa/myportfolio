@@ -8,11 +8,30 @@
     min-height: 480px;
     border-radius: 32px;
     overflow: hidden;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1); /* Shadow lebih halus */
-    /* Transisi untuk transform dan shadow saat hover container */
-    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+    /* Transisi ultra smooth untuk transform, shadow, opacity, filter */
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                box-shadow 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     cursor: pointer;
     background-color: transparent;
+}
+
+/* --- INACTIVE SLIDE (DEPTH OF FIELD EFFECT) --- */
+.card-container.inactive {
+    opacity: 0.5;
+    filter: blur(4px);
+    transform: scale(0.92);
+    pointer-events: none; /* Cegah interaksi di slide yang buram */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+/* --- ACTIVE SLIDE --- */
+.card-container.active {
+    opacity: 1;
+    filter: blur(0px);
+    transform: scale(1);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
 }
 
 /* Shadow lebih tegas di Dark Mode (opsional, jika main container berubah) */
@@ -34,12 +53,17 @@ body.dark .card-container {
     top: 0;
     left: 0;
     z-index: 1;
-    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    /* Transisi sangat lambat dan sinematik */
+    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Animasi zoom halus pada card yang aktif di tengah slider */
 .card-container.active .project-image {
     transform: scale(1.05);
+}
+
+.card-container.inactive .project-image {
+    transform: scale(1);
 }
 
 /* --- WHITE LIQUID GLASS --- */
@@ -55,6 +79,23 @@ body.dark .card-container {
     background: linear-gradient(to top, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.5) 40%, rgba(255,255,255,0) 100%);
     z-index: 2;
     pointer-events: none;
+}
+
+/* --- NEO TOKYO EDITORIAL BADGE --- */
+.japan-badge {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background-color: var(--accent-color);
+  color: var(--bg-primary);
+  font-family: 'Inter', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+  z-index: 5;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  letter-spacing: 1px;
 }
 
 /* --- Panel Liquid Glass PUTIH --- */
