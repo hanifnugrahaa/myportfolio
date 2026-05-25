@@ -1,9 +1,14 @@
 // src/components/AnimatedSection.jsx
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, ReactNode } from 'react';
+
+interface AnimatedSectionProps {
+  children: ReactNode;
+  id?: string;
+}
 
 // Terima 'children' dan 'id' sebagai prop
-function AnimatedSection({ children, id }) {
+function AnimatedSection({ children, id }: AnimatedSectionProps) {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
 

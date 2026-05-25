@@ -9,16 +9,16 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 import ProjectCard from './ProjectCard';
 import ProjectModal from './ProjectModal';
-import { projects } from '../data';
+import { projects, Project } from '../data';
 import './ProjectSlider.css';
 
 const ProjectSlider = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Gunakan useCallback untuk menjaga reference fungsi tetap stabil
-  const handleCardClick = useCallback((project) => {
+  const handleCardClick = useCallback((project: Project) => {
     setSelectedProject(project);
     setIsModalOpen(true);
   }, []);
@@ -42,7 +42,7 @@ const ProjectSlider = () => {
       <div className="carousel-container">
         {/* Tombol navigasi kini langsung di-bind ke class Swiper tanpa useRef manual */}
         <button className="carousel-nav-btn swiper-button-prev-custom" aria-label="Previous project">
-          <ChevronLeft size={24} />
+          <ChevronLeft size={24} aria-hidden="true" />
         </button>
         
         <div className="curved-swiper-container">
@@ -81,7 +81,7 @@ const ProjectSlider = () => {
         </div>
         
         <button className="carousel-nav-btn swiper-button-next-custom" aria-label="Next project">
-          <ChevronRight size={24} />
+          <ChevronRight size={24} aria-hidden="true" />
         </button>
       </div>
       

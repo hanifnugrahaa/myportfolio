@@ -1,8 +1,14 @@
 // src/components/ActivityCard.jsx
 import React from 'react';
 import './ActivityCard.css';
+import { Activity } from '../data';
 
-const ActivityCard = ({ activity, isActive }) => {
+interface ActivityCardProps {
+  activity: Activity;
+  isActive: boolean;
+}
+
+const ActivityCard: React.FC<ActivityCardProps> = ({ activity, isActive }) => {
   const { name, imageUrl } = activity;
 
   return (

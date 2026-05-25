@@ -1,8 +1,15 @@
 // src/components/ProjectCard.jsx
 import React from 'react';
 import './ProjectCard.css';
+import { Project } from '../data';
 
-const ProjectCard = ({ project, isActive, onClick }) => {
+interface ProjectCardProps {
+  project: Project;
+  isActive: boolean;
+  onClick: () => void;
+}
+
+const ProjectCard: React.FC<ProjectCardProps> = ({ project, isActive, onClick }) => {
   const isVideo = project.imageUrl?.endsWith('.mp4');
 
   return (

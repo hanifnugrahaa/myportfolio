@@ -205,19 +205,74 @@ body.dark .btn:not(.btn--hero) {
 }
 
 /* === SPECIFIC COMPONENTS (Skills) === */
-.skills-list {
+.skills-section-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.skills-tabs {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
   justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  background-color: var(--bg-secondary);
+  padding: 0.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
 }
-.skills-list li {
+
+.skill-tab-btn {
+  background: transparent;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-family: var(--font-main);
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
+}
+
+.skill-tab-btn:hover {
+  color: var(--text-primary);
+}
+
+.skill-tab-btn.active {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.skills-content {
+  width: 100%;
+  min-height: 200px;
+}
+
+.skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.skill-item {
   background-color: var(--bg-secondary);
   border: 1px solid var(--border-color);
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  font-size: 0.9rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 30px;
+  font-size: 0.95rem;
   font-weight: 500;
+  color: var(--text-primary);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.skill-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-color);
+  border-color: var(--accent-color);
 }
 
 /* === ARTISTIC CONTACT SECTION === */
@@ -362,6 +417,23 @@ body.dark .toggle-thumb::after { opacity: 1; }
 .social-list a:hover { color: var(--accent-color); }
 .social-list svg { width: 24px; height: 24px; }
 .footer-copy { font-size: 0.9rem; color: var(--text-secondary); }
+
+/* === LOADING SPINNER === */
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  margin: 2rem auto;
+  border: 4px solid var(--border-color);
+  border-top-color: var(--accent-color);
+  border-radius: 50%;
+  animation: spinner 1s linear infinite;
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 /* Media Query untuk Mobile Global */
 @media (max-width: 768px) {

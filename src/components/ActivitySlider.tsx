@@ -25,7 +25,7 @@ const ActivitySlider = () => {
       
       <div className="activity-carousel-container">
         <button className="activity-nav-btn activity-swiper-button-prev" aria-label="Previous activity">
-          <ChevronLeft size={24} />
+          <ChevronLeft size={24} aria-hidden="true" />
         </button>
         
         <div className="activity-swiper-container">
@@ -62,7 +62,7 @@ const ActivitySlider = () => {
         </div>
         
         <button className="activity-nav-btn activity-swiper-button-next" aria-label="Next activity">
-          <ChevronRight size={24} />
+          <ChevronRight size={24} aria-hidden="true" />
         </button>
       </div>
       

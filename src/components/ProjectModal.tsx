@@ -4,8 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, ExternalLink, Zap, Code } from 'lucide-react';
 import './ProjectModal.css';
 
-const getTechIcon = (tech) => {
-  const techIcons = {
+const getTechIcon = (tech: string) => {
+  const techIcons: Record<string, string> = {
     'React': '⚛️', 'Next.js': '▲', 'Node.js': '⬢', 'TypeScript': 'TS',
     'Python': '🐍', 'Java': '☕', 'Docker': '🐳', 'PostgreSQL': '🐘',
     'Firebase': '🔥', 'Arduino': '⚡', 'IoT': '📡', 'WebSockets': '🔌',
@@ -14,7 +14,7 @@ const getTechIcon = (tech) => {
   return techIcons[tech] || '💻';
 };
 
-const parseMetrics = (metricsString) => {
+const parseMetrics = (metricsString?: string) => {
   if (!metricsString) return [];
   return metricsString.split('|').map(m => {
     const parts = m.split('•');
@@ -22,7 +22,16 @@ const parseMetrics = (metricsString) => {
   });
 };
 
-const ProjectModal = ({ project, isOpen, onClose, onExitComplete }) => {
+import { Project } from '../data';
+
+interface ProjectModalProps {
+  project: Project | null;
+  isOpen: boolean;
+  onClose: () => void;
+  onExitComplete: () => void;
+}
+
+const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose, onExitComplete }) => {
   
 useEffect(() => {
     const handleEscKey = (e) => {
@@ -75,7 +84,7 @@ useEffect(() => {
             transition={{ delay: 0.1 }}
           >
             <button className="modal-close-btn" onClick={onClose} aria-label="Close modal">
-              <X size={20} />
+              <X size={20} aria-hidden="true" />
             </button>
 
             {/* --- KONTEN HERO (GAMBAR/VIDEO) --- */}
@@ -104,7 +113,7 @@ useEffect(() => {
               {metrics.length > 0 && (
                 <>
                   <div className="section-title">
-                    <Zap size={18} style={{ color: 'var(--accent-color)' }} /> Impact Metrics
+                    <Zap size={18} aria-hidden="true" style={{ color: 'var(--accent-color)' }} /> Impact Metrics
                   </div>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: '10px', marginBottom: '1.5rem' }}>
                     {metrics.map((metric, idx) => (
@@ -121,7 +130,7 @@ useEffect(() => {
               {project.techStack && (
                 <>
                   <div className="section-title">
-                     <Code size={18} style={{ color: 'var(--accent-color)' }} /> Tech Stack
+                     <Code size={18} aria-hidden="true" style={{ color: 'var(--accent-color)' }} /> Tech Stack
                   </div>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '1rem' }}>
                     {project.techStack.map((tech, idx) => (
@@ -151,7 +160,7 @@ useEffect(() => {
                   className="btn"
                   style={{ background: 'var(--accent-color)', color: 'var(--bg-primary)', border: '1px solid var(--accent-color)', padding: '10px 20px', display: 'flex', alignItems: 'center', gap: '8px' }}
                 >
-                  <ExternalLink size={18} /> View Full Project
+                  <ExternalLink size={18} aria-hidden="true" /> View Full Project
                 </a>
               )}
             </div>

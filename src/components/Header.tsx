@@ -2,7 +2,11 @@
 
 import React from 'react';
 
-function Header({ toggleTheme }) {
+interface HeaderProps {
+  toggleTheme: () => void;
+}
+
+function Header({ toggleTheme }: HeaderProps) {
   return (
     <header className="main-header">
       <div className="header-container">
