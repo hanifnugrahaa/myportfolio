@@ -1,10 +1,12 @@
 // src/components/ProjectSlider.jsx
 import React, { useState, useCallback } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination } from 'swiper/modules';
+import { Navigation, Pagination, EffectCards } from 'swiper/modules';
+import { useTranslation } from 'react-i18next';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import 'swiper/css/effect-cards';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 import ProjectCard from './ProjectCard';
@@ -13,6 +15,7 @@ import { projects, Project } from '../data';
 import './ProjectSlider.css';
 
 const ProjectSlider = () => {
+  const { t } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(0);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -36,7 +39,7 @@ const ProjectSlider = () => {
   return (
     <div className="curved-carousel-section">
       <div className="section-header">
-        <h2 className="section-title">Featured Projects</h2>
+        <h2 className="section-title">{t('projects.title')}</h2>
       </div>
       
       <div className="carousel-container">
@@ -47,25 +50,23 @@ const ProjectSlider = () => {
         
         <div className="curved-swiper-container">
           <Swiper
-            modules={[Navigation, Pagination]}
+            modules={[Navigation, Pagination, EffectCards]}
+            effect="cards"
+            grabCursor={true}
             navigation={{
               nextEl: '.swiper-button-next-custom',
               prevEl: '.swiper-button-prev-custom',
             }}
+            cardsEffect={{
+              perSlideOffset: 15,
+              perSlideRotate: 2,
+            }}
             pagination={{ clickable: true, el: '.custom-pagination' }}
-            spaceBetween={0}
-            slidesPerView="auto"
             centeredSlides={true}
             loop={true}
             speed={600} // Kembalikan ke 600 agar animasinya lebih smooth
             onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
-            breakpoints={{
-              // Semua spaceBetween dijadikan 0
-              320: { slidesPerView: "auto", spaceBetween: 0 }, 
-              640: { slidesPerView: "auto", spaceBetween: 0 },
-              768: { slidesPerView: "auto", spaceBetween: 0 },
-              1024: { slidesPerView: "auto", spaceBetween: 0 },
-            }}
+
             className="curved-swiper"
           >
             {projects.map((project, index) => (

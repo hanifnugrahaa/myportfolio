@@ -1,0 +1,16 @@
+/* src/components/ThreeBackground.css */
+.three-background-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0; /* Place behind Hero content */
+  pointer-events: none; /* Let clicks pass through to Hero content */
+  overflow: hidden;
+}
+
+/* Ensure the canvas doesn't block clicks but still tracks mouse position globally via r3f eventSource */
+.three-background-container canvas {
+  pointer-events: none !important;
+}

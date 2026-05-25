@@ -1,10 +1,12 @@
 // src/components/ActivitySlider.jsx
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination } from 'swiper/modules';
+import { Navigation, Pagination, EffectCards } from 'swiper/modules';
+import { useTranslation } from 'react-i18next';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import 'swiper/css/effect-cards';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 import ActivityCard from './ActivityCard';
@@ -12,6 +14,7 @@ import { myActivities } from '../data';
 import './ActivitySlider.css';
 
 const ActivitySlider = () => {
+  const { t } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(0);
 
   // Filter activities yang memiliki imageUrl
@@ -20,7 +23,7 @@ const ActivitySlider = () => {
   return (
     <div className="activity-carousel-section">
       <div className="activity-section-header">
-        <h2 className="section-title">My Activities</h2>
+        <h2 className="section-title">{t('activities.title')}</h2>
       </div>
       
       <div className="activity-carousel-container">
@@ -30,24 +33,23 @@ const ActivitySlider = () => {
         
         <div className="activity-swiper-container">
           <Swiper
-            modules={[Navigation, Pagination]}
+            modules={[Navigation, Pagination, EffectCards]}
+            effect="cards"
+            grabCursor={true}
             navigation={{
               nextEl: '.activity-swiper-button-next',
               prevEl: '.activity-swiper-button-prev',
             }}
+            cardsEffect={{
+              perSlideOffset: 15,
+              perSlideRotate: 2,
+            }}
             pagination={{ clickable: true, el: '.activity-custom-pagination' }}
-            spaceBetween={0}
-            slidesPerView="auto"
             centeredSlides={true}
             loop={true}
             speed={600}
             onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
-            breakpoints={{
-              320: { slidesPerView: "auto", spaceBetween: 0 },
-              640: { slidesPerView: "auto", spaceBetween: 0 },
-              768: { slidesPerView: "auto", spaceBetween: 0 },
-              1024: { slidesPerView: "auto", spaceBetween: 0 },
-            }}
+
             className="activity-swiper"
           >
             {activitiesWithImages.map((activity, index) => (

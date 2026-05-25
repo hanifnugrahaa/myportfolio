@@ -7,6 +7,10 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import About from './components/About';
 import AnimatedSection from './components/AnimatedSection';
+import LoadingScreen from './components/LoadingScreen';
+import CustomCursor from './components/CustomCursor';
+import TerminalMode from './components/TerminalMode';
+import { useSecretCode } from './hooks/useSecretCode';
 
 // Lazy load komponen yang di bawah layar
 const SkillsList = lazy(() => import('./components/SkillsList'));
@@ -17,45 +21,60 @@ const Footer = lazy(() => import('./components/Footer'));
 
 function App() {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [isBooting, setIsBooting] = useState(true);
+
+  // Custom hook to trigger Terminal Mode on "hacker" typing
+  const { success: isTerminalMode, setSuccess: setIsTerminalMode } = useSecretCode('hacker');
+
   const toggleTheme = () => {
     setTheme(currentTheme => (currentTheme === 'light' ? 'dark' : 'light'));
   };
 
   useEffect(() => {
-    const body = document.body;
-    body.classList.remove('light', 'dark');
-    body.classList.add(theme);
+    document.body.className = theme;
   }, [theme]);
 
   return (
     <>
-      <Header toggleTheme={toggleTheme} />
-      <main>
-        <Hero />
-        <div className="content-wrapper">
-          <AnimatedSection id="about">
-            <About />
-          </AnimatedSection>
+      {isTerminalMode && <TerminalMode onClose={() => setIsTerminalMode(false)} />}
+      
+      {!isTerminalMode && (
+        <>
+          <CustomCursor />
+          {isBooting && <LoadingScreen onComplete={() => setIsBooting(false)} />}
           
-          <Suspense fallback={<div className="loading-spinner"></div>}>
-            <AnimatedSection id="skills">
-              <SkillsList />
-            </AnimatedSection>
-            <AnimatedSection id="projects">
-              <ProjectSlider />
-            </AnimatedSection>
-            <AnimatedSection id="activities">
-              <ActivitySlider />
-            </AnimatedSection>
-            <AnimatedSection id="contact">
-              <Contact />
-            </AnimatedSection>
+          <Header toggleTheme={toggleTheme} theme={theme} />
+          
+          <main>
+            <section id="home">
+              <Hero />
+            </section>
+            <div className="content-wrapper">
+              <AnimatedSection id="about">
+                <About />
+              </AnimatedSection>
+              
+              <Suspense fallback={<div className="loading-spinner"></div>}>
+                <AnimatedSection id="skills">
+                  <SkillsList />
+                </AnimatedSection>
+                <AnimatedSection id="projects">
+                  <ProjectSlider />
+                </AnimatedSection>
+                <AnimatedSection id="activities">
+                  <ActivitySlider />
+                </AnimatedSection>
+                <AnimatedSection id="contact">
+                  <Contact />
+                </AnimatedSection>
+              </Suspense>
+            </div>
+          </main>
+          <Suspense fallback={null}>
+            <Footer />
           </Suspense>
-        </div>
-      </main>
-      <Suspense fallback={null}>
-        <Footer />
-      </Suspense>
+        </>
+      )}
     </>
   );
 }

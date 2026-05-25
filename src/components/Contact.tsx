@@ -1,13 +1,15 @@
 import React from "react";
+import { useTranslation } from 'react-i18next';
 
 function Contact() {
+  const { t } = useTranslation();
   return (
     <>
     <div className="contact-container">
         <div className="contact-info">
-          <h2 className="section-title--left">Let's Create Something Together.</h2>
+          <h2 className="section-title--left">{t('contact.title')}</h2>
           <p>
-            Have a project idea or a question? I'd love to hear from you. Let's build something great together.
+            {t('contact.description')}
           </p>
           <p>
             You can email me directly at:

@@ -25,9 +25,8 @@ body.dark .activity-card-container {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
-/* Hover effect - subtle lift animation */
+/* Hover effect is now handled by framer-motion */
 .activity-card-container:hover {
-  transform: translateY(-5px);
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
 }
 

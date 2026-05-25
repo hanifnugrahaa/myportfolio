@@ -1,13 +1,13 @@
-// src/components/Footer.jsx
-
 import React from "react";
-import { socials } from "../data"; //Impor data sosial media
+import { socials } from "../data";
+import { useTranslation } from "react-i18next";
 
 function Footer() {
+  const { t } = useTranslation();
+
   return (
     <footer className="main-footer">
       <ul className="social-list" id="social-list">
-        {/* .map() untuk render setiap ikon sosial media */}
         {socials.map((social, index) => (
           <li key={index}>
             <a
@@ -16,13 +16,15 @@ function Footer() {
               rel="noopener noreferrer"
               aria-label={social.name}
               title={social.name}
-              // Render SVG dari string menggunakan dangerouslySetInnerHTML
               dangerouslySetInnerHTML={{ __html: social.icon }}
             >
             </a>
           </li>
         ))}
       </ul>
+      <p style={{ marginTop: '20px', fontSize: '0.8rem', opacity: 0.3, letterSpacing: '2px' }}>
+        {t('footer.hint', '// type "hacker"')}
+      </p>
     </footer>
   );
 }

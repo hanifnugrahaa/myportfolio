@@ -2,9 +2,9 @@
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   z-index: 9998;
 }
 
@@ -15,38 +15,80 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 24px;
 }
 
 /* Glass Modal Content */
 .modal-content {
   position: relative;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 20px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
   width: 100%;
-  max-width: 650px;
-  max-height: 85vh;
-  overflow-y: auto;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+  max-width: 1100px;
+  max-height: 90vh;
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
 }
 
-body.dark .modal-content {
-  background: rgba(20, 20, 20, 0.75);
-  border-color: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+.modal-grid-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+}
+
+/* Media Query untuk Desktop (Split-screen 2-kolom) */
+@media (min-width: 900px) {
+  .modal-grid-layout {
+    flex-direction: row;
+    overflow-y: hidden;
+    height: 70vh; /* Fixed height for split screen */
+    min-height: 550px;
+  }
+}
+
+.modal-left-pane {
+  flex: 1;
+  background: var(--bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+@media (max-width: 899px) {
+  .modal-left-pane {
+    min-height: 250px;
+    height: 35vh;
+  }
+}
+
+.modal-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal-right-pane {
+  flex: 1;
+  padding: 40px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .modal-close-btn {
   position: absolute;
   top: 16px;
   right: 16px;
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(0, 0, 0, 0.1);
   border: none;
   display: flex;
   align-items: center;
@@ -55,24 +97,14 @@ body.dark .modal-content {
   z-index: 10;
   transition: all 0.2s ease;
   backdrop-filter: blur(4px);
+  color: var(--text-primary);
 }
 
 body.dark .modal-close-btn { background: rgba(255, 255, 255, 0.1); color: white; }
-.modal-close-btn:hover { background: var(--accent-color); color: var(--bg-primary); }
+.modal-close-btn:hover { background: var(--accent-color); color: var(--bg-primary); transform: scale(1.1); }
 
-.modal-hero {
-  height: 200px;
-  position: relative;
-}
-
-.modal-image, .modal-video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.modal-details { padding: 24px; }
-.modal-title { font-size: 1.5rem; font-weight: 800; margin-bottom: 12px; }
+/* Typography & Details inside right pane */
+.modal-title { font-size: 2rem; font-weight: 800; margin-bottom: 24px; color: var(--text-primary); line-height: 1.2; }
 
 .section-title {
   display: flex;
@@ -80,33 +112,51 @@ body.dark .modal-close-btn { background: rgba(255, 255, 255, 0.1); color: white;
   gap: 8px;
   font-size: 1.1rem;
   font-weight: 700;
-  border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+  border-bottom: 1px solid var(--border-color);
   padding-bottom: 8px;
   margin-bottom: 12px;
+  color: var(--text-primary);
 }
 
-.modal-footer {
-  padding: 20px 24px;
-  border-top: 1px solid rgba(128, 128, 128, 0.2);
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-  background: rgba(0, 0, 0, 0.02);
+.accent-icon { color: var(--accent-color); }
+.modal-description { color: var(--text-secondary); margin-bottom: 24px; line-height: 1.7; font-size: 1rem; }
+.modal-section-spacing { margin-bottom: 32px; }
+
+/* Metrics Grid */
+.metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; }
+.metric-box {
+  background: var(--bg-secondary); padding: 16px; border-radius: 16px; text-align: center; border: 1px solid var(--border-color);
+  transition: transform 0.2s ease;
+}
+.metric-box:hover { transform: translateY(-3px); }
+.metric-value { font-size: 1.4rem; font-weight: 800; color: var(--accent-color); }
+.metric-label { font-size: 0.8rem; color: var(--text-secondary); margin-top: 4px; font-weight: 500; }
+
+/* Tech Stack */
+.tech-stack-flex { display: flex; flex-wrap: wrap; gap: 8px; }
+.tech-pill {
+  background: var(--bg-secondary); padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 600;
+  color: var(--text-primary); border: 1px solid var(--border-color); display: inline-flex; align-items: center;
 }
 
-body.dark .modal-footer { background: rgba(255, 255, 255, 0.02); }
+/* Footer / Action */
+.modal-action-footer { margin-top: auto; padding-top: 24px; }
+.btn-primary {
+  background: var(--accent-color); color: var(--bg-primary); border: none; padding: 12px 24px;
+  border-radius: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 10px;
+  transition: transform 0.2s ease, opacity 0.2s ease; cursor: pointer; text-decoration: none;
+}
+.btn-primary:hover { transform: translateY(-2px); opacity: 0.9; }
 
 /* Custom Scrollbar minimalis untuk Modal */
-.modal-content::-webkit-scrollbar { width: 6px; }
-.modal-content::-webkit-scrollbar-track { background: transparent; }
-.modal-content::-webkit-scrollbar-thumb {
+.modal-right-pane::-webkit-scrollbar { width: 6px; }
+.modal-right-pane::-webkit-scrollbar-track { background: transparent; }
+.modal-right-pane::-webkit-scrollbar-thumb {
   background: rgba(128, 128, 128, 0.3);
   border-radius: 10px;
 }
 
-@media (max-width: 768px) {
-  .modal-container { padding: 12px; }
-  .modal-hero { height: 160px; }
-  .modal-footer { flex-direction: column; }
-  .modal-footer .btn { width: 100%; }
+@media (max-width: 600px) {
+  .modal-right-pane { padding: 24px; }
+  .modal-title { font-size: 1.5rem; }
 }

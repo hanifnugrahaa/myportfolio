@@ -1,0 +1,84 @@
+/* src/components/TerminalMode.css */
+.terminal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #0c0c0c;
+  z-index: 9999999; /* Highest possible */
+  overflow-y: auto;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 20px;
+  box-sizing: border-box;
+  cursor: text !important;
+}
+
+/* Add global cursor override for terminal mode */
+.terminal-overlay * {
+  cursor: text !important;
+}
+
+.terminal-crt-effect {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+  z-index: 99999999;
+}
+
+.terminal-content {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  z-index: 10;
+}
+
+.terminal-entry {
+  margin-bottom: 5px;
+}
+
+.terminal-prompt-line {
+  color: #fff;
+  font-size: 16px;
+  margin-bottom: 2px;
+}
+
+.terminal-user {
+  color: #00ff00;
+  font-weight: bold;
+}
+
+.terminal-dir {
+  color: #3b82f6;
+  font-weight: bold;
+}
+
+.terminal-output {
+  color: #00ff00;
+  white-space: pre-wrap;
+  line-height: 1.5;
+  margin-bottom: 15px;
+  text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+}
+
+.terminal-input-form {
+  display: flex;
+  align-items: center;
+}
+
+.terminal-input {
+  background: transparent;
+  border: none;
+  color: #00ff00;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 16px;
+  flex-grow: 1;
+  outline: none;
+  margin-left: 8px;
+  text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+}

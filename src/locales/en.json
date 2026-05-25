@@ -1,0 +1,42 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "skills": "Skills",
+    "projects": "Projects",
+    "activities": "Activities",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "Hi, I'm",
+    "role": "I build things for the web & IoT.",
+    "description": "An Electronics and Instrumentation (UGM) student with a passion for developing innovative digital solutions, ranging from intuitive web interfaces to integrated IoT systems.",
+    "cta": "View My Projects"
+  },
+  "about": {
+    "title": "About",
+    "description": "An Electronics and Instrumentation student with dual expertise in hardware and software engineering. I translate user needs into tangible solutions through Web Development and the Internet of Things (IoT). My main focus is to create seamlessly integrated systems with user experience as the highest priority. Ready to apply my fast-learning abilities in a dynamic and innovative environment.",
+    "view_cv": "View CV",
+    "view_shokumukeirekisho": "View Shokumukeirekisho"
+  },
+  "skills": {
+    "title": "Skills"
+  },
+  "projects": {
+    "title": "Projects",
+    "overview": "Overview",
+    "metrics": "Impact Metrics",
+    "tech": "Tech Stack",
+    "view_project": "View Project"
+  },
+  "activities": {
+    "title": "Activities"
+  },
+  "contact": {
+    "title": "Contact",
+    "description": "Interested in working together or have a question? Feel free to reach out!",
+    "email": "Email Me",
+    "github": "Follow on GitHub",
+    "linkedin": "Connect on LinkedIn"
+  }
+}

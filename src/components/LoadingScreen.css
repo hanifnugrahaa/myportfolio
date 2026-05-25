@@ -1,0 +1,158 @@
+/* src/components/LoadingScreen.css */
+:root {
+  --val-red: #ffffff; /* Changed to White for Black & White theme */
+  --val-dark: #070707; /* Deepest black/grey */
+  --val-light: #ffffff;
+}
+
+/* Background splitting elements */
+.val-loading-bg {
+  position: fixed;
+  inset: 0;
+  background-color: var(--val-dark);
+  z-index: 99998;
+}
+
+.val-loading-bg-top-left {
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+.val-loading-bg-bottom-right {
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+}
+
+/* Inner Content Wrapper */
+.val-inner-content {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--val-light);
+  font-family: 'Arial Black', Impact, sans-serif;
+  pointer-events: none; /* Let clicks pass through if needed, though scroll is locked */
+}
+
+/* Big blurred logo in background */
+.val-bg-logo {
+  position: absolute;
+  font-size: 40vw;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.03);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  user-select: none;
+  pointer-events: none;
+  letter-spacing: -10px;
+}
+
+.val-content-wrapper {
+  position: relative;
+  width: 80%;
+  max-width: 800px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.val-tagline {
+  font-size: 1.5rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.val-red-text {
+  color: var(--val-red);
+}
+
+.val-progress-container {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.val-progress-number {
+  font-size: 6rem;
+  color: var(--val-light);
+  line-height: 1;
+  width: 150px;
+  text-align: right;
+  letter-spacing: -2px;
+}
+
+.val-progress-bar-bg {
+  flex-grow: 1;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: skewX(-15deg);
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.val-progress-bar-fill {
+  height: 100%;
+  background-color: var(--val-red);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+/* Corner decals characteristic of Valorant UI */
+.val-corner-decals {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.val-decal {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border: 4px solid var(--val-red);
+}
+
+.val-decal.top-left {
+  top: 40px;
+  left: 40px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.val-decal.bottom-right {
+  bottom: 40px;
+  right: 40px;
+  border-left: none;
+  border-top: none;
+}
+
+@media (max-width: 768px) {
+  .val-progress-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .val-progress-number {
+    text-align: left;
+    font-size: 4rem;
+  }
+  .val-progress-bar-bg {
+    width: 100%;
+    height: 30px;
+  }
+  .val-tagline {
+    font-size: 1rem;
+  }
+  .val-decal {
+    width: 30px;
+    height: 30px;
+  }
+  .val-decal.top-left {
+    top: 20px; left: 20px;
+  }
+  .val-decal.bottom-right {
+    bottom: 20px; right: 20px;
+  }
+}

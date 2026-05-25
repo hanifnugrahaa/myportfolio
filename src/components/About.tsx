@@ -1,13 +1,14 @@
-// src/components/About.jsx
-
 import React from "react";
+import { useTranslation } from 'react-i18next';
 
 function About() {
+  const { t } = useTranslation();
+
   return (
     <>
-      <h2 className="section-title">About</h2>
+      <h2 className="section-title">{t('about.title')}</h2>
       <p>
-        An Electronics and Instrumentation student with dual expertise in hardware and software engineering. I translate user needs into tangible solutions through Web Development and the Internet of Things (IoT). My main focus is to create seamlessly integrated systems with user experience as the highest priority. Ready to apply my fast-learning abilities in a dynamic and innovative environment.
+        {t('about.description')}
       </p>
       <div className="button-container">
         <a 
@@ -16,7 +17,7 @@ function About() {
           rel="noopener noreferrer" 
           className="btn"
         >
-          View CV
+          {t('about.view_cv')}
         </a>
         <a 
           href="/assets/docs/Shokumukeirekisho_Hanif_Ardiyanta_Nugraha.pdf" 
@@ -24,7 +25,7 @@ function About() {
           rel="noopener noreferrer" 
           className="btn"
         >
-          View Shokumukeirekisho
+          {t('about.view_shokumukeirekisho')}
         </a>
       </div>
     </>

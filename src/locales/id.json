@@ -1,0 +1,42 @@
+{
+  "nav": {
+    "home": "Beranda",
+    "about": "Tentang",
+    "skills": "Keahlian",
+    "projects": "Proyek",
+    "activities": "Aktivitas",
+    "contact": "Kontak"
+  },
+  "hero": {
+    "greeting": "Halo, saya",
+    "role": "Saya membangun web & sistem IoT.",
+    "description": "Mahasiswa Elektronika dan Instrumentasi (UGM) dengan minat besar dalam mengembangkan solusi digital inovatif, mulai dari antarmuka web intuitif hingga sistem IoT terintegrasi.",
+    "cta": "Lihat Proyek Saya"
+  },
+  "about": {
+    "title": "Tentang Saya",
+    "description": "Mahasiswa Elektronika dan Instrumentasi dengan keahlian ganda dalam rekayasa perangkat keras dan perangkat lunak. Saya menerjemahkan kebutuhan pengguna menjadi solusi nyata melalui Pengembangan Web dan Internet of Things (IoT). Fokus utama saya adalah menciptakan sistem terintegrasi dengan memprioritaskan pengalaman pengguna. Siap untuk menerapkan kemampuan belajar cepat saya di lingkungan yang dinamis dan inovatif.",
+    "view_cv": "Lihat CV",
+    "view_shokumukeirekisho": "Lihat Shokumukeirekisho"
+  },
+  "skills": {
+    "title": "Keahlian"
+  },
+  "projects": {
+    "title": "Proyek",
+    "overview": "Ringkasan",
+    "metrics": "Metrik Dampak",
+    "tech": "Teknologi",
+    "view_project": "Lihat Proyek"
+  },
+  "activities": {
+    "title": "Aktivitas"
+  },
+  "contact": {
+    "title": "Kontak",
+    "description": "Tertarik untuk bekerja sama atau memiliki pertanyaan? Jangan ragu untuk menghubungi!",
+    "email": "Kirim Email",
+    "github": "Ikuti di GitHub",
+    "linkedin": "Terhubung di LinkedIn"
+  }
+}

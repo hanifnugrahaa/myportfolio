@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { skillCategories } from '../data';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 function SkillsList() {
   const [activeTab, setActiveTab] = useState(0);
+  const { t } = useTranslation();
 
   return (
     <div className="skills-section-container">
-      <h2 className="section-title">Technical Skills</h2>
+      <h2 className="section-title">{t('skills.title')}</h2>
       
       <div className="skills-tabs">
         {skillCategories.map((category, index) => (

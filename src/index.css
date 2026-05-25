@@ -35,11 +35,22 @@ body.dark {
 
 /* === BASE STYLES === */
 body {
-  font-family: var(--font-main);
-  background-color: var(--bg-primary);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
   color: var(--text-primary);
-  line-height: 1.7;
+  background-color: var(--bg-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+@media (min-width: 769px) {
+  * {
+    cursor: none !important;
+  }
+}
+
+main {
+  padding-top: 70px;
 }
 
 a {
