@@ -7,11 +7,11 @@ function Contact() {
     <>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
         <div className="text-center md:text-left">
-          <h2 className="text-4xl font-bold mb-6 text-center md:text-left">{t('contact.title')}</h2>
-          <p className="text-text-secondary mb-4 text-center md:text-left">
+          <h2 className="text-[clamp(2.5rem,5vw,4rem)] font-black leading-none mb-4">{t('contact.title')}</h2>
+          <p className="text-secondary mb-4 text-center md:text-left">
             {t('contact.description')}
           </p>
-          <p className="text-text-secondary mb-4 text-center md:text-left">
+          <p className="text-secondary mb-4 text-center md:text-left">
             You can email me directly at:
           </p>
           <a href="mailto:hanifardiyanta11@gmail.com" className="contact-email">

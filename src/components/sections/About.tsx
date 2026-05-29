@@ -12,7 +12,7 @@ function About() {
       <p className="text-lg leading-relaxed text-center max-w-3xl mx-auto">
         {t('about.description')}
       </p>
-      <div className="flex justify-center gap-6 mt-10 flex-wrap">
+      <div className="flex justify-center gap-6 mt-16 flex-wrap">
         <button 
           onClick={() => setActiveDoc({ url: '/assets/docs/CV_Hanif Nugraha.pdf', title: 'Curriculum Vitae' })}
           className="btn"

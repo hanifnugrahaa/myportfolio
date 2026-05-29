@@ -2,7 +2,7 @@
 import React, { useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ExternalLink, Zap, Code } from 'lucide-react';
+import { X, ExternalLink } from 'lucide-react';
 import './ProjectModal.css';
 import { Project } from '../../data';
 

@@ -1,24 +1,26 @@
 @import "tailwindcss";
 
-/* === CSS RESET & FONTS === */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+@layer base {
+  /* === CSS RESET & FONTS === */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-html {
-  scroll-behavior: smooth;
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 @theme {
   --color-bg-primary: var(--bg-primary);
   --color-bg-secondary: var(--bg-secondary);
   --color-accent: var(--accent-color);
-  --color-text-primary: var(--text-primary);
-  --color-text-secondary: var(--text-secondary);
+  --color-primary: var(--text-primary);
+  --color-secondary: var(--text-secondary);
 }
 
 :root {
@@ -550,7 +552,7 @@ body.dark .toggle-thumb::after {
 .floating-terminal-btn {
   position: fixed;
   bottom: 24px;
-  right: 24px;
+  left: 24px;
   width: 55px;
   height: 55px;
   border-radius: 50%;
@@ -627,7 +629,7 @@ body.dark .floating-terminal-btn {
   /* Proporsional Floating Button di Mobile */
   .floating-terminal-btn {
     bottom: 20px;
-    right: 20px;
+    left: 20px;
     width: 45px;
     height: 45px;
     font-size: 1rem;

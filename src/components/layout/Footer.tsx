@@ -20,7 +20,7 @@ function Footer() {
             <li key={index}>
               <a
                 href={social.url}
-                className="text-text-secondary hover:text-accent-color transition-colors [&>svg]:w-6 [&>svg]:h-6 flex items-center justify-center"
+                className="text-secondary hover:text-accent-color transition-colors [&>svg]:w-6 [&>svg]:h-6 flex items-center justify-center"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={social.name}

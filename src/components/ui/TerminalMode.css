@@ -1,52 +1,71 @@
 /* src/components/TerminalMode.css */
 .terminal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
   background-color: #0c0c0c;
   z-index: 9999999;
-  /* Highest possible */
+  overflow-x: hidden;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
   font-family: 'Courier New', Courier, monospace;
-  padding: 20px;
+  padding:
+    max(16px, env(safe-area-inset-top, 0px))
+    max(16px, env(safe-area-inset-right, 0px))
+    max(16px, env(safe-area-inset-bottom, 0px))
+    max(16px, env(safe-area-inset-left, 0px));
   box-sizing: border-box;
   cursor: text !important;
 }
 
-/* Add global cursor override for terminal mode */
 .terminal-overlay * {
   cursor: text !important;
 }
 
 .terminal-crt-effect {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background:
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+    linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
   background-size: 100% 2px, 3px 100%;
   pointer-events: none;
   z-index: 99999999;
 }
 
+.terminal-mobile-bar {
+  display: none;
+}
+
 .terminal-content {
   position: relative;
+  width: 100%;
   max-width: 900px;
   margin: 0 auto;
   z-index: 10;
+  padding-bottom: 0.5rem;
 }
 
 .terminal-entry {
   margin-bottom: 5px;
+  max-width: 100%;
 }
 
 .terminal-prompt-line {
   color: #fff;
-  font-size: 16px;
+  font-size: clamp(13px, 3.6vw, 16px);
+  line-height: 1.45;
   margin-bottom: 2px;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .terminal-user {
@@ -62,14 +81,42 @@
 .terminal-output {
   color: #00ff00;
   white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
   line-height: 1.5;
   margin-bottom: 15px;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  font-size: clamp(13px, 3.6vw, 16px);
   text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
 }
 
 .terminal-input-form {
+  display: block;
+  max-width: 100%;
+}
+
+.terminal-input-line {
   display: flex;
-  align-items: center;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: baseline;
+  width: 100%;
+  min-width: 0;
+  gap: 0;
+}
+
+.terminal-prompt-prefix {
+  flex-shrink: 0;
+  white-space: nowrap;
+  color: #fff;
+  font-size: clamp(13px, 3.6vw, 16px);
+  line-height: 1.45;
+}
+
+.terminal-prompt-prefix::after {
+  content: '\00a0';
 }
 
 .terminal-input {
@@ -77,9 +124,163 @@
   border: none;
   color: #00ff00;
   font-family: 'Courier New', Courier, monospace;
-  font-size: 16px;
-  flex-grow: 1;
+  font-size: clamp(13px, 3.6vw, 16px);
+  line-height: 1.45;
+  flex: 1 1 auto;
+  min-width: 2ch;
+  width: auto;
   outline: none;
-  margin-left: 8px;
+  margin: 0;
+  padding: 0;
   text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 0;
+}
+
+/* ── Mobile: iPhone 11–16 Pro Max, Samsung Galaxy, dll. ── */
+@media (max-width: 768px) {
+  .terminal-overlay {
+    padding:
+      max(10px, env(safe-area-inset-top, 0px))
+      max(12px, env(safe-area-inset-right, 0px))
+      max(8px, env(safe-area-inset-bottom, 0px))
+      max(12px, env(safe-area-inset-left, 0px));
+  }
+
+  .terminal-mobile-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    margin: -4px 0 12px;
+    padding: 8px 0 10px;
+    background: linear-gradient(#0c0c0c 70%, rgba(12, 12, 12, 0));
+    border-bottom: 1px solid rgba(0, 255, 0, 0.15);
+  }
+
+  .terminal-mobile-title {
+    color: #00ff00;
+    font-size: clamp(11px, 3vw, 13px);
+    letter-spacing: 0.06em;
+    text-shadow: 0 0 6px rgba(0, 255, 0, 0.45);
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .terminal-mobile-close {
+    flex-shrink: 0;
+    cursor: pointer !important;
+    font-family: inherit;
+    font-size: clamp(12px, 3.2vw, 14px);
+    color: #0c0c0c;
+    background: #00ff00;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 14px;
+    min-height: 40px;
+    min-width: 72px;
+    font-weight: bold;
+    box-shadow: 0 0 12px rgba(0, 255, 0, 0.35);
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  .terminal-mobile-close * {
+    cursor: pointer !important;
+  }
+
+  .terminal-output {
+    margin-bottom: 12px;
+    line-height: 1.55;
+  }
+
+  .terminal-input-form {
+    position: sticky;
+    bottom: 0;
+    z-index: 15;
+    margin-top: 8px;
+    padding:
+      10px 0
+      max(10px, env(safe-area-inset-bottom, 0px));
+    background: linear-gradient(transparent, #0c0c0c 18%, #0c0c0c);
+  }
+
+  .terminal-prompt-prefix,
+  .terminal-input {
+    /* Sama persis — sejajar + cegah zoom otomatis iOS */
+    font-size: 16px;
+    line-height: 1.45;
+  }
+}
+
+/* iPhone standar & Samsung mid (≈360–414px) */
+@media (max-width: 430px) {
+  .terminal-prompt-line {
+    font-size: 14px;
+  }
+
+  .terminal-output {
+    font-size: 14px;
+  }
+}
+
+/* iPhone mini / SE, Galaxy kompak (≤390px) */
+@media (max-width: 390px) {
+  .terminal-overlay {
+    padding-left: max(10px, env(safe-area-inset-left, 0px));
+    padding-right: max(10px, env(safe-area-inset-right, 0px));
+  }
+
+  .terminal-input-line {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Landscape di ponsel */
+@media (max-height: 500px) and (orientation: landscape) {
+  .terminal-overlay {
+    padding-top: max(8px, env(safe-area-inset-top, 0px));
+    padding-bottom: max(8px, env(safe-area-inset-bottom, 0px));
+  }
+
+  .terminal-mobile-bar {
+    margin-bottom: 8px;
+    padding: 4px 0 6px;
+  }
+
+  .terminal-output {
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+
+  .terminal-entry {
+    margin-bottom: 3px;
+  }
+
+  .terminal-input-form {
+    padding-top: 6px;
+    padding-bottom: max(6px, env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* iPhone Pro Max / layar lebar ponsel (428–440px) — sedikit lebih lapang */
+@media (min-width: 414px) and (max-width: 768px) {
+  .terminal-content {
+    max-width: 100%;
+  }
+
+  .terminal-prompt-line,
+  .terminal-output,
+  .terminal-prompt-prefix,
+  .terminal-input {
+    font-size: 15px;
+  }
 }

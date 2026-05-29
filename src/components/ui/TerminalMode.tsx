@@ -7,6 +7,70 @@ interface TerminalModeProps {
   onClose: () => void;
 }
 
+function pickRupiahWit(rate: number): string {
+  const severe = [
+    'Rupiah lagi push-up terbalik: angkanya naik, semangat dompet turun.',
+    'Trend resmi: melemah. Trend tidak resmi: kopi susu naik duluan.',
+    'Satu dollar sekarang terasa seperti DLC—wajib bayar, jarang happy ending.',
+    'BI lagi jaga stabilitas. Kita jaga ekspektasi… dan sisa tabungan.',
+  ];
+  const mid = [
+    'Rupiah ikut drama Korea: episodenya panjang, plot-nya makin berat.',
+    'Kurs naik, wishlist Shopee global turun—ekonomi personal version 2.0.',
+    'Dollar jalan, rupiah ngos-ngosan. Marathon tanpa finish line.',
+    'Melemah? Iya. Lucu? Suram. Akurat? Sayangnya, juga iya.',
+  ];
+  const mild = [
+    'Masih bisa napas—tapi jangan lupa cek harga sebelum klik checkout.',
+    'Belum kritis, tapi dompet mulai waspada mode hemat.',
+    'Rupiah lagi diet: yang menipis bukan berat badan, tapi daya beli.',
+  ];
+
+  const pool = rate >= 16_500 ? severe : rate >= 15_800 ? mid : mild;
+  return pool[Math.floor(Math.random() * pool.length)];
+}
+
+function formatUsdIdrResponse(rate: number, sourceNote: string): string {
+  const idr = new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(rate);
+
+  return ['1 USD = ' + idr, pickRupiahWit(rate), sourceNote].join('\n');
+}
+
+async function fetchUsdToIdrRate(): Promise<string> {
+  try {
+    const res = await fetch('https://api.frankfurter.app/latest?from=USD&to=IDR');
+    if (!res.ok) throw new Error('Frankfurter unavailable');
+    const data = (await res.json()) as { rates?: { IDR?: number } };
+    const rate = data.rates?.IDR;
+    if (rate == null) throw new Error('IDR rate missing');
+    return formatUsdIdrResponse(
+      rate,
+      'Sumber: frankfurter.app — kurs referensi ECB, diambil live saat command dijalankan.',
+    );
+  } catch {
+    try {
+      const res = await fetch('https://open.er-api.com/v6/latest/USD');
+      if (!res.ok) throw new Error('ER-API unavailable');
+      const data = (await res.json()) as { rates?: { IDR?: number } };
+      const rate = data.rates?.IDR;
+      if (rate == null) throw new Error('IDR rate missing');
+      return formatUsdIdrResponse(
+        rate,
+        'Sumber: Exchange Rate API — layanan kurs valuta internasional, diambil live saat command dijalankan.',
+      );
+    } catch {
+      return 'Error: Could not fetch USD/IDR rate. Check your connection and try again.';
+    }
+  }
+}
+
+const USD_IDR_COMMANDS = new Set(['usd idr', 'usd-idr', 'usd']);
+
 const TerminalMode: React.FC<TerminalModeProps> = ({ onClose }) => {
   const [history, setHistory] = useState<{ command: string, output: string | JSX.Element }[]>([
     { command: '', output: 'HanifOS v1.0.0 (tty1)\nType "help" to see available commands.' }
@@ -28,7 +92,7 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ onClose }) => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [history]);
 
-  const handleCommand = (e: React.FormEvent) => {
+  const handleCommand = async (e: React.FormEvent) => {
     e.preventDefault();
     const cmd = input.trim();
     const cmdLower = cmd.toLowerCase();
@@ -39,11 +103,26 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ onClose }) => {
       return;
     }
 
+    if (USD_IDR_COMMANDS.has(cmdLower)) {
+      setHistory(prev => [
+        ...prev,
+        { command: cmd, output: 'Fetching USD/IDR exchange rate...' },
+      ]);
+      const output = await fetchUsdToIdrRate();
+      setHistory(prev => {
+        const next = [...prev];
+        next[next.length - 1] = { command: cmd, output };
+        return next;
+      });
+      return;
+    }
+
     let output: string | JSX.Element = '';
 
     switch (cmdLower) {
       case 'help':
-        output = 'Available commands: help, whoami, ls, ls projects, cat <file>, clear, download resume, theme toggle, exit';
+        output =
+          'Available commands: help, whoami, ls, ls projects, cat <file>, usd idr, clear, download resume, theme toggle, exit';
         break;
       case 'whoami':
         output = 'Hanif Nugraha - Software Engineer & IoT Enthusiast.\nBuilding scalable web applications, real-time dashboards, and smart connected systems.';
@@ -103,8 +182,23 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ onClose }) => {
 
   return (
     <div className="terminal-overlay" onClick={() => inputRef.current?.focus()}>
-      <div className="terminal-crt-effect"></div>
+      <div className="terminal-crt-effect" aria-hidden="true" />
       <div className="terminal-content">
+        <div className="terminal-mobile-bar">
+          <span className="terminal-mobile-title">HanifOS tty1</span>
+          <button
+            type="button"
+            className="terminal-mobile-close"
+            onClick={(e) => {
+              e.stopPropagation();
+              onClose();
+            }}
+            aria-label="Close terminal"
+          >
+            exit
+          </button>
+        </div>
+
         {history.map((entry, i) => (
           <div key={i} className="terminal-entry">
             {entry.command && (
@@ -117,21 +211,24 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ onClose }) => {
         ))}
 
         <form onSubmit={handleCommand} className="terminal-input-form">
-          <span className="terminal-prompt-line">
-            <span className="terminal-user">guest@hanif-os</span>:<span className="terminal-dir">~</span>$
-          </span>
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => {
-              setInput(e.target.value);
-              playTyping();
-            }}
-            className="terminal-input"
-            ref={inputRef}
-            autoComplete="off"
-            spellCheck="false"
-          />
+          <div className="terminal-input-line">
+            <span className="terminal-prompt-prefix" aria-hidden="true">
+              <span className="terminal-user">guest@hanif-os</span>:<span className="terminal-dir">~</span>$
+            </span>
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => {
+                setInput(e.target.value);
+                playTyping();
+              }}
+              className="terminal-input"
+              ref={inputRef}
+              autoComplete="off"
+              spellCheck="false"
+              aria-label="Terminal command input"
+            />
+          </div>
         </form>
         <div ref={bottomRef} />
       </div>
