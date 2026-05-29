@@ -20,7 +20,7 @@ function Hero() {
         <h1 className="font-black leading-[1.1] mb-2 text-[clamp(2.5rem,8vw,4.5rem)]">
           {t('hero.greeting')} <span className="hero-name-typewriter">{typedName}</span><span className="typewriter-cursor">|</span>.
         </h1>
-        <p className="font-bold mb-6 text-primary text-[clamp(1.2rem,4vw,1.75rem)]">{t('hero.role')}</p>
+        <p className="hero-role font-bold mb-6 text-[clamp(1.2rem,4vw,1.75rem)]">{t('hero.role')}</p>
         <p className="text-lg text-secondary max-w-[550px] mx-auto mb-8">
           {t('hero.description')}
         </p>

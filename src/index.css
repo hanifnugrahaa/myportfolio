@@ -203,6 +203,14 @@ body.dark .hero-tategaki {
   color: var(--text-primary);
 }
 
+.hero-role {
+  color: var(--text-primary);
+}
+
+body.dark .hero-role {
+  color: #ffffff;
+}
+
 .typewriter-cursor {
   color: var(--accent-color);
   animation: blink 1s step-end infinite;
@@ -262,6 +270,7 @@ body.dark .btn:not(.btn--hero) {
 }
 
 .content-section {
+  position: relative;
   margin-bottom: 2rem;
   padding-top: 2rem;
   opacity: 0;

@@ -38,5 +38,17 @@
     "email": "Email Me",
     "github": "Follow on GitHub",
     "linkedin": "Connect on LinkedIn"
+  },
+  "chat": {
+    "title": "Ask about Hanif",
+    "subtitleAi": "AI assistant · answers from portfolio data",
+    "subtitleGemini": "Powered by Google Gemini",
+    "subtitleLocal": "Quick answers · add API key for full AI",
+    "placeholder": "Ask about skills, projects, contact…",
+    "thinking": "Thinking…",
+    "send": "Send",
+    "open": "Open chat",
+    "close": "Close chat",
+    "error": "Sorry, something went wrong. Please try again."
   }
 }

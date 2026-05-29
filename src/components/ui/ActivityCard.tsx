@@ -33,7 +33,8 @@ const ActivityCard: React.FC<ActivityCardProps> = ({ activity, isActive, onClick
         src={imageUrl} 
         alt={name} 
         className="activity-card-image"
-        loading="lazy"
+        loading={isActive ? 'eager' : 'lazy'}
+        decoding="async"
         onError={(e) => {
           (e.target as HTMLImageElement).src = '/assets/images/fallback-activity.jpg';
         }}

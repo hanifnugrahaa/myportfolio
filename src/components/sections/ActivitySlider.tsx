@@ -13,6 +13,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import ActivityCard from '../ui/ActivityCard';
 import ActivityModal from '../ui/ActivityModal';
 import { myActivities, Activity } from '../../data';
+import { getSwiperLoopSettings } from '../../lib/swiperConfig';
 import './ActivitySlider.css';
 
 const ActivitySlider = () => {
@@ -35,6 +36,7 @@ const ActivitySlider = () => {
 
   // Filter activities yang memiliki imageUrl
   const activitiesWithImages = myActivities.filter(activity => activity.imageUrl);
+  const swiperLoop = getSwiperLoopSettings(activitiesWithImages.length);
 
   const handleCardClick = useCallback((activity: Activity) => {
     setSelectedActivity(activity);
@@ -63,7 +65,7 @@ const ActivitySlider = () => {
 
   return (
     <div 
-      className="activity-carousel-section"
+      className="activity-carousel-section relative"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -110,7 +112,8 @@ const ActivitySlider = () => {
             }}
             pagination={{ clickable: true, el: '.activity-custom-pagination' }}
             centeredSlides={true}
-            loop={true}
+            loop={swiperLoop.loop}
+            rewind={swiperLoop.rewind}
             speed={800}
             resistanceRatio={0.7}
             onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}

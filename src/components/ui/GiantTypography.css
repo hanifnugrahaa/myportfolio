@@ -1,6 +1,7 @@
 /* src/components/GiantTypography.css */
 
 .giant-typography-container {
+  position: relative;
   width: 100vw;
   max-width: 100%;
   overflow: hidden;

@@ -14,6 +14,7 @@ import TerminalMode from './components/ui/TerminalMode';
 import GiantTypography from './components/ui/GiantTypography';
 import ThemeTransitionOverlay from './components/ui/ThemeTransitionOverlay';
 import ErrorBoundary from './components/ui/ErrorBoundary';
+import ChatBot from './components/ui/ChatBot';
 import { useSecretCode } from './hooks/useSecretCode';
 
 // Lazy load komponen yang di bawah layar
@@ -135,6 +136,8 @@ function App() {
               </Suspense>
             </ErrorBoundary>
           </motion.div>
+
+          <ChatBot />
 
           {/* === FLOATING TERMINAL BUTTON === */}
           <button 

@@ -48,7 +48,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isActive, onClick, i
           src={project.imageUrl} 
           alt={project.name}
           className="project-image"
-          loading="lazy"
+          loading={isActive ? 'eager' : 'lazy'}
+          decoding="async"
         />
       )}
       

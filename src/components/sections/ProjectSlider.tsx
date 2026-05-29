@@ -13,6 +13,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import ProjectCard from '../ui/ProjectCard';
 import ProjectModal from '../ui/ProjectModal';
 import { projects, Project } from '../../data';
+import { getSwiperLoopSettings } from '../../lib/swiperConfig';
 import './ProjectSlider.css';
 
 const ProjectSlider = () => {
@@ -23,6 +24,7 @@ const ProjectSlider = () => {
   const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const swiperLoop = getSwiperLoopSettings(projects.length);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768);
@@ -60,7 +62,7 @@ const ProjectSlider = () => {
 
   return (
     <div 
-      className="curved-carousel-section"
+      className="curved-carousel-section relative"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -108,7 +110,8 @@ const ProjectSlider = () => {
             }}
             pagination={{ clickable: true, el: '.custom-pagination' }}
             centeredSlides={true}
-            loop={true}
+            loop={swiperLoop.loop}
+            rewind={swiperLoop.rewind}
             speed={800} // Cinematic smooth easing
             resistanceRatio={0.7} // Premium drag tension
             onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}

@@ -9,7 +9,7 @@ function SkillsList() {
 
   return (
     <div className="skills-section-container">
-      <h2 className="section-title">{t('skills.title')}</h2>
+      <h2 className="text-4xl font-bold mb-8 text-center">{t('skills.title')}</h2>
       
       <div className="skills-tabs">
         {skillCategories.map((category, index) => (

@@ -38,5 +38,17 @@
     "email": "Kirim Email",
     "github": "Ikuti di GitHub",
     "linkedin": "Terhubung di LinkedIn"
+  },
+  "chat": {
+    "title": "Tanya tentang Hanif",
+    "subtitleAi": "Asisten AI · jawaban dari data portfolio",
+    "subtitleGemini": "Didukung Google Gemini",
+    "subtitleLocal": "Jawaban cepat · tambah API key untuk AI penuh",
+    "placeholder": "Tanya soal keahlian, proyek, kontak…",
+    "thinking": "Sedang berpikir…",
+    "send": "Kirim",
+    "open": "Buka chat",
+    "close": "Tutup chat",
+    "error": "Maaf, terjadi kesalahan. Coba lagi ya."
   }
 }
