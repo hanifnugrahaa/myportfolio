@@ -9,21 +9,21 @@ interface LoadingScreenProps {
 
 const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
   const [progress, setProgress] = useState(0);
-  const [bootText, setBootText] = useState("INITIALIZING AGENT PROTOCOL...");
+  const [bootText, setBootText] = useState("INITIALIZING HANIF NUGRAHA...");
   const [isExiting, setIsExiting] = useState(false);
 
   const bootSequences = [
-    "DEFY THE LIMITS",
-    "LOADING MAP ASSETS...",
-    "ESTABLISHING CONNECTION...",
-    "SYNCHRONIZING...",
-    "READY."
+    "GADJAH MADA UNIVERSITY..",
+    "IOT ENGINEER..",
+    "IT CODING TEACHER..",
+    "SOFTWARE ENGINEER..",
+    "READY...?!"
   ];
 
   useEffect(() => {
     // Lock scroll
     document.body.style.overflow = 'hidden';
-    
+
     // Simulate progress
     const interval = setInterval(() => {
       setProgress(prev => {
@@ -71,28 +71,28 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
       {!isExiting && (
         <React.Fragment key="loading-screen-fragments">
           {/* Diagonal Background Top-Left */}
-          <motion.div 
+          <motion.div
             className="val-loading-bg val-loading-bg-top-left"
             exit={{ x: '-100vw', y: '-100vh' }}
             transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
           />
-          
+
           {/* Diagonal Background Bottom-Right */}
-          <motion.div 
+          <motion.div
             className="val-loading-bg val-loading-bg-bottom-right"
             exit={{ x: '100vw', y: '100vh' }}
             transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
           />
 
           {/* Inner Content (Fades out first before split fully reveals) */}
-          <motion.div 
+          <motion.div
             className="val-inner-content"
             exit={{ opacity: 0, scale: 1.1 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
           >
             {/* Decorative Background Elements */}
             <div className="val-bg-logo">HN</div>
-            
+
             <div className="val-content-wrapper">
               <div className="val-tagline">
                 <span className="val-red-text">//</span> {bootText}
@@ -103,7 +103,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
                   {progress.toString().padStart(3, '0')}
                 </div>
                 <div className="val-progress-bar-bg">
-                  <motion.div 
+                  <motion.div
                     className="val-progress-bar-fill"
                     initial={{ width: "0%" }}
                     animate={{ width: `${progress}%` }}

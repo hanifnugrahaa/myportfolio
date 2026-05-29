@@ -111,7 +111,8 @@ img { max-width: 100%; display: block; }
   position: fixed;
   top: 1.5rem; /* Jarak mengambang dari atas layar */
   left: 50%; /* Trik untuk ke tengah */
-  transform: translateX(-50%); /* Trik untuk ke tengah */
+  transform: translateX(-50%) translateZ(0); /* Hardware acceleration */
+  will-change: transform;
   
   width: 90%; /* Lebar navbar tidak penuh 100% */
   max-width: 1000px;
@@ -485,5 +486,14 @@ body.dark .toggle-thumb::after { opacity: 1; }
       width: 92%;
       padding: 0.75rem 1.5rem; /* Padding dikecilkan */
       border-radius: 30px; /* Radius sedikit dikurangi untuk layar sempit */
+      
+      /* MATIKAN GLASSMORPHISM DI MOBILE UNTUK PERFORMA (60 FPS) */
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      background: rgba(250, 250, 250, 0.95); 
+  }
+  
+  body.dark .main-header {
+      background: rgba(20, 20, 20, 0.95);
   }
 }

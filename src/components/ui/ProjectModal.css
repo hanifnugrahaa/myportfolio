@@ -260,3 +260,17 @@ body.dark .metric-bento-box::after {
   .modal-right-pane { padding: 24px; }
   .cyberpunk-type-modal { font-size: 2rem; }
 }
+
+@media (max-width: 768px) {
+  /* MATIKAN GLASSMORPHISM DI MOBILE UNTUK PERFORMA (60 FPS) */
+  .modal-backdrop {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(0, 0, 0, 0.9) !important;
+  }
+  .modal-close-btn {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(0, 0, 0, 0.5);
+  }
+}
