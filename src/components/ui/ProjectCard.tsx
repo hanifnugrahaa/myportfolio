@@ -2,6 +2,8 @@
 import React from 'react';
 import './ProjectCard.css';
 import { Project } from '../../data';
+import { useCyberAudio } from '../../hooks/useCyberAudio';
+import { motion } from 'framer-motion';
 
 interface ProjectCardProps {
   project: Project;
@@ -11,12 +13,15 @@ interface ProjectCardProps {
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project, isActive, onClick, index }) => {
+  const { playHover, playClick } = useCyberAudio();
   const isVideo = project.imageUrl?.endsWith('.mp4');
 
   return (
-    <div 
-      className={`card-container ${isActive ? 'active' : 'inactive'}`}
-      onClick={onClick}
+    <motion.div 
+      className={`card-container ${isActive ? 'active' : ''}`}
+      onClick={() => { playClick(); onClick(); }}
+      onMouseEnter={playHover}
+      whileHover={{ y: -5 }}
     >
       {/* Neon Edge Glow (Scanline) */}
       <div className="neon-edge-glow"></div>
@@ -84,7 +89,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isActive, onClick, i
           </svg>
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

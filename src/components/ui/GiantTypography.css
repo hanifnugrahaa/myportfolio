@@ -4,7 +4,7 @@
   width: 100vw;
   max-width: 100%;
   overflow: hidden;
-  padding: 4rem 0;
+  padding: 2rem 0; /* Reduced from 4rem for proportional spacing */
   display: flex;
   align-items: center;
   /* Mencegah highlight text karena ini purely decorative */
@@ -45,7 +45,7 @@
 /* Penyesuaian responsif */
 @media (max-width: 768px) {
   .giant-typography-container {
-    padding: 2rem 0;
+    padding: 1rem 0;
   }
   .giant-text {
     font-size: clamp(4rem, 15vw, 8rem);

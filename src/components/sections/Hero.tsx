@@ -10,7 +10,7 @@ function Hero() {
   const typedName = useTypewriter(["Hanif Nugraha", "ハニフ ヌグラハ"], 120, 60, 3000);
   
   return (
-    <section className="relative overflow-hidden pt-[50px] flex items-center justify-center min-h-screen text-center px-10 md:px-16">
+    <section className="relative overflow-hidden flex items-center justify-center min-h-screen text-center px-10 md:px-16">
       {/* Tategaki Watermark */}
       <div className="hero-tategaki">
         ソフトウェアエンジニア

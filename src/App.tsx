@@ -135,6 +135,16 @@ function App() {
               </Suspense>
             </ErrorBoundary>
           </motion.div>
+
+          {/* === FLOATING TERMINAL BUTTON === */}
+          <button 
+            onClick={() => setIsTerminalMode(true)}
+            className="floating-terminal-btn"
+            title="Open System Terminal (or type 'hacker')"
+            aria-label="Open System Terminal"
+          >
+            <span>&gt;_</span>
+          </button>
         </>
       )}
     </>

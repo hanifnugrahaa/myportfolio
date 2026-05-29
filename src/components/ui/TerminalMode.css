@@ -6,7 +6,8 @@
   width: 100vw;
   height: 100vh;
   background-color: #0c0c0c;
-  z-index: 9999999; /* Highest possible */
+  z-index: 9999999;
+  /* Highest possible */
   overflow-y: auto;
   font-family: 'Courier New', Courier, monospace;
   padding: 20px;

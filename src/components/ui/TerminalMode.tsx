@@ -1,17 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './TerminalMode.css';
+import { projects } from '../../data';
+import { useCyberAudio } from '../../hooks/useCyberAudio';
 
 interface TerminalModeProps {
   onClose: () => void;
 }
 
 const TerminalMode: React.FC<TerminalModeProps> = ({ onClose }) => {
-  const [history, setHistory] = useState<{command: string, output: string | JSX.Element}[]>([
+  const [history, setHistory] = useState<{ command: string, output: string | JSX.Element }[]>([
     { command: '', output: 'HanifOS v1.0.0 (tty1)\nType "help" to see available commands.' }
   ]);
   const [input, setInput] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
+  const { playTyping } = useCyberAudio();
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -40,7 +43,7 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ onClose }) => {
 
     switch (cmdLower) {
       case 'help':
-        output = 'Available commands: help, whoami, ls, cat <file>, clear, exit';
+        output = 'Available commands: help, whoami, ls, ls projects, cat <file>, clear, download resume, theme toggle, exit';
         break;
       case 'whoami':
         output = 'Hanif Nugraha - Software Engineer & IoT Enthusiast.\nBuilding scalable web applications, real-time dashboards, and smart connected systems.';
@@ -59,6 +62,22 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ onClose }) => {
         break;
       case 'cd projects':
         output = 'bash: cd: projects: Permission denied. Access requires level 4 clearance.';
+        break;
+      case 'ls projects':
+        output = projects.map(p => `- ${p.name} [${p.techStack?.join(', ')}]`).join('\n');
+        break;
+      case 'download resume':
+        window.open('https://linkedin.com/in/hanifardiyantanugraha', '_blank');
+        output = 'Initializing secure connection... Redirecting to LinkedIn profile.';
+        break;
+      case 'theme toggle':
+        const themeBtn = document.getElementById('toggle-theme');
+        if (themeBtn) {
+          themeBtn.click();
+          output = 'System theme protocol toggled successfully.';
+        } else {
+          output = 'Error: Theme protocol unavailable.';
+        }
         break;
       case 'clear':
         setHistory([]);
@@ -96,15 +115,18 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ onClose }) => {
             {entry.output && <div className="terminal-output">{entry.output}</div>}
           </div>
         ))}
-        
+
         <form onSubmit={handleCommand} className="terminal-input-form">
           <span className="terminal-prompt-line">
-            <span className="terminal-user">guest@hanif-os</span>:<span className="terminal-dir">~</span>$ 
+            <span className="terminal-user">guest@hanif-os</span>:<span className="terminal-dir">~</span>$
           </span>
-          <input 
-            type="text" 
-            value={input} 
-            onChange={(e) => setInput(e.target.value)} 
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => {
+              setInput(e.target.value);
+              playTyping();
+            }}
             className="terminal-input"
             ref={inputRef}
             autoComplete="off"

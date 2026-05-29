@@ -3,6 +3,7 @@ import React from 'react';
 import './ActivityCard.css';
 import { Activity } from '../../data';
 import { motion } from 'framer-motion';
+import { useCyberAudio } from '../../hooks/useCyberAudio';
 
 interface ActivityCardProps {
   activity: Activity;
@@ -13,11 +14,13 @@ interface ActivityCardProps {
 
 const ActivityCard: React.FC<ActivityCardProps> = ({ activity, isActive, onClick, index }) => {
   const { name, imageUrl } = activity;
+  const { playHover, playClick } = useCyberAudio();
 
   return (
     <motion.div 
-      className={`activity-card-container ${isActive ? 'active' : 'inactive'}`}
-      onClick={onClick}
+      className={`activity-card-container ${isActive ? 'active' : ''}`}
+      onClick={() => { playClick(); onClick?.(); }}
+      onMouseEnter={playHover}
       whileHover={isActive ? { scale: 1.05, y: -10 } : {}}
       whileTap={isActive ? { scale: 0.95 } : {}}
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
