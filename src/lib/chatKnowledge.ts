@@ -50,6 +50,7 @@ export const CHAT_PERSONALITY = {
     'Panggil Hanif dengan "yang mulia Hanif"; untuk user pakai "kamu/Anda" sesuai konteks',
     'Jika tidak tahu, jujur — jangan mengarang fakta',
     'Arahkan ke kontak Hanif untuk hal di luar portfolio (rekrutmen, kolaborasi, pembuatan website)',
+    'Gunakan teks polos (plain text) HANYA. JANGAN gunakan format markdown seperti bintang/asterisk (*), bold, atau list.',
   ],
   examples: [
     'User: Siapa Hanif?\nAssistant: Hanif itu mahasiswa Elektronika & Instrumentasi UGM yang juga nge-build web & IoT. Fokusnya sistem yang rapi dan enak dipakai user dan bukan cuma jalan di demo 🚀',
@@ -59,6 +60,7 @@ export const CHAT_PERSONALITY = {
     'Politik, gosip, atau topik tidak relevan dengan Hanif',
     'Mengaku sebagai Hanif secara langsung (kamu asisten-nya, bukan Hanif)',
     'Jawaban panjang seperti essay kecuali diminta',
+    'Menggunakan format Markdown (*italic*, **bold**, `code`, dll)',
   ],
 };
 
@@ -128,12 +130,6 @@ KNOWLEDGE BASE:
 ${CHAT_KNOWLEDGE_BASE}`;
 }
 
-function scoreQuery(query: string, text: string): number {
-  const words = query.toLowerCase().split(/\s+/).filter((w) => w.length > 2);
-  const lower = text.toLowerCase();
-  return words.reduce((score, word) => (lower.includes(word) ? score + 1 : score), 0);
-}
-
 export function getLocalChatAnswer(query: string): string {
   const q = query.toLowerCase();
 
@@ -142,46 +138,24 @@ export function getLocalChatAnswer(query: string): string {
   }
 
   if (/email|kontak|contact|hubungi|linkedin|github|instagram|socmed|sosmed/.test(q)) {
-    return `Kamu bisa hubungi Hanif lewat:\n• Email: hanifardiyanta11@gmail.com\n• LinkedIn: https://www.linkedin.com/in/hanifardiyantanugraha\n• GitHub: https://github.com/hanifnugrahaa\n• Instagram: https://www.instagram.com/haniffnugraha/`;
+    return `Kamu bisa menghubungi Hanif lewat:\n• Email: hanifardiyanta11@gmail.com\n• LinkedIn: linkedin.com/in/hanifardiyantanugraha\n• GitHub: github.com/hanifnugrahaa\n• Instagram: @haniffnugraha`;
   }
 
-  if (/skill|keahlian|tech|stack|bahasa pemrograman|framework/.test(q)) {
-    return `Keahlian Hanif:\n${skillsText}`;
+  if (/skill|keahlian|tech|stack|bahasa|framework|alat|tools/.test(q)) {
+    return `Keahlian Hanif meliputi Web Development (React, Next.js, TypeScript) dan IoT/Hardware (C++, Python, mikrokontroler). Ia suka menggabungkan keduanya menjadi sistem terintegrasi yang stabil dan user-friendly!`;
   }
 
-  if (/project|proyek|portfolio|kerja|build|aplikasi/.test(q)) {
-    return `Proyek Hanif:\n${projectsText}`;
+  if (/project|proyek|portfolio|kerja|build|aplikasi|bikin apa/.test(q)) {
+    return `Hanif sudah membangun beberapa proyek menarik, mulai dari IoT Dashboard seperti G-Connect dan GamaSense, hingga website portofolio interaktif ini. Kamu bisa cek bagian "Projects" di website untuk detail lebih lanjut ya.`;
   }
 
-  if (/activity|aktivitas|pengalaman|experience|mengajar|speaker|basket|ugm/.test(q)) {
-    return `Aktivitas & pengalaman Hanif:\n${activitiesText}`;
+  if (/activity|aktivitas|pengalaman|experience|organisasi|ugm/.test(q)) {
+    return `Sebagai mahasiswa Elektronika dan Instrumentasi UGM, Hanif sangat aktif mengeksplorasi pengembangan web & IoT, mengerjakan studi kasus, dan mendesain antarmuka (UI/UX) yang ciamik.`;
   }
 
-  if (/siapa|who|tentang|about|profil|background|kuliah|ugm|hanif/.test(q)) {
-    return `Hanif Nugraha adalah mahasiswa Elektronika dan Instrumentasi UGM sekaligus Software Engineer & penggemar IoT. Dia membangun solusi web dan sistem IoT terintegrasi dengan fokus pada pengalaman pengguna.\n\n${CHAT_KNOWLEDGE_BASE.split('SKILLS:')[0].trim()}`;
+  if (/siapa|who|tentang|about|profil|background|kuliah|hanif/.test(q)) {
+    return `Hanif Nugraha adalah mahasiswa Elektronika dan Instrumentasi UGM sekaligus Software Engineer & IoT Enthusiast. Dia antusias membangun solusi web dan sistem IoT yang terintegrasi, dengan fokus utama pada pengalaman pengguna.`;
   }
 
-  const sections = [
-    { label: 'tentang Hanif', text: CHAT_KNOWLEDGE_BASE },
-    { label: 'keahlian', text: skillsText },
-    { label: 'proyek', text: projectsText },
-    { label: 'aktivitas', text: activitiesText },
-    { label: 'kontak', text: socialsText },
-  ];
-
-  type ScoredSection = { score: number; text: string; label: string };
-
-  const best = sections.reduce<ScoredSection>(
-    (top, section) => {
-      const s = scoreQuery(query, section.text);
-      return s > top.score ? { score: s, text: section.text, label: section.label } : top;
-    },
-    { score: 0, text: '', label: '' },
-  );
-
-  if (best.score >= 1) {
-    return `Berikut info tentang ${best.label} Hanif:\n\n${best.text}`;
-  }
-
-  return 'Saya bisa bantu menjawab tentang Hanif: profil, keahlian, proyek, aktivitas, dan kontak. Coba tanya misalnya "Apa proyek IoT Hanif?" atau "Bagaimana cara menghubungi Hanif?"';
+  return 'Saat ini aku berjalan di mode "offline" (respons otomatis), jadi aku hanya mengerti pertanyaan dasar tentang Hanif (profil, keahlian, proyek, atau kontak). Coba tanyakan salah satu dari topik tersebut! 😄';
 }
