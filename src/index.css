@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 /* === CSS RESET & FONTS === */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -7,6 +9,14 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+@theme {
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-accent: var(--accent-color);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
 }
 
 :root {
@@ -130,61 +140,10 @@ body.dark .main-header {
 .main-header .header-container .main-nav a:hover{
   color: var(--text-secondary);
 }
-.header-container {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.header__logo {
-  font-weight: 700;
-  font-size: 1.5rem;
-  background: linear-gradient(45deg, var(--text-primary), var(--text-secondary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.main-nav a {
-  margin: 0 1rem;
-  font-weight: 600;
-}
-.main-nav a:hover {
-  color: var(--text-secondary);
-}
 /* ABOUT SECTION */
 
 
-/* === HERO SECTION === */
-.hero {
-  padding-top: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  text-align: center;
-}
-.hero__content {
-  max-width: 700px;
-}
-.hero__title {
-  font-size: clamp(2.5rem, 8vw, 4.5rem);
-  font-weight: 900;
-  line-height: 1.1;
-  margin-bottom: 0.5rem;
-}
-.hero__subtitle {
-  font-size: clamp(1.2rem, 4vw, 1.75rem);
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-  color: var(--text-primary);
-}
-.hero__description {
-  font-size: 1.1rem;
-  color: var(--text-secondary);
-  max-width: 550px;
-  margin: 0 auto 2rem;
-}
-
-/* --- NEO TOKYO HERO STYLES --- */
+/* === NEO TOKYO HERO STYLES === */
 .hero-tategaki {
   position: absolute;
   top: 10%;
@@ -273,19 +232,6 @@ body.dark .btn:not(.btn--hero) {
   opacity: 1;
   transform: translateY(0);
 }
-.section-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 2rem;
-  text-align: center;
-}
-.button-container {
-  display: flex;
-  justify-content: center; 
-  gap: 1.5rem; 
-  margin-top: 2.5rem;
-  flex-wrap: wrap;
-}
 
 /* === SPECIFIC COMPONENTS (Skills) === */
 .skills-section-container {
@@ -359,22 +305,6 @@ body.dark .btn:not(.btn--hero) {
 }
 
 /* === ARTISTIC CONTACT SECTION === */
-.contact-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  align-items: start;
-}
-.section-title--left {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-  text-align: left;
-}
-.contact-info p {
-  color: var(--text-secondary);
-  margin-bottom: 1rem;
-}
 .contact-email {
   font-weight: 700;
   font-size: 1.2rem;
@@ -458,9 +388,6 @@ body.dark .contact-form .btn:hover {
 }
 
 @media (max-width: 850px) {
-  .contact-container { grid-template-columns: 1fr; }
-  .section-title--left { text-align: center; }
-  .contact-info { text-align: center; }
   .contact-form .btn { align-self: stretch; }
 }
 

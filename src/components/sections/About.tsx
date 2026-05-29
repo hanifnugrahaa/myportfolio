@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useTranslation } from 'react-i18next';
-import DocumentModal from './DocumentModal';
+import DocumentModal from '../ui/DocumentModal';
 
 function About() {
   const { t } = useTranslation();
@@ -8,11 +8,11 @@ function About() {
 
   return (
     <>
-      <h2 className="section-title">{t('about.title')}</h2>
-      <p>
+      <h2 className="text-4xl font-bold mb-8 text-center">{t('about.title')}</h2>
+      <p className="text-lg leading-relaxed text-center max-w-3xl mx-auto">
         {t('about.description')}
       </p>
-      <div className="button-container">
+      <div className="flex justify-center gap-6 mt-10 flex-wrap">
         <button 
           onClick={() => setActiveDoc({ url: '/assets/docs/CV_Hanif Nugraha.pdf', title: 'Curriculum Vitae' })}
           className="btn"

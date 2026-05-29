@@ -60,10 +60,49 @@ body.dark .card-container {
 /* Animasi zoom halus pada card yang aktif di tengah slider */
 .card-container.active .project-image {
     transform: scale(1.05);
+    filter: grayscale(0%) brightness(1);
 }
 
 .card-container.inactive .project-image {
     transform: scale(1);
+    filter: grayscale(100%) brightness(0.6);
+}
+
+/* --- NEON EDGE GLOW --- */
+.neon-edge-glow {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: 32px;
+  pointer-events: none;
+  z-index: 10;
+  box-shadow: inset 0 0 0 0 transparent;
+  transition: box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.card-container.active:hover .neon-edge-glow {
+  box-shadow: inset 0 0 0 2px var(--accent-color), inset 0 0 15px rgba(255, 255, 255, 0.8);
+}
+body.dark .card-container.active:hover .neon-edge-glow {
+  box-shadow: inset 0 0 0 2px var(--accent-color), inset 0 0 25px rgba(255, 255, 255, 0.2);
+}
+
+/* --- HUD MICRO-INTERACTIONS --- */
+.hud-corners {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--accent-color);
+  z-index: 5;
+  opacity: 0;
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hud-corners.top-left { top: 1.5rem; left: 1.5rem; border-right: none; border-bottom: none; transform: translate(-15px, -15px); }
+.hud-corners.top-right { top: 1.5rem; right: 1.5rem; border-left: none; border-bottom: none; transform: translate(15px, -15px); }
+.hud-corners.bottom-left { bottom: 1.5rem; left: 1.5rem; border-right: none; border-top: none; transform: translate(-15px, 15px); }
+.hud-corners.bottom-right { bottom: 1.5rem; right: 1.5rem; border-left: none; border-top: none; transform: translate(15px, 15px); }
+
+.card-container.active:hover .hud-corners {
+  opacity: 1;
+  transform: translate(0, 0);
 }
 
 /* --- WHITE LIQUID GLASS --- */
@@ -98,32 +137,60 @@ body.dark .card-container {
   letter-spacing: 1px;
 }
 
-/* --- Panel Liquid Glass PUTIH --- */
-.glass-panel {
+/* --- Panel Liquid Glass PUTIH (Floating HUD) --- */
+.glass-panel.floating-hud {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 16px 24px 16px 24px;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    right: 1.5rem;
+    width: auto;
+    padding: 16px 20px 16px 20px;
     z-index: 3;
     /* Background Putih Transparan */
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.4);
     /* Efek Blur Glass */
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
     /* Border tipis gelap untuk definisi */
-    border-top: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: 32px 32px 0 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 24px;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* --- HUD Header --- */
+.hud-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  font-family: 'Inter', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  padding-bottom: 6px;
+}
+.hud-blinking-dot {
+  width: 6px;
+  height: 6px;
+  background-color: var(--accent-color);
+  border-radius: 50%;
+  animation: hudBlink 1.5s infinite;
+}
+@keyframes hudBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
 /* --- Konten (Teks Gelap) --- */
-.project-title {
+.project-title.cyberpunk-type {
     color: #111111; /* Teks Judul Gelap */
-    font-size: 1.35rem;
-    font-weight: 800;
+    font-size: 1.6rem;
+    font-weight: 900;
     margin-bottom: 12px;
-    letter-spacing: -0.5px;
+    letter-spacing: -1px;
+    text-transform: uppercase;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -259,13 +326,18 @@ body.dark .image-overlay {
 }
 
 /* 3. Ubah panel kaca menjadi gelap transparan dengan border terang */
-body.dark .glass-panel {
-    background: rgba(20, 20, 20, 0.5);
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
+body.dark .glass-panel.floating-hud {
+    background: rgba(20, 20, 20, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+body.dark .hud-header {
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.6);
 }
 
 /* 4. Balik warna teks menjadi putih/terang */
-body.dark .project-title {
+body.dark .project-title.cyberpunk-type {
     color: #ffffff;
 }
 

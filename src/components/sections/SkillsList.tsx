@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { skillCategories } from '../data';
+import { skillCategories } from '../../data';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 

@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ExternalLink, Zap, Code } from 'lucide-react';
 import './ProjectModal.css';
-import { Project } from '../data';
+import { Project } from '../../data';
 
 const parseMetrics = (metricsString?: string) => {
   if (!metricsString) return [];
@@ -104,30 +104,41 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose, o
                 )}
               </div>
               
-              {/* --- KANAN: DETAIL PROYEK --- */}
+              {/* --- KANAN: DETAIL PROYEK (CYBERPUNK DOSSIER) --- */}
               <motion.div 
-                className="modal-right-pane"
+                className="modal-right-pane editorial-grid"
                 variants={staggerContainer}
                 initial="hidden"
                 animate="show"
               >
-                <motion.h2 variants={fadeUpVariant} className="modal-title">{project.name}</motion.h2>
+                {/* Dossier Metadata */}
+                <motion.div variants={fadeUpVariant} className="dossier-meta">
+                  <span>FILE_ID: {project.name.substring(0,3).toUpperCase()}-XX</span>
+                  <span>//</span>
+                  <span>SEC_LEVEL: ALPHA</span>
+                  <span>//</span>
+                  <span className="blinking-status">DECRYPTED</span>
+                </motion.div>
+
+                <motion.h2 variants={fadeUpVariant} className="modal-title cyberpunk-type-modal">
+                  {project.name}
+                </motion.h2>
                 
-                <motion.div variants={fadeUpVariant} className="modal-section-spacing">
-                  <div className="section-title">Overview</div>
+                <motion.div variants={fadeUpVariant} className="modal-section-spacing border-section">
+                  <div className="section-title-bracket">[ SYSTEM_OVERVIEW ]</div>
                   <p className="modal-description">{project.description}</p>
                 </motion.div>
 
                 {metrics.length > 0 && (
-                  <motion.div variants={fadeUpVariant} className="modal-section-spacing">
-                    <div className="section-title">
-                      <Zap size={18} aria-hidden="true" className="accent-icon" /> Impact Metrics
-                    </div>
-                    <div className="metrics-grid">
+                  <motion.div variants={fadeUpVariant} className="modal-section-spacing border-section">
+                    <div className="section-title-bracket">[ IMPACT_METRICS ]</div>
+                    <div className="metrics-bento-grid">
                       {metrics.map((metric, idx) => (
-                        <div key={idx} className="metric-box">
-                          <div className="metric-value">{metric.value}</div>
-                          <div className="metric-label">{metric.label}</div>
+                        <div key={idx} className="metric-bento-box">
+                          <div className={`metric-bento-value ${(metric.value && metric.value.length > 6) ? 'long-value' : ''}`}>
+                            {metric.value}
+                          </div>
+                          <div className="metric-bento-label">{metric.label}</div>
                         </div>
                       ))}
                     </div>
@@ -135,10 +146,8 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose, o
                 )}
 
                 {project.techStack && (
-                  <motion.div variants={fadeUpVariant} className="modal-section-spacing">
-                    <div className="section-title">
-                       <Code size={18} aria-hidden="true" className="accent-icon" /> Tech Stack
-                    </div>
+                  <motion.div variants={fadeUpVariant} className="modal-section-spacing border-section">
+                    <div className="section-title-bracket">[ CORE_TECHNOLOGIES ]</div>
                     <div className="tech-stack-flex">
                       {project.techStack.map((tech, idx) => (
                         <span key={idx} className="tech-pill">{tech}</span>

@@ -10,9 +10,9 @@ import 'swiper/css/pagination';
 import 'swiper/css/effect-cards';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-import ActivityCard from './ActivityCard';
-import ActivityModal from './ActivityModal';
-import { myActivities, Activity } from '../data';
+import ActivityCard from '../ui/ActivityCard';
+import ActivityModal from '../ui/ActivityModal';
+import { myActivities, Activity } from '../../data';
 import './ActivitySlider.css';
 
 const ActivitySlider = () => {
@@ -65,7 +65,7 @@ const ActivitySlider = () => {
       </div>
 
       <div className="activity-section-header">
-        <h2 className="section-title">{t('activities.title')}</h2>
+        <h2 className="text-4xl font-bold mb-8 text-center">{t('activities.title')}</h2>
       </div>
       
       <div className="activity-carousel-container">

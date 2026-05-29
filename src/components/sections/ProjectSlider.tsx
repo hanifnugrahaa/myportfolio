@@ -10,9 +10,9 @@ import 'swiper/css/pagination';
 import 'swiper/css/effect-cards';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-import ProjectCard from './ProjectCard';
-import ProjectModal from './ProjectModal';
-import { projects, Project } from '../data';
+import ProjectCard from '../ui/ProjectCard';
+import ProjectModal from '../ui/ProjectModal';
+import { projects, Project } from '../../data';
 import './ProjectSlider.css';
 
 const ProjectSlider = () => {
@@ -62,7 +62,7 @@ const ProjectSlider = () => {
       </div>
 
       <div className="section-header">
-        <h2 className="section-title">{t('projects.title')}</h2>
+        <h2 className="text-4xl font-bold mb-8 text-center">{t('projects.title')}</h2>
       </div>
       
       <div className="carousel-container">

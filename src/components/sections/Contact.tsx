@@ -5,13 +5,13 @@ function Contact() {
   const { t } = useTranslation();
   return (
     <>
-    <div className="contact-container">
-        <div className="contact-info">
-          <h2 className="section-title--left">{t('contact.title')}</h2>
-          <p>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+        <div className="text-center md:text-left">
+          <h2 className="text-4xl font-bold mb-6 text-center md:text-left">{t('contact.title')}</h2>
+          <p className="text-text-secondary mb-4 text-center md:text-left">
             {t('contact.description')}
           </p>
-          <p>
+          <p className="text-text-secondary mb-4 text-center md:text-left">
             You can email me directly at:
           </p>
           <a href="mailto:hanifardiyanta11@gmail.com" className="contact-email">
@@ -19,7 +19,7 @@ function Contact() {
           </a>
         </div>
 
-        <div className="contact-form-wrapper">
+        <div className="w-full">
           <form className="contact-form" action="https://formspree.io/f/xrbkjkgk" method="POST">
             <input type="text" name="name" placeholder="Your Name" aria-label="Nama Anda" required />
             <input type="email" name="email" placeholder="Email" aria-label="Email Anda" required />

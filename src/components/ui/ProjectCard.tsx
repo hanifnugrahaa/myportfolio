@@ -1,7 +1,7 @@
 // src/components/ProjectCard.jsx
 import React from 'react';
 import './ProjectCard.css';
-import { Project } from '../data';
+import { Project } from '../../data';
 
 interface ProjectCardProps {
   project: Project;
@@ -18,6 +18,15 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isActive, onClick, i
       className={`card-container ${isActive ? 'active' : 'inactive'}`}
       onClick={onClick}
     >
+      {/* Neon Edge Glow (Scanline) */}
+      <div className="neon-edge-glow"></div>
+      
+      {/* HUD Micro-Interactions (Corners) */}
+      <div className="hud-corners top-left"></div>
+      <div className="hud-corners top-right"></div>
+      <div className="hud-corners bottom-left"></div>
+      <div className="hud-corners bottom-right"></div>
+
       {/* Gambar / Video Background Proyek */}
       {isVideo ? (
         <video 
@@ -46,9 +55,15 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isActive, onClick, i
         作品 — {String(index + 1).padStart(2, '0')}
       </div>
 
-      {/* Panel Liquid Glass di bagian bawah */}
-      <div className="glass-panel">
-        <h2 className="project-title">{project.name}</h2>
+      {/* Floating Liquid Glass HUD */}
+      <div className="glass-panel floating-hud">
+        {/* Micro-Interaction: System Header */}
+        <div className="hud-header">
+          <span className="hud-sys-text">SYS_ID: {project.name.substring(0,3).toUpperCase()}-{String(index + 1).padStart(2, '0')}</span>
+          <span className="hud-blinking-dot"></span>
+        </div>
+
+        <h2 className="project-title cyberpunk-type">{project.name}</h2>
         <p className="project-desc">{project.description}</p>
         
         {/* Tech Stack Pills */}
