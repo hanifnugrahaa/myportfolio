@@ -58,6 +58,29 @@ const ChatBot: React.FC = () => {
     }
   };
 
+  const renderMessageWithLinks = (text: string) => {
+    // Regex for HTTP URLs and email addresses
+    const urlRegex = /(https?:\/\/[^\s]+|[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/g;
+    const parts = text.split(urlRegex);
+
+    return parts.map((part, i) => {
+      if (part.match(/^https?:\/\//)) {
+        return (
+          <a key={i} href={part} target="_blank" rel="noopener noreferrer" className="chat-link">
+            {part}
+          </a>
+        );
+      } else if (part.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+$/)) {
+        return (
+          <a key={i} href={`mailto:${part}`} className="chat-link">
+            {part}
+          </a>
+        );
+      }
+      return <React.Fragment key={i}>{part}</React.Fragment>;
+    });
+  };
+
   return (
     <>
       <AnimatePresence>
@@ -100,7 +123,7 @@ const ChatBot: React.FC = () => {
                   key={i}
                   className={`chat-bubble chat-bubble--${msg.role}`}
                 >
-                  {msg.content}
+                  {renderMessageWithLinks(msg.content)}
                 </div>
               ))}
               {isLoading && (

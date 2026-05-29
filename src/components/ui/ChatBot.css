@@ -120,6 +120,21 @@ body.dark .chat-panel {
   word-break: break-word;
 }
 
+.chat-link {
+  color: var(--accent-color);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: opacity 0.2s;
+}
+
+.chat-link:hover {
+  opacity: 0.8;
+}
+
+.chat-bubble--user .chat-link {
+  color: var(--bg-primary);
+}
+
 .chat-bubble--assistant {
   align-self: flex-start;
   background: var(--bg-secondary);
