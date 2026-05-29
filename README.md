@@ -5,7 +5,7 @@ A dynamic and responsive personal portfolio built with React.js and Vite, design
 [![MIT License](https://img.shields.io/github/license/hanifnugrahaa/portfolio-react?style=flat-square)](https://choosealicense.com/licenses/mit/)
 [![GitHub last commit](https://img.shields.io/github/last-commit/hanifnugrahaa/portfolio-react?style=flat-square)](https://github.com/hanifnugrahaa/portfolio-react/commits/main)
 
-**Live Deployment:** [**hanifnugrahaa.github.io**](https://nugrahax.vercel.app/)
+**Live Deployment:** [**MY PORTFOLIO**](https://nugrahax.vercel.app/)
 
 ---
 
