@@ -481,6 +481,19 @@ body.dark .toggle-thumb::after { opacity: 1; }
       padding-left: 2.5rem;
       padding-right: 2.5rem;
   }
+  
+  .skills-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+  }
+  
+  .skill-tab-btn {
+      width: 100%;
+      padding: 0.6rem 0.2rem;
+      font-size: 0.85rem;
+      text-align: center;
+  }
   .main-header {
       top: 1rem;
       width: 92%;

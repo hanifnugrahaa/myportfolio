@@ -22,6 +22,14 @@ const ProjectSlider = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile(); // Check on mount
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Gunakan useCallback untuk menjaga reference fungsi tetap stabil
   const handleCardClick = useCallback((project: Project) => {
@@ -76,8 +84,10 @@ const ProjectSlider = () => {
           <Swiper
             onSwiper={setSwiperInstance}
             modules={[Navigation, Pagination, EffectCards, Autoplay, Mousewheel]}
-            effect="cards"
+            effect={isMobile ? "slide" : "cards"}
             grabCursor={true}
+            touchStartPreventDefault={false}
+            passiveListeners={true}
             mousewheel={{
               releaseOnEdges: true,
               sensitivity: 1,
