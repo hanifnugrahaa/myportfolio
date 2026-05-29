@@ -42,7 +42,7 @@
   "chat": {
     "title": "Tanya tentang Hanif",
     "subtitleAi": "Asisten AI · jawaban dari data portfolio",
-    "subtitleGemini": "Didukung Google Gemini",
+    "subtitleGemini": "Didukung Google Gemini AI",
     "subtitleLocal": "Jawaban cepat · tambah API key untuk AI penuh",
     "placeholder": "Tanya soal keahlian, proyek, kontak…",
     "thinking": "Sedang berpikir…",

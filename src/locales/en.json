@@ -42,7 +42,7 @@
   "chat": {
     "title": "Ask about Hanif",
     "subtitleAi": "AI assistant · answers from portfolio data",
-    "subtitleGemini": "Powered by Google Gemini",
+    "subtitleGemini": "Powered by Google Gemini AI",
     "subtitleLocal": "Quick answers · add API key for full AI",
     "placeholder": "Ask about skills, projects, contact…",
     "thinking": "Thinking…",

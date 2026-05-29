@@ -1,0 +1,64 @@
+/* CatAvatar.css */
+.cat-avatar-container {
+  position: absolute;
+  top: -85px; /* Peeking out from top */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 100px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.cat-head {
+  transform-origin: center 85px;
+  animation: cat-bob 4s infinite ease-in-out;
+}
+
+.cat-eye {
+  transform-origin: center;
+}
+
+.cat-idle .cat-eye {
+  animation: cat-blink 4s infinite;
+}
+
+.cat-thinking .cat-eye {
+  animation: cat-look-around 1.5s infinite ease-in-out;
+}
+
+.cat-thinking .cat-ear-left {
+  animation: cat-twitch-left 1.5s infinite;
+}
+
+.cat-thinking .cat-ear-right {
+  animation: cat-twitch-right 1.5s infinite;
+}
+
+@keyframes cat-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+
+@keyframes cat-blink {
+  0%, 96%, 100% { transform: scaleY(1); }
+  98% { transform: scaleY(0.1); }
+}
+
+@keyframes cat-look-around {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px) translateY(-2px); }
+  75% { transform: translateX(4px) translateY(-2px); }
+}
+
+@keyframes cat-twitch-left {
+  0%, 100% { transform: rotate(0deg); }
+  10%, 30% { transform: rotate(-12deg); }
+  20%, 40% { transform: rotate(5deg); }
+}
+
+@keyframes cat-twitch-right {
+  0%, 100% { transform: rotate(0deg); }
+  10%, 30% { transform: rotate(12deg); }
+  20%, 40% { transform: rotate(-5deg); }
+}

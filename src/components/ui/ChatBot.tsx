@@ -4,6 +4,7 @@ import { MessageCircle, X, Send } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { sendChatMessage, isAiChatConfigured, getAiProvider } from '../../lib/chatService';
 import { CHAT_GREETING, type ChatMessage } from '../../lib/chatKnowledge';
+import CatAvatar from './CatAvatar';
 import './ChatBot.css';
 
 const ChatBot: React.FC = () => {
@@ -70,6 +71,8 @@ const ChatBot: React.FC = () => {
             role="dialog"
             aria-label={t('chat.title')}
           >
+            <CatAvatar isThinking={isLoading} />
+            
             <div className="chat-panel-header">
               <div>
                 <div className="chat-panel-title">{t('chat.title')}</div>

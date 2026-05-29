@@ -8,7 +8,7 @@ const OPENAI_API_BASE = import.meta.env.VITE_AI_API_BASE ?? 'https://api.openai.
 const OPENAI_MODEL = import.meta.env.VITE_AI_MODEL ?? 'gpt-4o-mini';
 
 /** Model cadangan jika primary overload (503) atau tidak tersedia */
-const GEMINI_FALLBACK_MODELS = ['gemini-2.0-flash', 'gemini-3.5-flash'] as const;
+const GEMINI_FALLBACK_MODELS = ['gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-3.0-flash', 'gemini-2.5-flash'] as const;
 
 const RETRY_DELAYS_MS = [800, 1600, 2400];
 
