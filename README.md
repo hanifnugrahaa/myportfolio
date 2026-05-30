@@ -24,19 +24,25 @@ This portfolio serves as a central hub for my work, showcasing projects ranging 
 
 ## Technology Stack
 
--   **Core:** JavaScript (ES6+), React.js, HTML5, CSS3
--   **Tooling:** Vite, NPM
--   **Libraries:** Swiper.js
--   **Deployment:** GitHub Pages
+-   **Core:** TypeScript, React.js (v19), HTML5
+-   **Styling:** Tailwind CSS v4, Vanilla CSS
+-   **Animations & 3D:** Framer Motion, Three.js
+-   **UI & Interactive:** Swiper.js, Lucide React
+-   **AI Integration:** Google Gemini API (Custom AI Chatbot)
+-   **Internationalization:** i18next (ID/EN support)
+-   **Tooling:** Vite, ESLint
+-   **Deployment:** Vercel
 
 ## Deployment
 
-This project is configured for automated deployment to GitHub Pages using the `gh-pages` package. To deploy, run the following command:
+This project is optimized for automated deployment on **Vercel**. 
 
-```bash
-npm run deploy
-```
-This script builds the application for production and pushes the contents of the `dist` folder to the `gh-pages` branch.
+To deploy:
+1. Push your code to the GitHub repository.
+2. Connect your repository to Vercel.
+3. Add the required Environment Variable in Vercel settings:
+   - \`VITE_GEMINI_API_KEY\` (Your Google Gemini API Key for the AI chatbot)
+4. Vercel will automatically build and deploy your site on every push to the \`main\` branch.
 
 ## License
 
