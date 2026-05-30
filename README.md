@@ -29,28 +29,6 @@ This portfolio serves as a central hub for my work, showcasing projects ranging 
 -   **Libraries:** Swiper.js
 -   **Deployment:** GitHub Pages
 
-## Local Development Setup
-
-To clone and run this project locally, follow these steps:
-
-1.  **Clone the repository:**
-    ```bash
-    git clone [https://github.com/hanifnugrahaa/portfolio-react.git](https://github.com/hanifnugrahaa/portfolio-react.git)
-    ```
-2.  **Navigate to the project directory:**
-    ```bash
-    cd portfolio-react
-    ```
-3.  **Install dependencies:**
-    ```bash
-    npm install
-    ```
-4.  **Start the development server:**
-    ```bash
-    npm run dev
-    ```
-    The application will be available at `http://localhost:5173`.
-
 ## Deployment
 
 This project is configured for automated deployment to GitHub Pages using the `gh-pages` package. To deploy, run the following command:
