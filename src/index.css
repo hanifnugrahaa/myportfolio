@@ -131,11 +131,11 @@ img {
   position: fixed;
   top: 1.5rem;
   /* Jarak mengambang dari atas layar */
-  left: 50%;
-  /* Trik untuk ke tengah */
-  transform: translateX(-50%) translateZ(0);
-  /* Hardware acceleration */
-  will-change: transform;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  /* Centering tanpa transform agar efek glassmorphism tidak bug */
 
   width: 90%;
   /* Lebar navbar tidak penuh 100% */
