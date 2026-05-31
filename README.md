@@ -20,14 +20,15 @@ This portfolio serves as a central hub for my work, showcasing projects ranging 
 -   **Dual-Theme Interface:** Light and dark mode support with theme persistence via `localStorage`.
 -   **Interactive Project Showcase:** A touch-friendly project slider powered by Swiper.js, supporting both image and video content.
 -   **Dynamic Content Rendering:** Skills, projects, and social links are rendered from a centralized data source, making updates efficient.
--   **Scroll-Reveal Animations:** Subtle animations triggered by the Intersection Observer API to enhance visual engagement.
+-   **Advanced Animations:** Complex scroll-driven animations, parallax effects, and pinning powered by GSAP (ScrollTrigger) and Framer Motion.
+-   **Smooth Scrolling:** Integrated Lenis for a seamless, highly fluid scrolling experience across all devices.
 
 ## Technology Stack
 
 -   **Core:** TypeScript, React.js (v19), HTML5
 -   **Styling:** Tailwind CSS v4, Vanilla CSS
--   **Animations & 3D:** Framer Motion, Three.js
--   **UI & Interactive:** Swiper.js, Lucide React
+-   **Animations & 3D:** GSAP, Framer Motion, Three.js
+-   **UI & Interactive:** Lenis (Smooth Scroll), Swiper.js, Lucide React
 -   **AI Integration:** Google Gemini API (Custom AI Chatbot)
 -   **Internationalization:** i18next (ID/EN support)
 -   **Tooling:** Vite, ESLint
