@@ -119,13 +119,13 @@ const SkillsList: React.FC = () => {
               key={index}
               className="skill-layer absolute top-0 left-0 w-full h-full bg-card/90 border border-primary/30 rounded-xl p-4 md:p-5 flex flex-col"
             >
-              <div className="text-xs md:text-sm text-primary font-mono mb-4 border-b border-border pb-2 flex justify-between items-center">
+              <div className="text-xs md:text-sm font-mono mb-4 border-b pb-2 flex justify-between items-center" style={{ color: 'var(--text-primary)', borderColor: 'var(--border-color)' }}>
                 <span>[LAYER_0{index + 1}]</span>
                 <span className="font-bold">{category.title.toUpperCase()}</span>
               </div>
               <div className="flex flex-wrap gap-2">
                 {category.skills.map((skill, i) => (
-                  <span key={i} className="px-2 py-1 md:px-3 md:py-1.5 bg-background rounded-full text-xs md:text-sm font-medium border border-border">
+                  <span key={i} className="px-2 py-1 md:px-3 md:py-1.5 rounded-full text-xs md:text-sm font-medium border" style={{ backgroundColor: 'var(--bg-primary)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}>
                     {skill}
                   </span>
                 ))}
