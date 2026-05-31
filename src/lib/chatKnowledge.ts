@@ -18,7 +18,7 @@ const projectsText = projects
 
 const activitiesText = myActivities.map((a) => `- ${a.name}`).join('\n');
 
-const socialsText = socials.map((s) => `${s.name}: ${s.url}`).join('\n');
+// const socialsText = socials.map((s) => `${s.name}: ${s.url}`).join('\n');
 
 /**
  * ═══════════════════════════════════════════════════════════════
@@ -77,7 +77,7 @@ EDUCATION: Electronics and Instrumentation student at Universitas Gadjah Mada (U
 FOCUS: Web development, IoT systems, full-stack applications, embedded systems, user-centered integrated systems
 
 ABOUT:
-An Electronics and Instrumentation student with dual expertise in hardware and software engineering. He translates user needs into tangible solutions through Web Development and the Internet of Things (IoT). Main focus: seamlessly integrated systems with user experience as the highest priority. Fast learner, ready for dynamic and innovative environments.
+A Software Engineer with dual expertise in hardware and software engineering. He translates user needs into tangible solutions through Web Development and the Internet of Things (IoT). Main focus: seamlessly integrated systems with user experience as the highest priority. Fast learner, ready for dynamic and innovative environments.
 
 CONTACT:
 - Email: hanifardiyanta11@gmail.com (also hanifardiyantanugraha@gmail.com)

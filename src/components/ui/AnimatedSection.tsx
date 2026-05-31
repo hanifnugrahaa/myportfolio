@@ -1,6 +1,6 @@
 // src/components/AnimatedSection.jsx
 
-import React, { useState, useEffect, useRef, ReactNode } from 'react';
+import { useState, useEffect, useRef, ReactNode } from 'react';
 
 interface AnimatedSectionProps {
   children: ReactNode;
@@ -17,7 +17,7 @@ function AnimatedSection({ children, id }: AnimatedSectionProps) {
       (entries) => {
         if (entries[0].isIntersecting) {
           setIsVisible(true);
-          observer.unobserve(sectionRef.current);
+          if (sectionRef.current) observer.unobserve(sectionRef.current);
         }
       },
       { threshold: 0.1 }
@@ -29,7 +29,7 @@ function AnimatedSection({ children, id }: AnimatedSectionProps) {
 
     return () => {
       if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+        if (sectionRef.current) observer.unobserve(sectionRef.current);
       }
     };
   }, []);

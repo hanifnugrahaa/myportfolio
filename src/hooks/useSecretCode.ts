@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 export const useSecretCode = (secretCode: string) => {
   const [success, setSuccess] = useState(false);
-  const [inputBuffer, setInputBuffer] = useState('');
+  const [, setInputBuffer] = useState('');
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {

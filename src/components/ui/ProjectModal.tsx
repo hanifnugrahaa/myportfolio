@@ -29,7 +29,7 @@ const staggerContainer = {
   }
 };
 
-const fadeUpVariant = {
+const fadeUpVariant: any = {
   hidden: { opacity: 0, y: 20 },
   show: { opacity: 1, y: 0, transition: { type: 'spring', damping: 20, stiffness: 100 } }
 };
@@ -42,12 +42,10 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose, o
     };
     if (isOpen) {
       document.addEventListener('keydown', handleEscKey);
-      // Disable background scrolling when modal is open
       document.body.style.overflow = 'hidden';
     }
     return () => {
       document.removeEventListener('keydown', handleEscKey);
-      // Restore background scrolling
       document.body.style.overflow = 'unset';
     };
   }, [isOpen, onClose]);
@@ -83,6 +81,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose, o
           className="modal-container"
           onClick={onClose}
           style={{ willChange: 'transform, opacity' }}
+          data-lenis-prevent
         >
           <motion.div 
             className="modal-content"

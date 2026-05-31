@@ -1,12 +1,43 @@
 /* src/components/ProjectSlider.css */
-.curved-carousel-section {
-  padding: 4rem 1rem;
+.gsap-project-section {
   position: relative;
+  width: 100%;
+  height: 100vh; /* Will be pinned */
   overflow: hidden;
+  background-color: var(--bg-primary);
 }
 
-/* Tategaki Background for Sliders */
-.slider-tategaki {
+.gsap-project-track {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  padding-left: 5vw;
+  padding-right: 40vw;
+  width: max-content;
+  will-change: transform;
+}
+
+.gsap-project-card-wrapper {
+  flex-shrink: 0;
+  width: 320px;
+  margin-right: 2rem;
+}
+
+@media (min-width: 768px) {
+  .gsap-project-card-wrapper {
+    width: 400px;
+    margin-right: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .gsap-project-card-wrapper {
+    width: 450px;
+    margin-right: 4rem;
+  }
+}
+
+.gsap-tategaki-bg {
   position: absolute;
   top: 50%;
   left: 5%;
@@ -24,149 +55,6 @@
   user-select: none;
 }
 
-body.dark .slider-tategaki {
+body.dark .gsap-tategaki-bg {
   opacity: 0.04;
-}
-
-.carousel-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1.5rem;
-  padding: 2rem 0;
-  position: relative;
-  min-height: 550px;
-}
-
-/* Gamified Navigation Buttons */
-.carousel-nav-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 56px;
-  height: 56px;
-  border-radius: 12px; /* Blocky gamified look */
-  background: var(--bg-primary);
-  border: 3px solid var(--accent-color);
-  color: var(--accent-color);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.1s ease; /* Fast transition for game feel */
-  z-index: 50;
-  box-shadow: 0 6px 0 var(--accent-color); /* 3D bottom edge */
-}
-
-.nav-key-hint {
-  font-size: 0.65rem;
-  font-weight: 800;
-  opacity: 0.6;
-  margin-top: -6px;
-  pointer-events: none;
-}
-
-/* Posisi Kiri */
-.swiper-button-prev-custom {
-  left: 0%; 
-}
-
-/* Posisi Kanan */
-.swiper-button-next-custom {
-  right: 0%; 
-}
-
-body.dark .carousel-nav-btn {
-  background: var(--bg-secondary);
-}
-
-.carousel-nav-btn:hover {
-  background: var(--accent-color);
-  color: var(--bg-primary);
-  /* Tambahkan efek subtle glow saat hover */
-  box-shadow: 0 6px 0 var(--accent-color), 0 0 20px rgba(17, 17, 17, 0.15);
-}
-
-body.dark .carousel-nav-btn:hover {
-  background: var(--accent-color);
-  color: var(--bg-primary);
-  box-shadow: 0 6px 0 var(--accent-color), 0 0 20px rgba(255, 255, 255, 0.15);
-}
-
-.carousel-nav-btn:active {
-  transform: translateY(calc(-50% + 4px)); /* Pushed down state */
-  box-shadow: 0 2px 0 var(--accent-color); /* Smaller shadow when pushed */
-  transition: all 0.05s ease; /* Super snappy press feedback */
-}
-
-.curved-swiper-container {
-  width: 100%;
-  max-width: 1200px;
-  overflow: visible;
-}
-
-.curved-swiper {
-  width: 400px;
-  overflow: visible !important;
-  padding: 2rem 0 !important;
-}
-
-/* Slide Card Sizing for EffectCards */
-.curved-slide {
-  width: 400px !important;
-  border-radius: 24px;
-}
-
-.custom-pagination {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 1rem;
-}
-
-.swiper-pagination-bullet {
-  width: 8px;
-  height: 8px;
-  background: rgba(128, 128, 128, 0.4) !important;
-  /* Smooth easing untuk pemanjangan bullet */
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.swiper-pagination-bullet-active {
-  width: 32px !important; /* Diperpanjang sedikit untuk kesan modern pill */
-  border-radius: 12px !important;
-  background: var(--accent-color) !important;
-  box-shadow: 0 0 10px rgba(128, 128, 128, 0.3);
-}
-
-.progress-indicator {
-  text-align: center;
-  margin-top: 1.5rem;
-  font-weight: 600;
-  color: var(--text-secondary);
-}
-
-@media (max-width: 768px) {
-  .carousel-container { min-height: 480px; }
-  
-  .swiper-button-prev-custom {
-    left: -2%;
-    width: 44px;
-    height: 44px;
-  }
-  
-  .swiper-button-next-custom {
-    right: -2%;
-    width: 44px;
-    height: 44px;
-  }
-
-  .curved-swiper {
-    width: 280px;
-  }
-  
-  .curved-slide{
-    width: 280px !important;
-  }
-}
+}

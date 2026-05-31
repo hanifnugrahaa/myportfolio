@@ -8,7 +8,7 @@ export const useTypewriter = (words: string[], typingSpeed = 150, deletingSpeed 
 
   useEffect(() => {
     const currentWord = words[wordIndex];
-    let timer: NodeJS.Timeout;
+    let timer: ReturnType<typeof setTimeout>;
 
     if (isDeleting) {
       // Efek Menghapus

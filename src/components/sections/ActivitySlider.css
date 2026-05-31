@@ -1,237 +1,62 @@
-/* src/components/ActivitySlider.css */
-
-/* =========================================
-   ACTIVITY SLIDER SECTION
-   Main container for the activity carousel
-   ========================================= */
-
-/* Main section container */
-.activity-carousel-section {
-  padding: 4rem 1rem;
+/* src/components/sections/ActivitySlider.css */
+.gsap-activity-section {
   position: relative;
+  width: 100%;
+  height: 100vh; /* Will be pinned */
   overflow: hidden;
-}
-
-/* Section header styling */
-.activity-section-header {
-  text-align: center;
-  margin-bottom: 3rem;
-}
-
-/* Gradient text for section title */
-.activity-section-title {
-  font-size: 2.5rem;
-  font-weight: 800;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 1rem;
-}
-
-/* Subtitle styling */
-.activity-section-subtitle {
-  font-size: 1.1rem;
-  color: #666;
-  font-weight: 400;
-}
-
-/* Dark mode subtitle */
-body.dark .activity-section-subtitle {
-  color: #aaa;
-}
-
-/* =========================================
-   CAROUSEL CONTAINER & NAVIGATION
-   Layout for the slider and control buttons
-   ========================================= */
-
-/* Main carousel container with flex layout */
-.activity-carousel-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1.5rem;
-  padding: 0 0 2rem 0;
-  position: relative;
-  min-height: 550px;
-}
-
-/* Gamified navigation buttons */
-.activity-nav-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 56px;
-  height: 56px;
-  border-radius: 12px;
-  background: var(--bg-primary);
-  border: 3px solid var(--accent-color);
-  color: var(--accent-color);
+  background-color: var(--bg-primary);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.1s ease;
-  z-index: 50;
-  box-shadow: 0 6px 0 var(--accent-color);
 }
 
-.nav-key-hint {
-  font-size: 0.65rem;
-  font-weight: 800;
-  opacity: 0.6;
-  margin-top: -6px;
-  pointer-events: none;
-}
-
-/* Previous button positioning */
-.activity-swiper-button-prev {
-  left: 0%;
-}
-
-/* Next button positioning */
-.activity-swiper-button-next {
-  right: 0%;
-}
-
-/* Dark mode navigation buttons */
-body.dark .activity-nav-btn {
-  background: var(--bg-secondary);
-}
-
-/* Hover effect for navigation buttons */
-.activity-nav-btn:hover {
-  background: var(--accent-color);
-  color: var(--bg-primary);
-}
-
-/* Active push down effect */
-.activity-nav-btn:active {
-  transform: translateY(calc(-50% + 4px));
-  box-shadow: 0 2px 0 var(--accent-color);
-}
-
-/* =========================================
-   SWIPER CONFIGURATION
-   Core slider settings and slide animations
-   ========================================= */
-
-/* Container for Swiper component */
-.activity-swiper-container {
-  width: 100%;
-  max-width: 1200px;
-  overflow: visible;
-}
-
-/* Swiper instance styling */
-.activity-swiper {
-  width: 400px;
-  overflow: visible !important;
-  padding: 2rem 0 !important;
-}
-
-/* Individual slide styling */
-.activity-slide {
-  width: 400px !important;
-  border-radius: 24px;
-}
-
-/* =========================================
-   PAGINATION INDICATORS
-   Custom pagination dots styling
-   ========================================= */
-
-/* Container for pagination bullets */
-.activity-custom-pagination {
+.gsap-activity-track {
   display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 1rem;
+  height: 100%;
+  align-items: center;
+  padding-left: 5vw;
+  padding-right: 40vw;
+  width: max-content;
+  will-change: transform;
 }
 
-/* Individual pagination bullet */
-.activity-custom-pagination .swiper-pagination-bullet {
-  width: 8px;
-  height: 8px;
-  background: rgba(128, 128, 128, 0.4) !important;
-  transition: all 0.3s ease;
+.gsap-activity-card-wrapper {
+  flex-shrink: 0;
+  width: 280px;
+  margin-right: 2rem;
 }
 
-/* Active pagination bullet - elongated for visual feedback */
-.activity-custom-pagination .swiper-pagination-bullet-active {
-  width: 24px !important;
-  border-radius: 12px !important;
-  background: var(--accent-color) !important;
-}
-
-/* =========================================
-   PROGRESS INDICATOR
-   Current slide counter display
-   ========================================= */
-
-/* Container for slide counter */
-.activity-progress-indicator {
-  text-align: center;
-  margin-top: 1.5rem;
-  font-weight: 600;
-  color: var(--text-secondary);
-}
-
-/* Current slide number - highlighted with accent color */
-.activity-current {
-  font-size: 1.2rem;
-  font-weight: 800;
-  color: var(--accent-color);
-}
-
-/* Separator between current and total */
-.activity-separator {
-  margin: 0 8px;
-}
-
-/* Total slides count */
-.activity-total {
-  font-weight: 500;
-}
-
-/* =========================================
-   RESPONSIVE DESIGN
-   Mobile and tablet adaptations
-   ========================================= */
-
-/* Tablet and mobile responsive styles */
-@media (max-width: 768px) {
-  /* Adjust container height for smaller screens */
-  .activity-carousel-container { 
-    min-height: 480px; 
+@media (min-width: 768px) {
+  .gsap-activity-card-wrapper {
+    width: 360px;
+    margin-right: 3rem;
   }
-  
-  /* Smaller section title on mobile */
-  .activity-section-title {
-    font-size: 2rem;
-  }
-  
-  /* Reposition navigation buttons for mobile */
-  .activity-swiper-button-prev {
-    left: -2%;
-    width: 44px;
-    height: 44px;
-  }
-  
-  .activity-swiper-button-next {
-    right: -2%;
-    width: 44px;
-    height: 44px;
-  }
+}
 
-  /* Adjust swiper and slide width for mobile */
-  .activity-swiper {
-    width: 280px;
+@media (min-width: 1024px) {
+  .gsap-activity-card-wrapper {
+    width: 400px;
+    margin-right: 4rem;
   }
+}
 
-  .activity-slide {
-    width: 280px !important;
-  }
+.gsap-tategaki-bg-activity {
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  transform: translateY(-50%);
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  font-size: clamp(4rem, 15vw, 12rem);
+  font-weight: 900;
+  font-family: 'Noto Sans JP', sans-serif;
+  color: var(--text-primary);
+  opacity: 0.03;
+  letter-spacing: 0.2em;
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+body.dark .gsap-tategaki-bg-activity {
+  opacity: 0.04;
 }

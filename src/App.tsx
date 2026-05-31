@@ -1,6 +1,6 @@
 // src/App.jsx
 
-import React, { useState, useEffect, Suspense, lazy } from 'react';
+import { useState, useEffect, Suspense, lazy } from 'react';
 import { motion } from 'framer-motion';
 
 // Impor komponen yang langsung terlihat
@@ -12,6 +12,7 @@ import LoadingScreen from './components/ui/LoadingScreen';
 import CustomCursor from './components/ui/CustomCursor';
 import TerminalMode from './components/ui/TerminalMode';
 import GiantTypography from './components/ui/GiantTypography';
+import DataFlowWire from './components/ui/DataFlowWire';
 import ThemeTransitionOverlay from './components/ui/ThemeTransitionOverlay';
 import ErrorBoundary from './components/ui/ErrorBoundary';
 import ChatBot from './components/ui/ChatBot';
@@ -85,30 +86,26 @@ function App() {
               </AnimatedSection>
             </div>
 
+            <DataFlowWire />
+
             <ErrorBoundary>
               <Suspense fallback={<div className="loading-spinner"></div>}>
-                <div className="content-wrapper">
-                  <AnimatedSection id="skills">
-                    <SkillsList />
-                  </AnimatedSection>
+                <div className="content-wrapper w-full max-w-none px-0" id="skills">
+                  <SkillsList />
                 </div>
 
                 {/* --- GIANT TYPOGRAPHY BREAK 1 --- */}
                 <GiantTypography text="✦ ENGINEERING EXCELLENCE " speed={0.8} />
 
-                <div className="content-wrapper">
-                  <AnimatedSection id="projects">
-                    <ProjectSlider />
-                  </AnimatedSection>
+                <div className="content-wrapper w-full max-w-none px-0" id="projects">
+                  <ProjectSlider />
                 </div>
 
                 {/* --- GIANT TYPOGRAPHY BREAK 2 --- */}
                 <GiantTypography text="✦ CREATIVE VISIONARY " direction="right" speed={1.2} />
 
-                <div className="content-wrapper">
-                  <AnimatedSection id="activities">
-                    <ActivitySlider />
-                  </AnimatedSection>
+                <div className="content-wrapper w-full max-w-none px-0" id="activities">
+                  <ActivitySlider />
                 </div>
               </Suspense>
             </ErrorBoundary>

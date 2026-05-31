@@ -1,149 +1,85 @@
-// src/components/ActivitySlider.tsx
-import React, { useState, useCallback, useEffect } from 'react';
-import { Swiper as SwiperReact, SwiperSlide } from 'swiper/react';
-import type { Swiper as SwiperType } from 'swiper';
-import { Navigation, Pagination, EffectCards, Autoplay, Mousewheel } from 'swiper/modules';
+import React, { useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/effect-cards';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { gsap } from 'gsap';
+import { useGSAP } from '@gsap/react';
 
 import ActivityCard from '../ui/ActivityCard';
 import ActivityModal from '../ui/ActivityModal';
 import { myActivities, Activity } from '../../data';
-import { getSwiperLoopSettings } from '../../lib/swiperConfig';
 import './ActivitySlider.css';
 
-const ActivitySlider = () => {
+const ActivitySlider: React.FC = () => {
   const { t } = useTranslation();
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
-  const [isHovered, setIsHovered] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
-    checkMobile(); // Check on mount
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  // Modal State
   const [selectedActivity, setSelectedActivity] = useState<Activity | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  
+  const containerRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
 
   // Filter activities yang memiliki imageUrl
   const activitiesWithImages = myActivities.filter(activity => activity.imageUrl);
-  const swiperLoop = getSwiperLoopSettings(activitiesWithImages.length);
 
-  const handleCardClick = useCallback((activity: Activity) => {
-    setSelectedActivity(activity);
-    setIsModalOpen(true);
-  }, []);
-
-  const handleCloseModal = useCallback(() => {
-    setIsModalOpen(false);
-  }, []);
-
-  const handleExitComplete = useCallback(() => {
-    setSelectedActivity(null);
-  }, []);
-
-  // Keyboard Navigation (A/D) hanya aktif saat kursor di atas slider ini
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (!isHovered || !swiperInstance) return;
-      if (e.key === 'a' || e.key === 'A') swiperInstance.slidePrev();
-      if (e.key === 'd' || e.key === 'D') swiperInstance.slideNext();
+  useGSAP(() => {
+    if (!containerRef.current || !trackRef.current) return;
+    
+    // Create a scroll trigger that translates the track horizontally
+    const getScrollAmount = () => {
+      const trackWidth = trackRef.current?.scrollWidth || 0;
+      return -(trackWidth - window.innerWidth + window.innerWidth * 0.1); 
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isHovered, swiperInstance]);
+    const tween = gsap.to(trackRef.current, {
+      x: getScrollAmount,
+      ease: "none",
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top top",
+        end: () => `+=${Math.abs(getScrollAmount())}`,
+        pin: true,
+        scrub: 1,
+        invalidateOnRefresh: true, 
+      }
+    });
+
+    return () => tween.kill();
+  }, { scope: containerRef });
+
+  const handleCardClick = (activity: Activity) => {
+    setSelectedActivity(activity);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => setIsModalOpen(false);
+  const handleExitComplete = () => setSelectedActivity(null);
 
   return (
-    <div 
-      className="activity-carousel-section relative"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      {/* Neo-Tokyo Tategaki Watermark */}
-      <div className="slider-tategaki">
+    <div ref={containerRef} className="gsap-activity-section pt-24 pb-16 md:pt-32 md:pb-32 flex flex-col">
+      {/* Tategaki Background Text */}
+      <div className="gsap-tategaki-bg-activity">
         活動
       </div>
 
-      <div className="activity-section-header">
-        <h2 className="text-4xl font-bold mb-8 text-center">{t('activities.title')}</h2>
+      <div className="w-full z-10 px-8 pb-4 text-center md:text-left md:pl-[5vw] shrink-0">
+        <h2 className="text-4xl font-bold mb-2">{t('activities.title')}</h2>
+        <p className="text-muted-foreground font-mono text-sm">[ HORIZONTAL_SCROLL_ENABLED ]</p>
       </div>
       
-      <div className="activity-carousel-container">
-        <button className="activity-nav-btn activity-swiper-button-prev" aria-label="Previous activity">
-          <ChevronLeft size={24} aria-hidden="true" />
-          <span className="nav-key-hint">A</span>
-        </button>
-        
-        <div className="activity-swiper-container">
-          <SwiperReact
-            onSwiper={setSwiperInstance}
-            modules={[Navigation, Pagination, EffectCards, Autoplay, Mousewheel]}
-            effect={isMobile ? "slide" : "cards"}
-            grabCursor={true}
-            touchStartPreventDefault={false}
-            passiveListeners={true}
-            mousewheel={{
-              releaseOnEdges: true,
-              sensitivity: 1,
-            }}
-            navigation={{
-              nextEl: '.activity-swiper-button-next',
-              prevEl: '.activity-swiper-button-prev',
-            }}
-            cardsEffect={{
-              perSlideOffset: 14,
-              perSlideRotate: 3,
-              slideShadows: false,
-            }}
-            autoplay={{
-              delay: 4500,
-              disableOnInteraction: true,
-              pauseOnMouseEnter: true
-            }}
-            pagination={{ clickable: true, el: '.activity-custom-pagination' }}
-            centeredSlides={true}
-            loop={swiperLoop.loop}
-            rewind={swiperLoop.rewind}
-            speed={800}
-            resistanceRatio={0.7}
-            onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
-            className="activity-swiper"
-          >
-            {activitiesWithImages.map((activity, index) => (
-              <SwiperSlide key={index} className="activity-slide">
-                <ActivityCard 
-                  activity={activity} 
-                  isActive={index === activeIndex}
-                  onClick={() => handleCardClick(activity)}
-                  index={index}
-                />
-              </SwiperSlide>
-            ))}
-          </SwiperReact>
+      <div className="flex-1 w-full relative">
+        <div 
+          ref={trackRef} 
+          className="gsap-activity-track"
+        >
+          {activitiesWithImages.map((activity, index) => (
+            <div key={index} className="gsap-activity-card-wrapper">
+              <ActivityCard 
+                activity={activity} 
+                isActive={true}
+                onClick={() => handleCardClick(activity)}
+                index={index}
+              />
+            </div>
+          ))}
         </div>
-        
-        <button className="activity-nav-btn activity-swiper-button-next" aria-label="Next activity">
-          <ChevronRight size={24} aria-hidden="true" />
-          <span className="nav-key-hint">D</span>
-        </button>
-      </div>
-      
-      <div className="activity-custom-pagination" />
-      
-      <div className="activity-progress-indicator">
-        <span className="activity-current">{activeIndex + 1}</span>
-        <span className="activity-separator">/</span>
-        <span className="activity-total">{activitiesWithImages.length}</span>
       </div>
 
       <ActivityModal

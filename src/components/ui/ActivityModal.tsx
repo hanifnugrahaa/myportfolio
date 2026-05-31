@@ -62,6 +62,7 @@ const ActivityModal: React.FC<ActivityModalProps> = ({ activity, isOpen, onClose
             transition={{ type: "spring", damping: 30, stiffness: 200, duration: 0.6 }}
             className="activity-modal-container"
             onClick={(e) => e.stopPropagation()}
+            data-lenis-prevent
           >
             <button className="activity-modal-close-btn" onClick={onClose} aria-label="Close modal">
               <X size={24} aria-hidden="true" />

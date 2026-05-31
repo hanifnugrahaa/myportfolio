@@ -72,7 +72,7 @@ async function fetchUsdToIdrRate(): Promise<string> {
 const USD_IDR_COMMANDS = new Set(['usd idr', 'usd-idr', 'usd']);
 
 const TerminalMode: React.FC<TerminalModeProps> = ({ onClose }) => {
-  const [history, setHistory] = useState<{ command: string, output: string | JSX.Element }[]>([
+  const [history, setHistory] = useState<{ command: string, output: string | React.ReactNode }[]>([
     { command: '', output: 'HanifOS v1.0.0 (tty1)\nType "help" to see available commands.' }
   ]);
   const [input, setInput] = useState('');
@@ -117,7 +117,7 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ onClose }) => {
       return;
     }
 
-    let output: string | JSX.Element = '';
+    let output: string | React.ReactNode = '';
 
     switch (cmdLower) {
       case 'help':
@@ -131,7 +131,7 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ onClose }) => {
         output = 'about.txt   skills.md   projects/   contact.txt';
         break;
       case 'cat about.txt':
-        output = 'An Electronics and Instrumentation student with dual expertise in hardware and software engineering. I translate user needs into tangible solutions through Web Development and the Internet of Things (IoT).';
+        output = 'A Software Engineer with dual expertise in hardware and software engineering. I translate user needs into tangible solutions through Web Development and the Internet of Things (IoT).';
         break;
       case 'cat skills.md':
         output = '# SKILLS\n- Web Development (React, Next.js, TS)\n- Backend (Node.js, Python, APIs)\n- IoT (ESP32, Arduino, MQTT)';
@@ -181,7 +181,7 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ onClose }) => {
   };
 
   return (
-    <div className="terminal-overlay" onClick={() => inputRef.current?.focus()}>
+    <div className="terminal-overlay" onClick={() => inputRef.current?.focus()} data-lenis-prevent>
       <div className="terminal-crt-effect" aria-hidden="true" />
       <div className="terminal-content">
         <div className="terminal-mobile-bar">
