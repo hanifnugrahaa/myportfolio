@@ -1,4 +1,4 @@
-import { skillCategories, projects, myActivities, socials } from '../data';
+import { skillCategories, projects, myActivities } from '../data';
 
 export interface ChatMessage {
   role: 'user' | 'assistant';
