@@ -43,44 +43,7 @@ A state-of-the-art, highly interactive personal portfolio built with React 19, V
 | **UI Library** | Magic UI, Lucide React, react-icons (FA/SI) |
 | **Deployment** | GitHub Pages / Vercel |
 
----
 
-## 🚀 Getting Started
-
-### Prerequisites
-- Node.js (v18+)
-- Firebase Account (for Admin Panel)
-
-### Installation
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/hanifnugrahaa/hanifnugrahaa.github.io.git
-   cd hanifnugrahaa.github.io
-   ```
-
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
-
-3. **Environment Setup:**
-   Create a `.env` file in the root directory and add your Firebase configurations:
-   ```env
-   VITE_FIREBASE_API_KEY=your_api_key
-   VITE_FIREBASE_AUTH_DOMAIN=your_auth_domain
-   VITE_FIREBASE_PROJECT_ID=your_project_id
-   VITE_FIREBASE_STORAGE_BUCKET=your_storage_bucket
-   VITE_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
-   VITE_FIREBASE_APP_ID=your_app_id
-   ```
-
-4. **Run the Development Server:**
-   ```bash
-   npm run dev
-   ```
-
----
 
 ## 📜 License
 
