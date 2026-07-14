@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export const useSecretCode = (secretCode: string) => {
   const [success, setSuccess] = useState(false);
-  const [, setInputBuffer] = useState('');
+  const bufferRef = useRef('');
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -15,13 +15,13 @@ export const useSecretCode = (secretCode: string) => {
       // Abaikan tombol yang bukan karakter tunggal (seperti Shift, Enter)
       if (key.length > 1) return;
       
-      setInputBuffer((prev) => {
-        const newBuffer = (prev + key).slice(-secretCode.length);
-        if (newBuffer === secretCode) {
-          setSuccess(true);
-        }
-        return newBuffer;
-      });
+      const newBuffer = (bufferRef.current + key).slice(-secretCode.length);
+      bufferRef.current = newBuffer;
+
+      if (newBuffer === secretCode) {
+        e.preventDefault();
+        setSuccess(true);
+      }
     };
 
     window.addEventListener('keydown', handleKeyDown);

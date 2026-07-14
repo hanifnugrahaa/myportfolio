@@ -10,9 +10,10 @@ import { NumberTicker } from '../components/magicui/number-ticker';
 import { BlurFade } from '../components/magicui/blur-fade';
 import { BorderBeam } from '../components/magicui/border-beam';
 import { Dock, DockIcon } from '../components/magicui/dock';
-import { WordPullUp } from '../components/magicui/word-pull-up';
+
 import { Particles } from '../components/magicui/particles';
 import { ShinyButton } from '../components/magicui/shiny-button';
+import { MagicCard } from '../components/magicui/magic-card';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Admin: React.FC = () => {
@@ -22,6 +23,7 @@ const Admin: React.FC = () => {
   const [loadingLogs, setLoadingLogs] = useState(true);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'projects' | 'logs'>('dashboard');
   
   // Form State
   const [name, setName] = useState('');
@@ -143,47 +145,102 @@ const Admin: React.FC = () => {
   };
 
   return (
-    <div className="relative min-h-screen w-full bg-neutral-950 text-white overflow-hidden selection:bg-white/30 pb-24">
-      <Particles className="absolute inset-0 z-0" quantity={200} ease={80} color="#ffffff" refresh />
-      <RetroGrid className="z-0 opacity-20 mix-blend-screen" angle={65} cellSize={50} lightLineColor="#ffffff" darkLineColor="#ffffff" />
+    <div className="relative h-screen w-full bg-neutral-950 text-white overflow-hidden selection:bg-white/30 flex flex-col md:flex-row">
+      <Particles className="absolute inset-0 z-0 pointer-events-none" quantity={200} ease={80} color="#ffffff" refresh />
+      <RetroGrid className="z-0 opacity-20 mix-blend-screen pointer-events-none" angle={65} cellSize={50} lightLineColor="#ffffff" darkLineColor="#ffffff" />
       
-      <div className="relative z-10 max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
-        
-        {/* Header */}
-        <header className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-6 bg-neutral-900 p-6 rounded-2xl border border-neutral-700 shadow-2xl">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-neutral-800 rounded-xl flex items-center justify-center border border-neutral-600">
-              <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-            </div>
-            <div>
-              <WordPullUp words="Admin Panel" className="text-2xl font-bold tracking-tight text-white leading-tight text-left drop-shadow-none" />
-              <p className="text-neutral-300 text-sm font-medium">Kendali penuh portofolio, sinkronisasi instan ke seluruh jaringan.</p>
-            </div>
+      {/* Sidebar (Desktop) / Topbar (Mobile) */}
+      <div className="relative z-20 w-full md:w-64 flex-shrink-0 bg-neutral-900/80 backdrop-blur-xl border-b md:border-b-0 md:border-r border-neutral-800 p-6 flex flex-col gap-8 shadow-2xl">
+        <div className="flex items-center gap-4">
+          <div className="w-10 h-10 bg-neutral-800 rounded-xl flex items-center justify-center border border-neutral-600">
+            <span className="text-white font-black text-xl tracking-tighter">HN</span>
           </div>
-        </header>
-
-        {/* Stats & Actions */}
-        <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
-          <div className="bg-neutral-900 px-6 py-4 rounded-2xl border border-neutral-700 flex items-center gap-4 w-full sm:w-auto">
-            <div className="p-3 bg-neutral-800 rounded-lg border border-neutral-600">
-              <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-              </svg>
-            </div>
-            <div>
-              <p className="text-neutral-400 text-xs font-semibold uppercase tracking-wider">Total Proyek</p>
-              <h3 className="text-2xl font-bold text-white leading-none mt-1">
-                {projects.length > 0 ? <NumberTicker value={projects.length} /> : '0'}
-              </h3>
-            </div>
+          <div>
+            <h1 className="text-lg font-bold text-white tracking-tight">Admin Panel</h1>
+            <p className="text-neutral-500 text-[10px] uppercase tracking-widest font-semibold">CMS</p>
           </div>
         </div>
 
-        {/* Project Grid List Section */}
-        <div className="w-full">
+        <nav className="flex md:flex-col gap-2 overflow-x-auto md:overflow-visible pb-2 md:pb-0 hide-scrollbar">
+          <button 
+            onClick={() => setActiveTab('dashboard')}
+            className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${activeTab === 'dashboard' ? 'bg-white text-black shadow-[0_0_20px_rgba(255,255,255,0.3)]' : 'text-neutral-400 hover:text-white hover:bg-neutral-800'}`}
+          >
+            <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+            </svg>
+            <span className="font-semibold text-sm whitespace-nowrap">Dashboard</span>
+          </button>
+          <button 
+            onClick={() => setActiveTab('projects')}
+            className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${activeTab === 'projects' ? 'bg-white text-black shadow-[0_0_20px_rgba(255,255,255,0.3)]' : 'text-neutral-400 hover:text-white hover:bg-neutral-800'}`}
+          >
+            <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+            </svg>
+            <span className="font-semibold text-sm whitespace-nowrap">Projects</span>
+          </button>
+          <button 
+            onClick={() => setActiveTab('logs')}
+            className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${activeTab === 'logs' ? 'bg-white text-black shadow-[0_0_20px_rgba(255,255,255,0.3)]' : 'text-neutral-400 hover:text-white hover:bg-neutral-800'}`}
+          >
+            <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+            <span className="font-semibold text-sm whitespace-nowrap">CV Logs</span>
+          </button>
+        </nav>
+      </div>
+      
+      <div className="relative z-10 flex-1 px-4 py-8 sm:px-8 h-full overflow-y-auto pb-32" data-lenis-prevent>
+        <AnimatePresence mode="wait">
+          {activeTab === 'dashboard' && (
+            <motion.div
+              key="dashboard"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="flex flex-col gap-6"
+            >
+              <div className="bg-neutral-900 p-8 rounded-3xl border border-neutral-800 relative overflow-hidden">
+                <BorderBeam size={200} duration={12} delay={0} />
+                <h2 className="text-2xl font-bold mb-2 text-white">Welcome back, Admin!</h2>
+                <p className="text-neutral-400 text-sm">Berikut adalah ringkasan singkat dari portofoliomu.</p>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8">
+                  <div className="bg-neutral-800/50 p-6 rounded-2xl border border-neutral-700">
+                    <p className="text-neutral-400 text-xs font-semibold uppercase tracking-wider mb-2">Total Proyek</p>
+                    <h3 className="text-4xl font-bold text-white">
+                      {projects.length > 0 ? <NumberTicker value={projects.length} /> : '0'}
+                    </h3>
+                  </div>
+                  <div className="bg-neutral-800/50 p-6 rounded-2xl border border-neutral-700">
+                    <p className="text-neutral-400 text-xs font-semibold uppercase tracking-wider mb-2">Total Unduhan CV</p>
+                    <h3 className="text-4xl font-bold text-white">
+                      {cvLogs.length > 0 ? <NumberTicker value={cvLogs.length} /> : '0'}
+                    </h3>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {activeTab === 'projects' && (
+            <motion.div
+              key="projects"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+            >
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-xl font-bold flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-white"></span>
+                  [ PROJECTS_MANAGER ]
+                </h2>
+                <ShinyButton onClick={() => setIsModalOpen(true)} className="bg-white text-black border-none rounded-xl text-sm font-bold shadow-[0_0_15px_rgba(255,255,255,0.4)]">
+                  + Add Project
+                </ShinyButton>
+              </div>
           {loading && projects.length === 0 ? (
             <div className="py-20 flex flex-col items-center justify-center text-neutral-400 space-y-4 bg-neutral-900 rounded-3xl border border-neutral-700">
               <div className="w-8 h-8 border-2 border-neutral-600 border-t-white rounded-full animate-spin"></div>
@@ -194,12 +251,11 @@ const Admin: React.FC = () => {
               <AnimatePresence>
                 {projects.map((p, index) => (
                   <BlurFade key={p.id} delay={0.1 * index} inView>
-                    <div className="group flex flex-col p-5 bg-neutral-900 rounded-3xl border border-neutral-700 transition-colors duration-300 hover:border-neutral-500 shadow-xl h-full relative overflow-hidden">
-                      <BorderBeam size={150} duration={12} delay={9} className="opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <MagicCard className="group flex flex-col p-5 bg-neutral-900/50 rounded-3xl border border-neutral-700 transition-colors duration-300 hover:border-neutral-500 shadow-xl h-full relative" gradientColor="rgba(255,255,255,0.05)" gradientSize={250}>
                       
                       {p.imageUrl ? (
                         <div className="w-full aspect-video rounded-xl overflow-hidden mb-5 border border-neutral-700 relative">
-                          <div className="absolute inset-0 bg-black/10 z-10 pointer-events-none group-hover:bg-transparent transition-colors"></div>
+                          <div className="absolute inset-0 bg-black/20 z-10 pointer-events-none group-hover:bg-transparent transition-colors"></div>
                           <img src={p.imageUrl} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                         </div>
                       ) : (
@@ -209,38 +265,38 @@ const Admin: React.FC = () => {
                       )}
                       
                       <div className="flex-1 flex flex-col">
-                        <h4 className="text-xl font-bold text-white mb-2 tracking-tight">{p.name}</h4>
-                        <p className="text-sm font-medium text-neutral-400 mb-4 line-clamp-2">{p.description}</p>
+                        <h4 className="text-xl font-bold text-white mb-2 tracking-tight relative z-20">{p.name}</h4>
+                        <p className="text-sm font-medium text-neutral-400 mb-4 line-clamp-2 relative z-20">{p.description}</p>
                         
-                        <div className="flex flex-wrap gap-2 mb-6">
+                        <div className="flex flex-wrap gap-2 mb-6 relative z-20">
                           {p.techStack.slice(0, 3).map(tech => (
-                            <span key={tech} className="bg-neutral-800 text-neutral-300 text-[10px] px-2 py-1 rounded-md border border-neutral-700 uppercase tracking-wider font-semibold">
+                            <span key={tech} className="bg-neutral-800/80 text-neutral-300 text-[10px] px-2 py-1 rounded-md border border-neutral-700 uppercase tracking-wider font-semibold backdrop-blur-md">
                               {tech}
                             </span>
                           ))}
                           {p.techStack.length > 3 && (
-                            <span className="bg-neutral-800 text-neutral-400 text-[10px] px-2 py-1 rounded-md border border-neutral-700 font-semibold">
+                            <span className="bg-neutral-800/80 text-neutral-400 text-[10px] px-2 py-1 rounded-md border border-neutral-700 font-semibold backdrop-blur-md">
                               +{p.techStack.length - 3}
                             </span>
                           )}
                         </div>
                       </div>
                       
-                      <div className="flex gap-3 mt-auto pt-4 border-t border-neutral-800 relative z-10">
+                      <div className="flex gap-3 mt-auto pt-4 border-t border-neutral-800/50 relative z-20">
                         <ShinyButton 
                           onClick={() => handleEdit(p)} 
-                          className="flex-1 bg-neutral-800 hover:bg-neutral-700 text-white border border-neutral-600 !rounded-xl text-sm"
+                          className="flex-1 bg-neutral-800/80 hover:bg-neutral-700 text-white border border-neutral-600 !rounded-xl text-sm backdrop-blur-md"
                         >
                           Edit
                         </ShinyButton>
                         <ShinyButton 
                           onClick={() => handleDelete(p.id)} 
-                          className="flex-1 bg-red-950 hover:bg-red-900 text-red-100 border border-red-800 !rounded-xl text-sm"
+                          className="flex-1 bg-red-950/80 hover:bg-red-900 text-red-100 border border-red-800/50 !rounded-xl text-sm backdrop-blur-md"
                         >
                           Hapus
                         </ShinyButton>
                       </div>
-                    </div>
+                    </MagicCard>
                   </BlurFade>
                 ))}
               </AnimatePresence>
@@ -252,54 +308,62 @@ const Admin: React.FC = () => {
               )}
             </div>
           )}
-        </div>
+        </motion.div>
+      )}
 
-        {/* Section: CV Access Logs */}
-        <div className="mt-16">
-          <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-white"></span>
-            [ CV_ACCESS_LOGS ]
-          </h2>
-          <div className="bg-neutral-900 border border-neutral-800 rounded-3xl overflow-hidden p-6 relative">
-            <BorderBeam size={200} duration={12} delay={0} />
-            {loadingLogs ? (
-              <div className="flex justify-center p-8">
-                <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+          {activeTab === 'logs' && (
+            <motion.div
+              key="logs"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+            >
+              <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-white"></span>
+                [ CV_ACCESS_LOGS ]
+              </h2>
+              <div className="bg-neutral-900 border border-neutral-800 rounded-3xl overflow-hidden p-6 relative">
+                <BorderBeam size={200} duration={12} delay={0} />
+                {loadingLogs ? (
+                  <div className="flex justify-center p-8">
+                    <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  </div>
+                ) : cvLogs.length === 0 ? (
+                  <div className="text-center py-12 text-neutral-500 text-sm">Belum ada yang mengakses CV.</div>
+                ) : (
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left text-sm whitespace-nowrap">
+                      <thead>
+                        <tr className="border-b border-neutral-800 text-neutral-500 uppercase tracking-wider text-xs">
+                          <th className="pb-4 font-semibold px-4">Waktu</th>
+                          <th className="pb-4 font-semibold px-4">Dokumen</th>
+                          <th className="pb-4 font-semibold px-4">Pesan / Identitas</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {cvLogs.map((log) => (
+                          <tr key={log.id} className="border-b border-neutral-800/50 hover:bg-neutral-800/50 transition-colors">
+                            <td className="py-4 px-4 text-neutral-400 font-mono text-xs">
+                              {log.timestamp ? new Date(log.timestamp.seconds * 1000).toLocaleString('id-ID') : 'Baru saja'}
+                            </td>
+                            <td className="py-4 px-4">
+                              <span className="px-2 py-1 bg-neutral-800 border border-neutral-700 rounded-md text-xs font-mono text-neutral-300">
+                                {log.document}
+                              </span>
+                            </td>
+                            <td className="py-4 px-4 font-medium text-white">
+                              {log.message}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
               </div>
-            ) : cvLogs.length === 0 ? (
-              <div className="text-center py-12 text-neutral-500 text-sm">Belum ada yang mengakses CV.</div>
-            ) : (
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-sm whitespace-nowrap">
-                  <thead>
-                    <tr className="border-b border-neutral-800 text-neutral-500 uppercase tracking-wider text-xs">
-                      <th className="pb-4 font-semibold px-4">Waktu</th>
-                      <th className="pb-4 font-semibold px-4">Dokumen</th>
-                      <th className="pb-4 font-semibold px-4">Pesan / Identitas</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {cvLogs.map((log) => (
-                      <tr key={log.id} className="border-b border-neutral-800/50 hover:bg-neutral-800/50 transition-colors">
-                        <td className="py-4 px-4 text-neutral-400 font-mono text-xs">
-                          {log.timestamp ? new Date(log.timestamp.seconds * 1000).toLocaleString('id-ID') : 'Baru saja'}
-                        </td>
-                        <td className="py-4 px-4">
-                          <span className="px-2 py-1 bg-neutral-800 border border-neutral-700 rounded-md text-xs font-mono text-neutral-300">
-                            {log.document}
-                          </span>
-                        </td>
-                        <td className="py-4 px-4 font-medium text-white">
-                          {log.message}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </div>
-        </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Modal Overlay for Form */}
         <AnimatePresence>

@@ -69,7 +69,6 @@ function Portfolio() {
       {!isTerminalMode && (
         <>
           <ThemeTransitionOverlay isActive={isTransitioningTheme} />
-          <CustomCursor />
           {isBooting && <LoadingScreen onComplete={() => setIsBooting(false)} />}
 
           <Header toggleTheme={toggleTheme} theme={theme} />
@@ -151,15 +150,18 @@ function Portfolio() {
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Portfolio />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/admin" element={
-        <ProtectedRoute>
-          <Admin />
-        </ProtectedRoute>
-      } />
-    </Routes>
+    <>
+      <CustomCursor />
+      <Routes>
+        <Route path="/" element={<Portfolio />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/admin" element={
+          <ProtectedRoute>
+            <Admin />
+          </ProtectedRoute>
+        } />
+      </Routes>
+    </>
   );
 }
 

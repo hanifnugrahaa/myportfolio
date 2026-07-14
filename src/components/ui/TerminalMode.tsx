@@ -171,6 +171,11 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ onClose }) => {
       case 'exit':
         onClose();
         return;
+      case 'admin':
+      case 'login':
+        window.location.href = '/admin';
+        output = 'Initiating secure connection to Admin Panel...';
+        break;
       case 'sudo':
         output = 'hanif is not in the sudoers file. This incident will be reported.';
         break;
@@ -290,6 +295,7 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ onClose }) => {
               <span className="terminal-user">guest@hanif-os</span>:<span className="terminal-dir">~</span>$
             </span>
             <input
+              ref={inputRef}
               type="text"
               value={input}
               onChange={(e) => {

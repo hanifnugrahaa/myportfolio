@@ -340,7 +340,6 @@ body.dark .hero-glass-card {
 }
 
 .hero-cta-card:hover {
-  transform: translateY(-5px) !important; /* Override GSAP slightly if hovered */
   border-color: rgba(var(--accent-rgb, 99, 102, 241), 0.4);
   box-shadow: 
     0 15px 35px rgba(0, 0, 0, 0.15),

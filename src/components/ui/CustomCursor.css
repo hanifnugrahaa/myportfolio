@@ -5,7 +5,8 @@
   left: 0;
   width: 6px;
   height: 6px;
-  background-color: var(--accent-color);
+  background-color: #fff;
+  mix-blend-mode: difference;
   border-radius: 50%;
   pointer-events: none;
   z-index: 999999;
@@ -22,7 +23,8 @@
   left: 0;
   width: 36px;
   height: 36px;
-  border: 1.5px solid var(--accent-color);
+  border: 1.5px solid #fff;
+  mix-blend-mode: difference;
   border-radius: 50%;
   pointer-events: none;
   z-index: 999998;
@@ -36,7 +38,8 @@
   height: 50px;
   margin-left: -25px;
   margin-top: -25px;
-  background-color: var(--accent-color);
-  opacity: 0.15;
+  background-color: #fff;
+  opacity: 1;
   border-color: transparent;
+  mix-blend-mode: difference;
 }
