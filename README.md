@@ -1,6 +1,6 @@
 # 🚀 Hanif Nugraha - Interactive Portfolio
 
-A state-of-the-art, highly interactive personal portfolio built with React 19, Vite, and TypeScript. This project blends a sleek **Cyberpunk / Neo-Tokyo** aesthetic with **Glassmorphism**, featuring complex scroll animations, a hidden administrative dashboard, and real-time CV access tracking.
+A state-of-the-art, highly interactive personal portfolio built with React 19, Vite, and TypeScript. This project blends a sleek **Neo-Japan** aesthetic with **Glassmorphism**, featuring complex scroll animations, a hidden administrative dashboard, and real-time CV access tracking.
 
 [![MIT License](https://img.shields.io/github/license/hanifnugrahaa/hanifnugrahaa.github.io?style=flat-square)](https://choosealicense.com/licenses/mit/)
 [![GitHub last commit](https://img.shields.io/github/last-commit/hanifnugrahaa/hanifnugrahaa.github.io?style=flat-square)](https://github.com/hanifnugrahaa/hanifnugrahaa.github.io/commits/main)
@@ -11,7 +11,7 @@ A state-of-the-art, highly interactive personal portfolio built with React 19, V
 
 ## 🌟 Key Features
 
-### 🎨 Premium Cyberpunk UI & UX
+### 🎨 Premium Neo-Japan UI & UX
 - **Immersive Aesthetic:** Minimalist dark mode with glowing accents, glassmorphism, and CRT scanlines.
 - **Fluid Animations:** Powered by **GSAP** (ScrollTrigger) and **Framer Motion** for complex staggering, page transitions, and element pinning.
 - **Smooth Scrolling:** Integrated **Lenis** for a silky-smooth, native-feeling scroll experience across all devices.
@@ -23,7 +23,7 @@ A state-of-the-art, highly interactive personal portfolio built with React 19, V
 - **Base64 Image Compression:** Client-side image compression using `Canvas API` before uploading to Firestore, bypassing the need for Firebase Storage.
 
 ### 🕵️‍♂️ CV Access Logs (Guestbook)
-- **Security Clearance Gate:** Recruiter tracking system disguised as a cyberpunk terminal. Users are prompted to leave their name/company before downloading the CV.
+- **Security Clearance Gate:** Recruiter tracking system disguised as a Neo-Japan terminal. Users are prompted to leave their name/company before downloading the CV.
 - **Real-time Monitoring:** Visitor logs are instantly sent to Firestore and displayed on the Admin Dashboard for easy tracking of potential leads.
 
 ### ⚡ Dynamic Data & Integrations
