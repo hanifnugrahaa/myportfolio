@@ -15,8 +15,27 @@ const ChatBot: React.FC = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
 
   const greeting = i18n.language === 'id' ? CHAT_GREETING.id : CHAT_GREETING.en;
+
+  // Handle click outside to close
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        isOpen &&
+        chatContainerRef.current &&
+        !chatContainerRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen]);
 
   useEffect(() => {
     if (isOpen && messages.length === 0) {
@@ -82,7 +101,7 @@ const ChatBot: React.FC = () => {
   };
 
   return (
-    <>
+    <div ref={chatContainerRef} className="chat-container-wrapper">
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -168,7 +187,7 @@ const ChatBot: React.FC = () => {
       >
         {isOpen ? <X size={22} /> : <MessageCircle size={24} />}
       </button>
-    </>
+    </div>
   );
 };
 

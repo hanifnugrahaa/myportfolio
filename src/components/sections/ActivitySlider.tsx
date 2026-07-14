@@ -12,7 +12,7 @@ const ActivitySlider: React.FC = () => {
   const { t } = useTranslation();
   const [selectedActivity, setSelectedActivity] = useState<Activity | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
+
   const containerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
 
@@ -21,27 +21,54 @@ const ActivitySlider: React.FC = () => {
 
   useGSAP(() => {
     if (!containerRef.current || !trackRef.current) return;
-    
-    // Create a scroll trigger that translates the track horizontally
-    const getScrollAmount = () => {
-      const trackWidth = trackRef.current?.scrollWidth || 0;
-      return -(trackWidth - window.innerWidth + window.innerWidth * 0.1); 
-    };
 
-    const tween = gsap.to(trackRef.current, {
-      x: getScrollAmount,
-      ease: "none",
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top top",
-        end: () => `+=${Math.abs(getScrollAmount())}`,
-        pin: true,
-        scrub: 1,
-        invalidateOnRefresh: true, 
+    const mm = gsap.matchMedia();
+
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      // Create a scroll trigger that translates the track horizontally
+      const getScrollAmount = () => {
+        const trackWidth = trackRef.current?.scrollWidth || 0;
+        return -(trackWidth - window.innerWidth + window.innerWidth * 0.1);
+      };
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          // Total distance = scroll amount / 0.7 (since scrolling takes 70% of timeline)
+          end: () => `+=${Math.abs(getScrollAmount()) / 0.7}`,
+          pin: true,
+          scrub: 1,
+          invalidateOnRefresh: true,
+        }
+      });
+
+      // 1. Lock/pause at the START (15% of scroll distance)
+      tl.to({}, { duration: 0.15 });
+
+      // 2. Horizontal scroll (70% of scroll distance)
+      tl.to(trackRef.current, {
+        x: getScrollAmount,
+        ease: "none",
+        duration: 0.7
+      });
+
+      // 3. Lock/pause at the END (15% of scroll distance)
+      tl.to({}, { duration: 0.15 });
+
+      return () => tl.kill();
+    });
+
+    mm.add("(prefers-reduced-motion: reduce)", () => {
+      // Fallback for reduced motion: standard horizontal scroll
+      gsap.set(trackRef.current, { clearProps: "x" });
+      if (containerRef.current) {
+        containerRef.current.style.overflowX = 'auto';
+        containerRef.current.style.overflowY = 'hidden';
       }
     });
 
-    return () => tween.kill();
+    return () => mm.revert();
   }, { scope: containerRef });
 
   const handleCardClick = (activity: Activity) => {
@@ -63,16 +90,16 @@ const ActivitySlider: React.FC = () => {
         <h2 className="text-4xl font-bold mb-2">{t('activities.title')}</h2>
         <p className="text-muted-foreground font-mono text-sm">[ HORIZONTAL_SCROLL_ENABLED ]</p>
       </div>
-      
+
       <div className="flex-1 w-full relative">
-        <div 
-          ref={trackRef} 
+        <div
+          ref={trackRef}
           className="gsap-activity-track"
         >
           {activitiesWithImages.map((activity, index) => (
             <div key={index} className="gsap-activity-card-wrapper">
-              <ActivityCard 
-                activity={activity} 
+              <ActivityCard
+                activity={activity}
                 isActive={true}
                 onClick={() => handleCardClick(activity)}
                 index={index}

@@ -3,6 +3,7 @@ import React, { useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ExternalLink } from 'lucide-react';
+import { TechIcon } from './TechIcon';
 import './ProjectModal.css';
 import { Project } from '../../data';
 
@@ -92,8 +93,8 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose, o
             </button>
 
             <div className="modal-grid-layout">
-              {/* --- KIRI: HERO (GAMBAR/VIDEO) --- */}
-              <div className="modal-left-pane">
+              {/* --- ATAS: HERO (GAMBAR/VIDEO HORIZONTAL) --- */}
+              <div className="modal-hero-pane">
                 {isVideo ? (
                   <video className="modal-media" autoPlay loop muted playsInline>
                     <source src={project.imageUrl} type="video/mp4" />
@@ -103,9 +104,9 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose, o
                 )}
               </div>
               
-              {/* --- KANAN: DETAIL PROYEK (CYBERPUNK DOSSIER) --- */}
+              {/* --- BAWAH: DETAIL PROYEK (CYBERPUNK DOSSIER) --- */}
               <motion.div 
-                className="modal-right-pane editorial-grid"
+                className="modal-details-pane"
                 variants={staggerContainer}
                 initial="hidden"
                 animate="show"
@@ -119,54 +120,63 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose, o
                   <span className="blinking-status">DECRYPTED</span>
                 </motion.div>
 
-                <motion.h2 variants={fadeUpVariant} className="modal-title cyberpunk-type-modal">
-                  {project.name}
-                </motion.h2>
-                
-                <motion.div variants={fadeUpVariant} className="modal-section-spacing border-section">
-                  <div className="section-title-bracket">[ SYSTEM_OVERVIEW ]</div>
-                  <p className="modal-description">{project.description}</p>
-                </motion.div>
+                <div className="details-grid-layout">
+                  <div className="details-main">
+                    <motion.h2 variants={fadeUpVariant} className="modal-title cyberpunk-type-modal">
+                      {project.name}
+                    </motion.h2>
+                    
+                    <motion.div variants={fadeUpVariant} className="modal-section-spacing border-section">
+                      <div className="section-title-bracket">[ SYSTEM_OVERVIEW ]</div>
+                      <p className="modal-description">{project.description}</p>
+                    </motion.div>
+                  </div>
 
-                {metrics.length > 0 && (
-                  <motion.div variants={fadeUpVariant} className="modal-section-spacing border-section">
-                    <div className="section-title-bracket">[ IMPACT_METRICS ]</div>
-                    <div className="metrics-bento-grid">
-                      {metrics.map((metric, idx) => (
-                        <div key={idx} className="metric-bento-box">
-                          <div className={`metric-bento-value ${(metric.value && metric.value.length > 6) ? 'long-value' : ''}`}>
-                            {metric.value}
-                          </div>
-                          <div className="metric-bento-label">{metric.label}</div>
+                  <div className="details-sidebar">
+                    {metrics.length > 0 && (
+                      <motion.div variants={fadeUpVariant} className="modal-section-spacing border-section">
+                        <div className="section-title-bracket">[ IMPACT_METRICS ]</div>
+                        <div className="metrics-bento-grid">
+                          {metrics.map((metric, idx) => (
+                            <div key={idx} className="metric-bento-box">
+                              <div className={`metric-bento-value ${(metric.value && metric.value.length > 6) ? 'long-value' : ''}`}>
+                                {metric.value}
+                              </div>
+                              <div className="metric-bento-label">{metric.label}</div>
+                            </div>
+                          ))}
                         </div>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
+                      </motion.div>
+                    )}
 
-                {project.techStack && (
-                  <motion.div variants={fadeUpVariant} className="modal-section-spacing border-section">
-                    <div className="section-title-bracket">[ CORE_TECHNOLOGIES ]</div>
-                    <div className="tech-stack-flex">
-                      {project.techStack.map((tech, idx) => (
-                        <span key={idx} className="tech-pill">{tech}</span>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
+                    {project.techStack && (
+                      <motion.div variants={fadeUpVariant} className="modal-section-spacing border-section">
+                        <div className="section-title-bracket">[ CORE_TECHNOLOGIES ]</div>
+                        <div className="tech-stack-flex">
+                          {project.techStack.map((tech, idx) => (
+                            <span key={idx} className="tech-pill flex items-center gap-1.5">
+                               <TechIcon name={tech} className="w-4 h-4" />
+                               {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
 
-                <motion.div variants={fadeUpVariant} className="modal-action-footer">
-                  {project.githubUrl && (
-                    <a 
-                      href={project.githubUrl} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="btn btn-primary"
-                    >
-                      <ExternalLink size={18} aria-hidden="true" /> View Project
-                    </a>
-                  )}
-                </motion.div>
+                    <motion.div variants={fadeUpVariant} className="modal-action-footer">
+                      {project.githubUrl && (
+                        <a 
+                          href={project.githubUrl} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="btn btn-primary"
+                        >
+                          <ExternalLink size={18} aria-hidden="true" /> View Project
+                        </a>
+                      )}
+                    </motion.div>
+                  </div>
+                </div>
               </motion.div>
             </div>
           </motion.div>

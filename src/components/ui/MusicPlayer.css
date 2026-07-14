@@ -1,0 +1,66 @@
+.music-player-container {
+  position: fixed;
+  bottom: max(20px, env(safe-area-inset-bottom, 20px));
+  right: 80px; /* Position it left of the terminal/chat buttons */
+  z-index: 9999;
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  flex-direction: column;
+}
+
+.music-toggle-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(20, 20, 20, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  align-self: flex-end;
+}
+
+body.dark .music-toggle-btn {
+  background: rgba(40, 40, 40, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.music-toggle-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  background: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
+  box-shadow: 0 8px 20px rgba(var(--accent-rgb, 99, 102, 241), 0.3);
+}
+
+.music-player-panel {
+  width: 300px;
+  height: 152px;
+  background: transparent;
+  border-radius: 12px;
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  pointer-events: none;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transform-origin: bottom right;
+}
+
+.music-player-container.open .music-player-panel {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+@media (max-width: 768px) {
+  .music-player-container {
+    right: 70px;
+    bottom: max(20px, env(safe-area-inset-bottom, 20px));
+  }
+}

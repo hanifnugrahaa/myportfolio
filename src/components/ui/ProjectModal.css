@@ -40,31 +40,24 @@
   overflow-y: auto;
 }
 
-/* Media Query untuk Desktop (Split-screen 2-kolom) */
+/* Media Query untuk Desktop (Top-Down Layout) */
 @media (min-width: 900px) {
   .modal-grid-layout {
-    flex-direction: row;
-    overflow-y: hidden;
-    height: 70vh; /* Fixed height for split screen */
-    min-height: 550px;
+    /* Menghapus flex-direction: row karena sekarang hero (gambar) di atas */
   }
 }
 
-.modal-left-pane {
-  flex: 1;
+.modal-hero-pane {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 55vh;
   background: var(--bg-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   overflow: hidden;
-}
-
-@media (max-width: 899px) {
-  .modal-left-pane {
-    min-height: 250px;
-    height: 35vh;
-  }
+  flex-shrink: 0;
 }
 
 .modal-media {
@@ -73,10 +66,31 @@
   object-fit: cover;
 }
 
-.modal-right-pane {
-  flex: 1;
+.modal-details-pane {
   padding: 40px;
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.details-grid-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+
+@media (min-width: 900px) {
+  .details-grid-layout {
+    grid-template-columns: 1.5fr 1fr;
+    gap: 60px;
+  }
+}
+
+.details-main {
+  display: flex;
+  flex-direction: column;
+}
+
+.details-sidebar {
   display: flex;
   flex-direction: column;
 }
@@ -249,15 +263,15 @@ body.dark .metric-bento-box::after {
 .btn-primary:hover { transform: translateY(-2px); opacity: 0.9; }
 
 /* Custom Scrollbar minimalis untuk Modal */
-.modal-right-pane::-webkit-scrollbar { width: 6px; }
-.modal-right-pane::-webkit-scrollbar-track { background: transparent; }
-.modal-right-pane::-webkit-scrollbar-thumb {
+.modal-grid-layout::-webkit-scrollbar { width: 6px; }
+.modal-grid-layout::-webkit-scrollbar-track { background: transparent; }
+.modal-grid-layout::-webkit-scrollbar-thumb {
   background: rgba(128, 128, 128, 0.3);
   border-radius: 10px;
 }
 
 @media (max-width: 600px) {
-  .modal-right-pane { padding: 24px; }
+  .modal-details-pane { padding: 24px; }
   .cyberpunk-type-modal { font-size: 2rem; }
 }
 

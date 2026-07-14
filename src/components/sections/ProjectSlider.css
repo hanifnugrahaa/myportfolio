@@ -2,7 +2,8 @@
 .gsap-project-section {
   position: relative;
   width: 100%;
-  height: 100vh; /* Will be pinned */
+  height: 100dvh; /* Will be pinned */
+  min-height: 550px;
   overflow: hidden;
   background-color: var(--bg-primary);
 }
@@ -12,27 +13,27 @@
   height: 100%;
   align-items: center;
   padding-left: 5vw;
-  padding-right: 40vw;
+  padding-right: 5vw;
   width: max-content;
   will-change: transform;
 }
 
 .gsap-project-card-wrapper {
   flex-shrink: 0;
-  width: 320px;
+  width: 480px;
   margin-right: 2rem;
 }
 
 @media (min-width: 768px) {
   .gsap-project-card-wrapper {
-    width: 400px;
+    width: 600px;
     margin-right: 3rem;
   }
 }
 
 @media (min-width: 1024px) {
   .gsap-project-card-wrapper {
-    width: 450px;
+    width: 675px;
     margin-right: 4rem;
   }
 }

@@ -20,20 +20,19 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
     "READY...?!"
   ];
 
+  const intervalRef = React.useRef<number | null>(null);
+
   useEffect(() => {
     // Lock scroll
     document.body.style.overflow = 'hidden';
 
     // Simulate progress
-    const interval = setInterval(() => {
+    intervalRef.current = window.setInterval(() => {
       setProgress(prev => {
+        // PURE function: no side effects like clearInterval here!
         // Increment progress rapidly
         const next = prev + Math.floor(Math.random() * 10) + 1;
-        if (next >= 100) {
-          clearInterval(interval);
-          return 100;
-        }
-        return next;
+        return next >= 100 ? 100 : next;
       });
     }, 120);
 
@@ -47,13 +46,14 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
     }, 500);
 
     return () => {
-      clearInterval(interval);
+      if (intervalRef.current !== null) clearInterval(intervalRef.current);
       clearInterval(textInterval);
     };
   }, []);
 
   useEffect(() => {
     if (progress === 100) {
+      if (intervalRef.current !== null) clearInterval(intervalRef.current);
       setTimeout(() => {
         // Trigger the diagonal split animation
         setIsExiting(true);
@@ -92,6 +92,8 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
           >
             {/* Decorative Background Elements */}
             <div className="val-bg-logo">HN</div>
+            <div className="val-texture-overlay"></div>
+            <div className="val-scanlines"></div>
 
             <div className="val-content-wrapper">
               <div className="val-tagline">

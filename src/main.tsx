@@ -12,10 +12,23 @@ import { useGSAP } from '@gsap/react'
 
 gsap.registerPlugin(useGSAP, ScrollTrigger)
 
+// Force browser to ALWAYS start at the top on refresh
+if (typeof window !== 'undefined') {
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+  window.scrollTo(0, 0);
+  ScrollTrigger.clearScrollMemory('manual');
+}
+
+import { BrowserRouter } from 'react-router-dom'
+
 createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>
-    <ReactLenis root options={{ lerp: 0.05, wheelMultiplier: 0.9, smoothWheel: true }}>
-      <App />
-    </ReactLenis>
+    <BrowserRouter>
+      <ReactLenis root options={{ lerp: 0.05, wheelMultiplier: 0.9, smoothWheel: true }}>
+        <App />
+      </ReactLenis>
+    </BrowserRouter>
   </StrictMode>,
 )

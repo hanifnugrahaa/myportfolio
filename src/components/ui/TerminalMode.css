@@ -284,3 +284,30 @@
     font-size: 15px;
   }
 }
+
+/* =========================================
+   MATRIX MODE EASTER EGG
+   ========================================= */
+.terminal-overlay.matrix-mode {
+  background-color: #000;
+  color: #0f0;
+  text-shadow: 0 0 5px #0f0, 0 0 10px #0f0;
+  animation: matrix-pulse 2s infinite alternate;
+}
+.terminal-overlay.matrix-mode .terminal-output,
+.terminal-overlay.matrix-mode .terminal-input,
+.terminal-overlay.matrix-mode .terminal-entry,
+.terminal-overlay.matrix-mode .terminal-user,
+.terminal-overlay.matrix-mode .terminal-dir {
+  color: #0f0 !important;
+  text-shadow: 0 0 5px #0f0;
+}
+.terminal-overlay.matrix-mode .terminal-crt-effect {
+  opacity: 0.3;
+  background: linear-gradient(rgba(0, 255, 0, 0) 50%, rgba(0, 255, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+  background-size: 100% 2px, 3px 100%;
+}
+@keyframes matrix-pulse {
+  0% { text-shadow: 0 0 5px #0f0, 0 0 10px #0f0; }
+  100% { text-shadow: 0 0 8px #0f0, 0 0 20px #0f0; }
+}

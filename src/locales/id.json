@@ -15,7 +15,7 @@
   },
   "about": {
     "title": "Tentang Saya",
-    "description": "Seorang Software Engineer dengan keahlian ganda dalam rekayasa perangkat keras dan perangkat lunak. Saya menerjemahkan kebutuhan pengguna menjadi solusi nyata melalui Pengembangan Web dan Internet of Things (IoT). Fokus utama saya adalah menciptakan sistem terintegrasi dengan memprioritaskan pengalaman pengguna. Siap untuk menerapkan kemampuan belajar cepat saya di lingkungan yang dinamis dan inovatif.",
+    "description": "Sebagai seorang Software Engineer dengan keahlian ganda di bidang hardware dan software, saya berfokus pada arsitektur sistem yang terukur dan berdampak tinggi. Rekam jejak saya mencakup pengembangan ekosistem ERP komprehensif (mengintegrasikan POS, WMS, dan alur purchasing antar departemen), dashboard IoT tingkat lanjut dengan pelacakan peta real-time, integrasi Computer Vision, analitik data lintas-gateway dengan RBAC, hingga perancangan platform e-commerce visual-driven. Saya bangga mampu menerjemahkan operasi bisnis dan kebutuhan teknis yang rumit menjadi solusi digital yang mulus dan berpusat pada pengguna.",
     "view_cv": "Lihat CV",
     "view_shokumukeirekisho": "Lihat Shokumukeirekisho"
   },
@@ -40,11 +40,11 @@
     "linkedin": "Terhubung di LinkedIn"
   },
   "chat": {
-    "title": "Tanya tentang Hanif",
+    "title": "Ceritakan kebutuhanmu",
     "subtitleAi": "Asisten AI · jawaban dari data portfolio",
-    "subtitleGemini": "Didukung Google Gemini AI",
+    "subtitleGemini": "Didukung oleh AI",
     "subtitleLocal": "Jawaban cepat · tambah API key untuk AI penuh",
-    "placeholder": "Tanya soal keahlian, proyek, kontak…",
+    "placeholder": "Ceritakan proyek impianmu atau tanyakan sesuatu...",
     "thinking": "Sedang berpikir…",
     "send": "Kirim",
     "open": "Buka chat",

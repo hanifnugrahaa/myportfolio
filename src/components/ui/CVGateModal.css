@@ -1,0 +1,131 @@
+.cv-gate-wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.cv-gate-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.cv-gate-container {
+  position: relative;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 480px;
+  padding: 32px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+.cv-gate-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+  font-family: 'Inter', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+}
+
+.blinking-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #00ff66;
+  border-radius: 50%;
+  animation: statusBlink 1.5s infinite;
+}
+
+.cv-gate-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+
+.cv-gate-desc {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.cv-gate-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cv-gate-input {
+  width: 100%;
+  padding: 16px;
+  background: var(--bg-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.cv-gate-input:focus {
+  border-color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.cv-gate-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.cv-gate-btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.cv-gate-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.cv-gate-btn.primary {
+  background: var(--text-primary);
+  color: var(--bg-primary);
+  flex: 1;
+}
+
+.cv-gate-btn.primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+.cv-gate-btn.secondary {
+  background: transparent;
+  color: var(--text-secondary);
+  text-decoration: underline;
+  padding: 12px;
+}
+
+.cv-gate-btn.secondary:hover:not(:disabled) {
+  color: var(--text-primary);
+}

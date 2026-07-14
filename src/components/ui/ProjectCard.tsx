@@ -3,6 +3,7 @@ import React from 'react';
 import './ProjectCard.css';
 import { Project } from '../../data';
 import { useCyberAudio } from '../../hooks/useCyberAudio';
+import { TechIcon } from './TechIcon';
 import { motion } from 'framer-motion';
 
 interface ProjectCardProps {
@@ -16,12 +17,32 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isActive, onClick, i
   const { playHover, playClick } = useCyberAudio();
   const isVideo = project.imageUrl?.endsWith('.mp4');
 
+  const dragState = React.useRef({ x: 0, y: 0, isDragging: false });
+
+  const handlePointerDown = (e: React.PointerEvent) => {
+    dragState.current = { x: e.clientX, y: e.clientY, isDragging: false };
+  };
+
+  const handlePointerMove = (e: React.PointerEvent) => {
+    if (Math.abs(e.clientX - dragState.current.x) > 10 || Math.abs(e.clientY - dragState.current.y) > 10) {
+      dragState.current.isDragging = true;
+    }
+  };
+
+  const handlePointerUp = () => {
+    if (!dragState.current.isDragging) {
+      playClick();
+      onClick();
+    }
+  };
+
   return (
     <motion.div 
       className={`card-container ${isActive ? 'active' : ''}`}
-      onClick={() => { playClick(); onClick(); }}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
       onMouseEnter={playHover}
-      whileHover={{ y: -5 }}
     >
       {/* Neon Edge Glow (Scanline) */}
       <div className="neon-edge-glow"></div>
@@ -75,7 +96,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isActive, onClick, i
         {/* Tech Stack Pills */}
         <div className="tech-stack">
           {project.techStack?.slice(0, 3).map((tech, idx) => (
-            <span key={idx} className="tech-pill">{tech}</span>
+            <span key={idx} className="tech-pill flex items-center gap-1.5">
+              <TechIcon name={tech} className="w-3.5 h-3.5" />
+              {tech}
+            </span>
           ))}
           {project.techStack?.length > 3 && (
             <span className="tech-pill">+{project.techStack.length - 3}</span>

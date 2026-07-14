@@ -53,7 +53,7 @@ async function callGeminiModel(model: string, history: ChatMessage[]): Promise<s
     },
     body: JSON.stringify({
       systemInstruction: {
-        parts: [{ text: buildSystemPrompt() }],
+        parts: [{ text: await buildSystemPrompt() }],
       },
       contents,
       generationConfig: {

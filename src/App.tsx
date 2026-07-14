@@ -1,7 +1,12 @@
 // src/App.jsx
 
-import { useState, useEffect, Suspense, lazy } from 'react';
+import { useState, Suspense, lazy, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Routes, Route } from 'react-router-dom';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 // Impor komponen yang langsung terlihat
 import Header from './components/layout/Header';
@@ -17,6 +22,11 @@ import ThemeTransitionOverlay from './components/ui/ThemeTransitionOverlay';
 import ErrorBoundary from './components/ui/ErrorBoundary';
 import ChatBot from './components/ui/ChatBot';
 import { useSecretCode } from './hooks/useSecretCode';
+import { useAppTheme } from './hooks/useAppTheme';
+
+import Admin from './pages/Admin';
+import Login from './pages/Login';
+import ProtectedRoute from './components/ui/ProtectedRoute';
 
 // Lazy load komponen yang di bawah layar
 const SkillsList = lazy(() => import('./components/sections/SkillsList'));
@@ -25,44 +35,32 @@ const ActivitySlider = lazy(() => import('./components/sections/ActivitySlider')
 const Contact = lazy(() => import('./components/sections/Contact'));
 const Footer = lazy(() => import('./components/layout/Footer'));
 
-function App() {
-  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
-    // Cek localStorage terlebih dahulu
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'light' || savedTheme === 'dark') return savedTheme;
-
-    // Fallback ke preferensi sistem jika ada
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark';
-
-    return 'light';
-  });
+function Portfolio() {
+  const { theme, isTransitioningTheme, toggleTheme } = useAppTheme();
   const [isBooting, setIsBooting] = useState(true);
-  const [isTransitioningTheme, setIsTransitioningTheme] = useState(false);
 
   // Custom hook to trigger Terminal Mode on "hacker" typing
   const { success: isTerminalMode, setSuccess: setIsTerminalMode } = useSecretCode('hacker');
 
-  const toggleTheme = () => {
-    if (isTransitioningTheme) return; // Mencegah spam klik
-
-    setIsTransitioningTheme(true);
-
-    // Animasi Katana: Tunggu pisau menyapu layar (300ms)
-    setTimeout(() => {
-      setTheme(currentTheme => (currentTheme === 'light' ? 'dark' : 'light'));
-
-      // Beri sedikit sekali waktu (30ms) agar DOM update sebelum pedang menyapu keluar
-      setTimeout(() => {
-        setIsTransitioningTheme(false);
-      }, 30);
-    }, 300); 
-  };
-
+  // Ultimate fix for GSAP teleporting bug: observe height changes
   useEffect(() => {
-    document.body.className = theme;
-    // Simpan ke localStorage setiap kali tema berubah
-    localStorage.setItem('theme', theme);
-  }, [theme]);
+    const resizeObserver = new ResizeObserver(() => {
+      ScrollTrigger.sort();
+      ScrollTrigger.refresh();
+    });
+    const main = document.querySelector('.main-content-layer');
+    if (main) resizeObserver.observe(main);
+    
+    // Also refresh periodically just in case images are very slow
+    const interval = setInterval(() => {
+      ScrollTrigger.refresh();
+    }, 1500);
+    
+    return () => {
+      resizeObserver.disconnect();
+      clearInterval(interval);
+    };
+  }, []);
 
   return (
     <>
@@ -90,21 +88,21 @@ function App() {
 
             <ErrorBoundary>
               <Suspense fallback={<div className="loading-spinner"></div>}>
-                <div className="content-wrapper w-full max-w-none px-0" id="skills">
+                <div className="w-full px-6 md:px-12 lg:px-24" id="skills">
                   <SkillsList />
                 </div>
 
                 {/* --- GIANT TYPOGRAPHY BREAK 1 --- */}
                 <GiantTypography text="✦ ENGINEERING EXCELLENCE " speed={0.8} />
 
-                <div className="content-wrapper w-full max-w-none px-0" id="projects">
+                <div className="w-full px-6 md:px-12 lg:px-24" id="projects">
                   <ProjectSlider />
                 </div>
 
                 {/* --- GIANT TYPOGRAPHY BREAK 2 --- */}
                 <GiantTypography text="✦ CREATIVE VISIONARY " direction="right" speed={1.2} />
 
-                <div className="content-wrapper w-full max-w-none px-0" id="activities">
+                <div className="w-full px-6 md:px-12 lg:px-24" id="activities">
                   <ActivitySlider />
                 </div>
               </Suspense>
@@ -148,6 +146,20 @@ function App() {
         </>
       )}
     </>
+  );
+}
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Portfolio />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/admin" element={
+        <ProtectedRoute>
+          <Admin />
+        </ProtectedRoute>
+      } />
+    </Routes>
   );
 }
 

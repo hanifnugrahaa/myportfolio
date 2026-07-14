@@ -75,6 +75,9 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ onClose }) => {
   const [history, setHistory] = useState<{ command: string, output: string | React.ReactNode }[]>([
     { command: '', output: 'HanifOS v1.0.0 (tty1)\nType "help" to see available commands.' }
   ]);
+  const [commandHistory, setCommandHistory] = useState<string[]>([]);
+  const [historyIndex, setHistoryIndex] = useState<number>(-1);
+  const [matrixMode, setMatrixMode] = useState(false);
   const [input, setInput] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -103,6 +106,9 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ onClose }) => {
       return;
     }
 
+    setCommandHistory(prev => [...prev, cmd]);
+    setHistoryIndex(-1);
+
     if (USD_IDR_COMMANDS.has(cmdLower)) {
       setHistory(prev => [
         ...prev,
@@ -122,7 +128,7 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ onClose }) => {
     switch (cmdLower) {
       case 'help':
         output =
-          'Available commands: help, whoami, ls, ls projects, cat <file>, usd idr, clear, download resume, theme toggle, exit';
+          'Available commands: help, whoami, ls, ls projects, cat <file>, usd idr, clear, download resume, theme toggle, exit, neofetch, weather, matrix, ping, play perunggu';
         break;
       case 'whoami':
         output = 'Hanif Nugraha - Software Engineer & IoT Enthusiast.\nBuilding scalable web applications, real-time dashboards, and smart connected systems.';
@@ -160,12 +166,52 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ onClose }) => {
         break;
       case 'clear':
         setHistory([]);
+        setMatrixMode(false);
         return;
       case 'exit':
         onClose();
         return;
       case 'sudo':
         output = 'hanif is not in the sudoers file. This incident will be reported.';
+        break;
+      case 'neofetch':
+        output = (
+          <div style={{ display: 'flex', gap: '20px', alignItems: 'center', whiteSpace: 'pre-wrap' }}>
+            <pre style={{ color: 'var(--accent-color)', fontWeight: 'bold' }}>{`   /\\_/\\
+  ( o.o )
+   > ^ <`}</pre>
+            <div>
+              <span style={{ color: 'var(--accent-color)' }}>hanif</span>@<span style={{ color: 'var(--accent-color)' }}>hanifos</span><br/>
+              -------------------<br/>
+              <b>OS</b>: HanifOS v1.0.0<br/>
+              <b>Host</b>: Legion 5<br/>
+              <b>Uptime</b>: 24/7 (Powered by Coffee)<br/>
+              <b>Packages</b>: 999 (npm)<br/>
+              <b>Shell</b>: bash 5.1.16<br/>
+              <b>CPU</b>: Human Brain 2.0 (Overclocked)
+            </div>
+          </div>
+        );
+        break;
+      case 'weather':
+      case 'cuaca':
+        output = 'Fetching latest atmospheric data for Jakarta... \nStatus: Probably Hot ☀️ (32°C). Stay hydrated!';
+        break;
+      case 'matrix':
+        setMatrixMode(true);
+        output = 'Wake up, Neo...\nThe Matrix has you... \n(Type "clear" to exit matrix mode)';
+        break;
+      case 'ping':
+        output = 'Pinging 127.0.0.1 with 32 bytes of data:\nReply from 127.0.0.1: bytes=32 time<1ms TTL=128\nReply from 127.0.0.1: bytes=32 time<1ms TTL=128\n\nPing statistics for 127.0.0.1:\n    Packets: Sent = 2, Received = 2, Lost = 0 (0% loss)';
+        break;
+      case 'play perunggu':
+      case 'play perunggu - gemilang':
+      case 'play gemilang':
+        output = (
+          <div style={{ marginTop: '10px', marginBottom: '10px' }}>
+            <iframe style={{ borderRadius: '12px' }} src="https://open.spotify.com/embed/artist/050h7Z8Fh4uVpU40U6a7xR?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowFullScreen={false} allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          </div>
+        );
         break;
       default:
         if (cmdLower.startsWith('cat ')) {
@@ -180,8 +226,36 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ onClose }) => {
     setHistory(prev => [...prev, { command: cmd, output }]);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (commandHistory.length > 0) {
+        const nextIndex = historyIndex + 1 < commandHistory.length ? historyIndex + 1 : historyIndex;
+        setHistoryIndex(nextIndex);
+        setInput(commandHistory[commandHistory.length - 1 - nextIndex]);
+      }
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (historyIndex > 0) {
+        const nextIndex = historyIndex - 1;
+        setHistoryIndex(nextIndex);
+        setInput(commandHistory[commandHistory.length - 1 - nextIndex]);
+      } else if (historyIndex === 0) {
+        setHistoryIndex(-1);
+        setInput('');
+      }
+    } else if (e.key === 'Tab') {
+      e.preventDefault();
+      const availableCommands = ['help', 'whoami', 'ls', 'ls projects', 'cat about.txt', 'cat skills.md', 'cat contact.txt', 'usd idr', 'clear', 'download resume', 'theme toggle', 'exit', 'neofetch', 'weather', 'matrix', 'ping', 'play perunggu'];
+      const matches = availableCommands.filter(c => c.startsWith(input.toLowerCase()));
+      if (matches.length === 1) {
+        setInput(matches[0]);
+      }
+    }
+  };
+
   return (
-    <div className="terminal-overlay" onClick={() => inputRef.current?.focus()} data-lenis-prevent>
+    <div className={`terminal-overlay ${matrixMode ? 'matrix-mode' : ''}`} onClick={() => inputRef.current?.focus()} data-lenis-prevent>
       <div className="terminal-crt-effect" aria-hidden="true" />
       <div className="terminal-content">
         <div className="terminal-mobile-bar">
@@ -223,9 +297,9 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ onClose }) => {
                 playTyping();
               }}
               className="terminal-input"
-              ref={inputRef}
               autoComplete="off"
               spellCheck="false"
+              onKeyDown={handleKeyDown}
               aria-label="Terminal command input"
             />
           </div>

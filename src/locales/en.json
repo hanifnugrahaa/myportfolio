@@ -15,7 +15,7 @@
   },
   "about": {
     "title": "About",
-    "description": "A Software Engineer with dual expertise in hardware and software engineering. I translate user needs into tangible solutions through Web Development and the Internet of Things (IoT). My main focus is to create seamlessly integrated systems with user experience as the highest priority. Ready to apply my fast-learning abilities in a dynamic and innovative environment.",
+    "description": "As a Software Engineer with dual expertise in hardware and software, I specialize in architecting scalable, high-impact systems. My portfolio encompasses building comprehensive ERP ecosystems (integrating POS, WMS, and complex cross-departmental purchasing flows), advanced IoT dashboards featuring RBAC, real-time map tracking, cross-gateway data analytics, and integrated Computer Vision, as well as crafting visually engaging e-commerce platforms. I translate complex business operations and technical requirements into seamless, user-centric digital solutions.",
     "view_cv": "View CV",
     "view_shokumukeirekisho": "View Shokumukeirekisho"
   },
@@ -40,11 +40,11 @@
     "linkedin": "Connect on LinkedIn"
   },
   "chat": {
-    "title": "Ask about Hanif",
+    "title": "Tell us what you need",
     "subtitleAi": "AI assistant · answers from portfolio data",
-    "subtitleGemini": "Powered by Google Gemini AI",
+    "subtitleGemini": "Powered by AI",
     "subtitleLocal": "Quick answers · add API key for full AI",
-    "placeholder": "Ask about skills, projects, contact…",
+    "placeholder": "Tell us your project idea or ask a question...",
     "thinking": "Thinking…",
     "send": "Send",
     "open": "Open chat",

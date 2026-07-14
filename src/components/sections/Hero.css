@@ -1,0 +1,519 @@
+/* =========================================
+   HERO "INTERLEAVE" EFFECT
+   Solid text (back) → Photo → Outline text (front)
+   ========================================= */
+
+.hero-section {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end; /* Anchor content to the bottom */
+  justify-content: center;
+  min-height: 100dvh;
+  padding: 4rem 2rem 5rem 2rem; /* Added 5rem bottom padding to lift the content up */
+  background: var(--bg-primary);
+}
+
+/* ── CENTRAL STAGE ── */
+.hero-stage {
+  position: relative;
+  width: 100%;
+  max-width: 825px; /* Enlarged by 1.5x from 550px */
+  display: flex;
+  align-items: flex-end; /* Align photo to bottom of stage */
+  justify-content: center;
+}
+
+/* ── SHARED TEXT STYLE ── */
+.hero-3d-text {
+  font-family: 'Archivo Black', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  line-height: 0.88;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  font-size: clamp(2rem, 9vw, 9rem);
+}
+
+/* ── SHARED TEXT LAYER POSITION ── */
+.hero-svg-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── LAYER 1: SOLID TEXT (Behind photo) ── */
+.hero-text-solid {
+  z-index: 1;
+}
+
+.hero-text-solid .hero-3d-text {
+  fill: var(--text-primary);
+  opacity: 0.92;
+}
+
+body.dark .hero-text-solid .hero-3d-text {
+  fill: #ffffff;
+  opacity: 0.95;
+}
+
+/* ── LAYER 2: PHOTO (Middle) ── */
+.hero-photo-layer {
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.25));
+  transform: scale(0.85);
+  transform-origin: bottom center;
+}
+
+body.dark .hero-photo-layer {
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
+}
+
+.hero-photo-img {
+  width: 100%;
+  height: auto;
+  max-height: 90dvh; /* Increased from 70dvh to allow enlargement */
+  object-fit: contain;
+  object-position: bottom; /* Ensure it scales from bottom */
+  pointer-events: none;
+  user-select: none;
+  display: block;
+  /* Fade out the bottom edge so it looks elegant when lifted off the bottom */
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%);
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%);
+}
+
+/* ── LAYER 3: OUTLINE TEXT (In front of photo) ── */
+.hero-text-outline {
+  z-index: 3;
+}
+
+.hero-svg-outline-text {
+  fill: transparent;
+  stroke: var(--text-primary);
+  stroke-width: 4px;
+  stroke-linejoin: miter;
+  stroke-miterlimit: 4;
+}
+
+body.dark .hero-svg-outline-text {
+  stroke: rgba(255, 255, 255, 0.9);
+}
+
+/* ── LAYER 4: GLASS INFO CARD ── */
+.hero-glass-card {
+  position: absolute;
+  z-index: 5;
+  top: 15%; /* Pushed down from 10% to clear navbar */
+  left: 4%;
+  max-width: 300px;
+  padding: 1.2rem 1.5rem;
+  background: rgba(var(--bg-primary-rgb, 255, 255, 255), 0.6);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid rgba(var(--border-rgb, 0, 0, 0), 0.1);
+  border-radius: 24px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  text-align: left;
+}
+
+.hero-tech-card {
+  position: absolute;
+  z-index: 5;
+  top: 15%; /* Sejajar dengan hero-glass-card */
+  right: 4%;
+  max-width: 325px;
+  padding: 1.5rem 1.875rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.tech-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.45rem 0.75rem;
+  background: rgba(100, 100, 100, 0.1);
+  border: 1px solid rgba(150, 150, 150, 0.2);
+  color: var(--text-secondary);
+  border-radius: 8px;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
+}
+
+body.dark .hero-tech-card {
+  background: rgba(20, 20, 20, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tech-card-title {
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 1.25px;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+.hero-tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+body.dark .hero-glass-card {
+  background: rgba(10, 10, 10, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Glow border */
+.hero-glass-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 25px;
+  padding: 1px;
+  background: linear-gradient(135deg,
+      rgba(var(--accent-rgb, 99, 102, 241), 0.3),
+      transparent 50%,
+      rgba(var(--accent-rgb, 99, 102, 241), 0.15));
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.hero-glass-greeting {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  line-height: 1.2;
+  margin-bottom: 0.25rem;
+  color: var(--text-primary);
+}
+
+.hero-glass-role {
+  font-weight: 600;
+  font-size: clamp(0.75rem, 1.5vw, 0.9rem);
+  color: var(--accent-color);
+  margin-bottom: 0.75rem;
+  font-family: 'Inter', monospace;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.hero-glass-desc {
+  font-size: clamp(0.7rem, 1.2vw, 0.85rem);
+  color: var(--text-secondary);
+  max-width: 100%;
+  margin: 0 auto 1rem;
+  line-height: 1.6;
+}
+
+.hero-glass-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-decoration: none;
+  color: var(--bg-primary); /* Automatically black in dark mode, white in light mode */
+  background: var(--accent-color);
+  border: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 16px rgba(var(--accent-rgb, 99, 102, 241), 0.3);
+}
+
+.hero-glass-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(var(--accent-rgb, 99, 102, 241), 0.45);
+}
+
+.hero-glass-cta svg {
+  transition: transform 0.3s ease;
+}
+
+.hero-glass-cta:hover svg {
+  transform: translateX(4px);
+}
+
+/* ── SCROLL INDICATOR ── */
+.hero-scroll-indicator {
+  position: absolute;
+  z-index: 5;
+  bottom: 1.5%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  opacity: 0.5;
+  animation: hero-scroll-bounce 2s ease-in-out infinite;
+}
+
+.hero-scroll-indicator span {
+  font-family: 'Inter', monospace;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+@keyframes hero-scroll-bounce {
+
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+
+  50% {
+    transform: translateX(-50%) translateY(6px);
+  }
+}
+
+/* ── ACCENT LINES ── */
+.hero-accent-line {
+  position: absolute;
+  z-index: 1;
+  width: 2px;
+  height: 100px;
+  background: linear-gradient(to top, var(--accent-color), transparent); /* Fades upwards now */
+  bottom: 12%; /* Moved from top to bottom */
+  left: 6%;
+  opacity: 0.35;
+}
+
+.hero-accent-line--right {
+  left: auto;
+  right: 6%;
+  background: linear-gradient(to top, var(--accent-color), transparent);
+  top: auto;
+  bottom: 20%;
+}
+
+/* =========================================
+   HIRE ME CTA CARD (Left Bottom)
+   ========================================= */
+.hero-cta-card {
+  position: absolute;
+  z-index: 5;
+  top: 50%;
+  left: 4%;
+  padding: 1.2rem 1.5rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  will-change: transform;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.hero-cta-card:hover {
+  transform: translateY(-5px) !important; /* Override GSAP slightly if hovered */
+  border-color: rgba(var(--accent-rgb, 99, 102, 241), 0.4);
+  box-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.15),
+    0 0 20px rgba(var(--accent-rgb, 99, 102, 241), 0.15);
+}
+
+body.dark .hero-cta-card {
+  background: rgba(20, 20, 20, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hero-cta-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.hero-cta-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  margin: 0;
+  background: linear-gradient(135deg, var(--text-primary), var(--accent-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-cta-desc {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.hero-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 24px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  color: var(--bg-primary);
+  background: var(--text-primary);
+  border: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-cta-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(var(--bg-primary-rgb, 255,255,255), 0.4) 50%, rgba(255,255,255,0) 100%);
+  transform: skewX(-25deg);
+  animation: btn-shine 3s infinite;
+}
+
+body.dark .hero-cta-btn::before {
+  background: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0, 0.4) 50%, rgba(0,0,0,0) 100%);
+}
+
+@keyframes btn-shine {
+  0% { left: -100%; }
+  20% { left: 200%; }
+  100% { left: 200%; }
+}
+
+.hero-cta-btn .btn-arrow {
+  transition: transform 0.3s ease;
+}
+
+.hero-cta-card:hover .hero-cta-btn {
+  background: var(--accent-color);
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(var(--accent-rgb, 99, 102, 241), 0.3);
+}
+
+.hero-cta-card:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 1rem;
+  }
+
+  .hero-stage {
+    max-width: 340px;
+  }
+
+  .hero-photo-img {
+    max-height: 55dvh;
+  }
+
+  .hero-3d-text {
+    font-size: clamp(1.5rem, 10vw, 5rem);
+  }
+
+  .hero-svg-outline-text {
+    stroke-width: 3px;
+  }
+
+  body.dark .hero-svg-outline-text {
+    stroke-width: 3px;
+  }
+
+  .hero-glass-card {
+    top: 5%;
+    bottom: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 92%;
+    max-width: 380px;
+    padding: 1.2rem 1.5rem;
+    border-radius: 20px;
+    text-align: center;
+  }
+
+  .hero-tech-card {
+    display: none; /* Sembunyikan tech card di layar kecil agar tidak menumpuk */
+  }
+
+  .hero-accent-line {
+    display: none;
+  }
+
+  .hero-scroll-indicator {
+    display: none;
+  }
+  
+  .hero-cta-card {
+    display: none; /* Hide on mobile so it's not too cluttered */
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-stage {
+    max-width: 260px;
+  }
+
+  .hero-photo-img {
+    max-height: 45dvh;
+  }
+
+  .hero-3d-text {
+    font-size: clamp(1rem, 11vw, 3rem);
+  }
+
+  .hero-svg-outline-text {
+    stroke-width: 2px;
+  }
+
+  body.dark .hero-svg-outline-text {
+    stroke-width: 2px;
+  }
+
+  .hero-glass-card {
+    top: 3%;
+    bottom: auto;
+    padding: 1rem 1.2rem;
+  }
+
+  .hero-glass-desc {
+    display: none;
+  }
+}

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hanifnugrahaa.github.io/sitemap.xml

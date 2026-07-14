@@ -16,13 +16,32 @@ const ActivityCard: React.FC<ActivityCardProps> = ({ activity, isActive, onClick
   const { name, imageUrl } = activity;
   const { playHover, playClick } = useCyberAudio();
 
+  const dragState = React.useRef({ x: 0, y: 0, isDragging: false });
+
+  const handlePointerDown = (e: React.PointerEvent) => {
+    dragState.current = { x: e.clientX, y: e.clientY, isDragging: false };
+  };
+
+  const handlePointerMove = (e: React.PointerEvent) => {
+    if (Math.abs(e.clientX - dragState.current.x) > 10 || Math.abs(e.clientY - dragState.current.y) > 10) {
+      dragState.current.isDragging = true;
+    }
+  };
+
+  const handlePointerUp = () => {
+    if (!dragState.current.isDragging) {
+      playClick();
+      onClick?.();
+    }
+  };
+
   return (
     <motion.div 
       className={`activity-card-container ${isActive ? 'active' : ''}`}
-      onClick={() => { playClick(); onClick?.(); }}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
       onMouseEnter={playHover}
-      whileHover={isActive ? { scale: 1.05, y: -10 } : {}}
-      whileTap={isActive ? { scale: 0.95 } : {}}
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
     >
       {/* Sombong Background Watermark */}
