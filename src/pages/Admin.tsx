@@ -144,6 +144,16 @@ const Admin: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isModalOpen) {
+        resetForm();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isModalOpen]);
+
   return (
     <div className="relative h-screen w-full bg-neutral-950 text-white overflow-hidden selection:bg-white/30 flex flex-col md:flex-row">
       <Particles className="absolute inset-0 z-0 pointer-events-none" quantity={200} ease={80} color="#ffffff" refresh />
@@ -251,12 +261,17 @@ const Admin: React.FC = () => {
               <AnimatePresence>
                 {projects.map((p, index) => (
                   <BlurFade key={p.id} delay={0.1 * index} inView>
-                    <MagicCard className="group flex flex-col p-5 bg-neutral-900/50 rounded-3xl border border-neutral-700 transition-colors duration-300 hover:border-neutral-500 shadow-xl h-full relative" gradientColor="rgba(255,255,255,0.05)" gradientSize={250}>
+                    <MagicCard 
+                      onClick={() => handleEdit(p)}
+                      className="group flex flex-col p-5 bg-neutral-900/50 rounded-3xl border border-neutral-700 transition-colors duration-300 hover:border-neutral-500 shadow-xl h-full relative cursor-pointer" 
+                      gradientColor="rgba(255,255,255,0.05)" 
+                      gradientSize={250}
+                    >
                       
                       {p.imageUrl ? (
                         <div className="w-full aspect-video rounded-xl overflow-hidden mb-5 border border-neutral-700 relative">
                           <div className="absolute inset-0 bg-black/20 z-10 pointer-events-none group-hover:bg-transparent transition-colors"></div>
-                          <img src={p.imageUrl} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                          <img src={p.imageUrl} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 pointer-events-none" />
                         </div>
                       ) : (
                         <div className="w-full aspect-video rounded-xl bg-neutral-800 border border-neutral-700 mb-5 flex items-center justify-center">
@@ -265,10 +280,10 @@ const Admin: React.FC = () => {
                       )}
                       
                       <div className="flex-1 flex flex-col">
-                        <h4 className="text-xl font-bold text-white mb-2 tracking-tight relative z-20">{p.name}</h4>
-                        <p className="text-sm font-medium text-neutral-400 mb-4 line-clamp-2 relative z-20">{p.description}</p>
+                        <h4 className="text-xl font-bold text-white mb-2 tracking-tight relative z-20 pointer-events-none">{p.name}</h4>
+                        <p className="text-sm font-medium text-neutral-400 mb-4 line-clamp-2 relative z-20 pointer-events-none">{p.description}</p>
                         
-                        <div className="flex flex-wrap gap-2 mb-6 relative z-20">
+                        <div className="flex flex-wrap gap-2 mb-6 relative z-20 pointer-events-none">
                           {p.techStack.slice(0, 3).map(tech => (
                             <span key={tech} className="bg-neutral-800/80 text-neutral-300 text-[10px] px-2 py-1 rounded-md border border-neutral-700 uppercase tracking-wider font-semibold backdrop-blur-md">
                               {tech}
@@ -284,13 +299,13 @@ const Admin: React.FC = () => {
                       
                       <div className="flex gap-3 mt-auto pt-4 border-t border-neutral-800/50 relative z-20">
                         <ShinyButton 
-                          onClick={() => handleEdit(p)} 
+                          onClick={(e: React.MouseEvent) => { e.stopPropagation(); handleEdit(p); }} 
                           className="flex-1 bg-neutral-800/80 hover:bg-neutral-700 text-white border border-neutral-600 !rounded-xl text-sm backdrop-blur-md"
                         >
                           Edit
                         </ShinyButton>
                         <ShinyButton 
-                          onClick={() => handleDelete(p.id)} 
+                          onClick={(e: React.MouseEvent) => { e.stopPropagation(); handleDelete(p.id); }} 
                           className="flex-1 bg-red-950/80 hover:bg-red-900 text-red-100 border border-red-800/50 !rounded-xl text-sm backdrop-blur-md"
                         >
                           Hapus
