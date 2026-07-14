@@ -5,7 +5,7 @@ A state-of-the-art, highly interactive personal portfolio built with React 19, V
 [![MIT License](https://img.shields.io/github/license/hanifnugrahaa/hanifnugrahaa.github.io?style=flat-square)](https://choosealicense.com/licenses/mit/)
 [![GitHub last commit](https://img.shields.io/github/last-commit/hanifnugrahaa/hanifnugrahaa.github.io?style=flat-square)](https://github.com/hanifnugrahaa/hanifnugrahaa.github.io/commits/main)
 
-**Live Deployment:** [**hanifnugrahaa.github.io**](https://hanifnugrahaa.github.io/)
+**Live Deployment:** [**nugrahax.vercel.app**](https://nugrahax.vercel.app/)
 
 ---
 
@@ -41,7 +41,7 @@ A state-of-the-art, highly interactive personal portfolio built with React 19, V
 | **Animations** | GSAP, Framer Motion, Lenis, Three.js |
 | **Backend as a Service** | Firebase (Auth, Firestore) |
 | **UI Library** | Magic UI, Lucide React, react-icons (FA/SI) |
-| **Deployment** | GitHub Pages / Vercel |
+| **Deployment** | Vercel |
 
 
 
