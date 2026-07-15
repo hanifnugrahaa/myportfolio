@@ -15,8 +15,9 @@ const CustomCursor = () => {
   const cursorY = useSpring(mouseY, springConfig);
 
   useEffect(() => {
-    // Only show custom cursor on desktop
-    if (window.innerWidth <= 768) return;
+    // Only show custom cursor on devices that support hover (non-touch devices)
+    const isTouchDevice = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+    if (isTouchDevice) return;
     setIsVisible(true);
 
     const moveCursor = (e: MouseEvent) => {

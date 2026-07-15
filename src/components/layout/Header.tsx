@@ -34,7 +34,7 @@ const Header: React.FC<HeaderProps> = ({ toggleTheme }) => {
       <div className="flex justify-between items-center w-full">
         <a href="#home" onClick={handleNavClick} className="font-bold text-2xl bg-gradient-to-tr from-[var(--text-primary)] to-[var(--text-secondary)] bg-clip-text text-transparent">HN.</a>
         
-        <nav className="hidden md:flex items-center gap-6">
+        <nav className="hidden lg:flex items-center gap-6">
           <a href="#about" onClick={handleNavClick} className="font-semibold hover:text-[var(--text-secondary)] transition-colors">{t('nav.about')}</a>
           <a href="#skills" onClick={handleNavClick} className="font-semibold hover:text-[var(--text-secondary)] transition-colors">{t('nav.skills')}</a>
           <a href="#projects" onClick={handleNavClick} className="font-semibold hover:text-[var(--text-secondary)] transition-colors">{t('nav.projects')}</a>
