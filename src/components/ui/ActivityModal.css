@@ -75,6 +75,7 @@
 
 /* Cinematic Dark Gradient Overlay */
 .activity-modal-overlay {
+  pointer-events: none;
   position: absolute;
   top: 0;
   left: 0;

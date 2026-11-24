@@ -4,7 +4,10 @@ import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import './ActivityModal.css';
-import { Activity } from '../../data';
+import type { Activity } from '../../data';
+import { getActivityText } from '../../lib/portfolioActivities';
+import { getPortfolioMedia } from '../../lib/portfolioMedia';
+import PortfolioCarousel from './PortfolioCarousel';
 
 interface ActivityModalProps {
   activity: Activity | null;
@@ -12,15 +15,6 @@ interface ActivityModalProps {
   onClose: () => void;
   onExitComplete: () => void;
 }
-
-const parseActivityName = (nameString?: string) => {
-  if (!nameString) return { title: '', description: '' };
-  const parts = nameString.split('|');
-  return {
-    title: parts[0]?.trim(),
-    description: parts.slice(1).join(' ').trim()
-  };
-};
 
 const ActivityModal: React.FC<ActivityModalProps> = ({ activity, isOpen, onClose, onExitComplete }) => {
   
@@ -40,7 +34,8 @@ const ActivityModal: React.FC<ActivityModalProps> = ({ activity, isOpen, onClose
 
   if (typeof document === 'undefined') return null;
 
-  const { title, description } = parseActivityName(activity?.name);
+  const { title, description } = getActivityText(activity ?? { name: '' });
+  const slides = activity ? getPortfolioMedia(activity) : [];
 
   return createPortal(
     <AnimatePresence onExitComplete={onExitComplete}>
@@ -61,6 +56,9 @@ const ActivityModal: React.FC<ActivityModalProps> = ({ activity, isOpen, onClose
             exit={{ opacity: 0, scale: 0.95, y: 10 }}
             transition={{ type: "spring", damping: 30, stiffness: 200, duration: 0.6 }}
             className="activity-modal-container"
+            role="dialog"
+            aria-modal="true"
+            aria-label={title}
             onClick={(e) => e.stopPropagation()}
             data-lenis-prevent
           >
@@ -71,11 +69,11 @@ const ActivityModal: React.FC<ActivityModalProps> = ({ activity, isOpen, onClose
             {/* FULL BLEED BACKGROUND IMAGE */}
             <motion.div 
               className="activity-modal-bg-wrapper"
-              initial={{ scale: 1.1 }}
+              initial={{ scale: slides.length === 1 ? 1.1 : 1 }}
               animate={{ scale: 1 }}
               transition={{ duration: 10, ease: "linear" }} /* Parallax slow effect */
             >
-              <img src={activity.imageUrl} alt={title} className="activity-modal-bg-image" />
+              <PortfolioCarousel slides={slides} title={title} mediaClass="activity-modal-bg-image" />
             </motion.div>
 
             {/* DARK GRADIENT OVERLAY */}

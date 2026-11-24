@@ -1,7 +1,8 @@
 // src/components/ProjectCard.jsx
 import React from 'react';
 import './ProjectCard.css';
-import { Project } from '../../data';
+import type { Project } from '../../data';
+import { getPortfolioMedia } from '../../lib/portfolioMedia';
 import { useCyberAudio } from '../../hooks/useCyberAudio';
 import { TechIcon } from './TechIcon';
 import { motion } from 'framer-motion';
@@ -15,7 +16,7 @@ interface ProjectCardProps {
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project, isActive, onClick, index }) => {
   const { playHover, playClick } = useCyberAudio();
-  const isVideo = project.imageUrl?.endsWith('.mp4');
+  const cover = getPortfolioMedia(project)[0];
 
   const dragState = React.useRef({ x: 0, y: 0, isDragging: false });
 
@@ -42,6 +43,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isActive, onClick, i
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
+      role="button"
+      tabIndex={0}
+      onKeyDown={event => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          onClick();
+        }
+      }}
       onMouseEnter={playHover}
     >
       {/* Neon Edge Glow (Scanline) */}
@@ -54,7 +63,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isActive, onClick, i
       <div className="hud-corners bottom-right"></div>
 
       {/* Gambar / Video Background Proyek */}
-      {isVideo ? (
+      {cover?.type === 'video' ? (
         <video 
           className="project-image"
           autoPlay={isActive}
@@ -62,11 +71,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isActive, onClick, i
           muted 
           playsInline
         >
-          <source src={project.imageUrl} type="video/mp4" />
+          <source src={cover.url} />
         </video>
       ) : (
         <img 
-          src={project.imageUrl} 
+          src={cover?.url}
           alt={project.name}
           className="project-image"
           loading={isActive ? 'eager' : 'lazy'}

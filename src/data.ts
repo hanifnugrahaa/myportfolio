@@ -4,7 +4,17 @@ export interface Social {
   iconName: 'Linkedin' | 'Github' | 'Instagram';
 }
 
-export interface Project {
+export interface PortfolioMedia {
+  url: string;
+  type: 'image' | 'video';
+}
+
+export interface PortfolioMediaFields {
+  imageUrl?: string;
+  media?: PortfolioMedia[];
+}
+
+export interface Project extends PortfolioMediaFields {
   name: string;
   description: string;
   metrics: string;
@@ -13,9 +23,9 @@ export interface Project {
   techStack: string[];
 }
 
-export interface Activity {
+export interface Activity extends PortfolioMediaFields {
   name: string;
-  imageUrl?: string;
+  description?: string;
 }
 
 export interface SkillCategory {
@@ -103,26 +113,32 @@ export const projects: Project[] = [
   }
 ];
 
-export const myActivities: Activity[] = [
+export const myActivities: (Activity & { id: string })[] = [
   {
+    id: 'legacy-teaching',
     name: "Advanced Coding Teacher at Koding Next | Inspiring 100+ Young Developers",
     imageUrl: "/assets/images/activities/teaching-koding-next.jpeg"
   },
   {
+    id: 'legacy-elins',
     name: "Lead Programming Instructor | Empowering ELINS Students with Industry-Ready Skills"
   },
   {
+    id: 'legacy-gik',
     name: "Keynote Speaker at GIK UGM | Sharing Insights on Tech Innovation & Career Growth"
   },
   {
+    id: 'legacy-imogiri',
     name: "Software Developer Leader | Empowering Farmers in Imogiri with Smart Weather Station Technology",
     imageUrl: "/assets/images/activities/presentation-imogiri.JPG"
   },
   {
+    id: 'legacy-man2',
     name: "IoT Education Facilitator | Training 30+ Students at MAN 2 Yogyakarta on Smart Technology Integration",
     imageUrl: "/assets/images/activities/man2-yogyakarta.jpeg"
   },
   {
+    id: 'legacy-lima',
     name: "Student Athlete | Representing Gadjah Mada University in LIMA 2025 National Basketball Competition",
     imageUrl: "/assets/images/activities/lima-basket.jpg"
   }

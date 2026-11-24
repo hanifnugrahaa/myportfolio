@@ -32,6 +32,26 @@ A state-of-the-art, highly interactive personal portfolio built with React 19, V
 
 ---
 
+## Managing portfolio posts
+
+Open `/admin` and select **Projects** or **Activities**. Paste a direct public HTTPS URL, select **Foto** or **Video**, and click **Tambah media**. The editor supports up to 10 slides. The first slide is the public cover. Use the arrow buttons to reorder and **Simpan** to publish. Firestore stores the ordered URLs and media types. Use links that open the file itself without login. For video, use a browser-playable file such as MP4 or WebM.
+
+Existing projects still read their original `imageUrl`. The built-in activities have stable `legacy-*` IDs. Editing one stores an override in `activities`, and deleting one stores a marker so it stays hidden across reloads. The public gallery shows activities with media.
+
+### Firebase setup
+
+Merge the following block inside the existing Firestore `match /databases/{database}/documents` block. Replace `YOUR_ADMIN_UID` with the account UID from Firebase Authentication, or use the project's existing admin authorization function. Review overlapping wildcard rules because Firebase permits a request whenever any matching rule allows it. Preserve the existing Projects and CV Logs permissions.
+
+```text
+match /activities/{activityId} {
+  allow read: if true;
+  allow create, update, delete: if request.auth != null
+    && request.auth.uid == "YOUR_ADMIN_UID";
+}
+```
+
+After publishing the rules, verify an admin can save a temporary post and a signed-out visitor can view its slides. Removing a slide or deleting a post removes the reference from Firestore. The media host manages the original files.
+
 ## 🛠 Technology Stack
 
 | Category | Technologies |

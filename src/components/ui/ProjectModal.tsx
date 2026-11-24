@@ -5,7 +5,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, ExternalLink } from 'lucide-react';
 import { TechIcon } from './TechIcon';
 import './ProjectModal.css';
-import { Project } from '../../data';
+import type { Project } from '../../data';
+import { getPortfolioMedia } from '../../lib/portfolioMedia';
+import PortfolioCarousel from './PortfolioCarousel';
 
 const parseMetrics = (metricsString?: string) => {
   if (!metricsString) return [];
@@ -52,7 +54,6 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose, o
   }, [isOpen, onClose]);
 
   const metrics = useMemo(() => parseMetrics(project?.metrics), [project?.metrics]);
-  const isVideo = project?.imageUrl?.endsWith('.mp4');
 
   // Prevent rendering on server side if Next.js was used, but for Vite it's fine.
   if (typeof document === 'undefined') return null;
@@ -80,6 +81,9 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose, o
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           transition={{ type: "spring", damping: 25, stiffness: 300, duration: 0.4 }}
           className="modal-container"
+          role="dialog"
+          aria-modal="true"
+          aria-label={project.name}
           onClick={onClose}
           style={{ willChange: 'transform, opacity' }}
           data-lenis-prevent
@@ -95,13 +99,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose, o
             <div className="modal-grid-layout">
               {/* --- ATAS: HERO (GAMBAR/VIDEO HORIZONTAL) --- */}
               <div className="modal-hero-pane">
-                {isVideo ? (
-                  <video className="modal-media" autoPlay loop muted playsInline>
-                    <source src={project.imageUrl} type="video/mp4" />
-                  </video>
-                ) : (
-                  <img src={project.imageUrl} alt={project.name} className="modal-media" />
-                )}
+                <PortfolioCarousel slides={getPortfolioMedia(project)} title={project.name} mediaClass="modal-media" />
               </div>
               
               {/* --- BAWAH: DETAIL PROYEK (CYBERPUNK DOSSIER) --- */}

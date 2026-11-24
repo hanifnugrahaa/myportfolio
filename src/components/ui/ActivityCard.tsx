@@ -1,7 +1,8 @@
 // src/components/ActivityCard.tsx
 import React from 'react';
 import './ActivityCard.css';
-import { Activity } from '../../data';
+import type { Activity } from '../../data';
+import { getPortfolioMedia } from '../../lib/portfolioMedia';
 import { motion } from 'framer-motion';
 import { useCyberAudio } from '../../hooks/useCyberAudio';
 
@@ -13,7 +14,8 @@ interface ActivityCardProps {
 }
 
 const ActivityCard: React.FC<ActivityCardProps> = ({ activity, isActive, onClick, index }) => {
-  const { name, imageUrl } = activity;
+  const name = activity.name;
+  const cover = getPortfolioMedia(activity)[0];
   const { playHover, playClick } = useCyberAudio();
 
   const dragState = React.useRef({ x: 0, y: 0, isDragging: false });
@@ -41,6 +43,14 @@ const ActivityCard: React.FC<ActivityCardProps> = ({ activity, isActive, onClick
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
+      role="button"
+      tabIndex={0}
+      onKeyDown={event => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          onClick?.();
+        }
+      }}
       onMouseEnter={playHover}
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
     >
@@ -48,16 +58,11 @@ const ActivityCard: React.FC<ActivityCardProps> = ({ activity, isActive, onClick
       <div className="arrogant-watermark">
         {index % 2 === 0 ? '[ TOP TIER ]' : '[ ELITE ]'}
       </div>
-      <img 
-        src={imageUrl} 
-        alt={name} 
-        className="activity-card-image"
-        loading={isActive ? 'eager' : 'lazy'}
-        decoding="async"
-        onError={(e) => {
-          (e.target as HTMLImageElement).src = '/assets/images/fallback-activity.jpg';
-        }}
-      />
+      {cover?.type === 'video' ? (
+        <video src={cover.url} className="activity-card-image" autoPlay={isActive} loop muted playsInline />
+      ) : (
+        <img src={cover?.url} alt={name} className="activity-card-image" loading={isActive ? 'eager' : 'lazy'} decoding="async" />
+      )}
       <div className="activity-card-overlay" />
       
       {/* Editorial Magazine Typography */}

@@ -5,7 +5,9 @@ import { useGSAP } from '@gsap/react';
 
 import ActivityCard from '../ui/ActivityCard';
 import ActivityModal from '../ui/ActivityModal';
-import { myActivities, Activity } from '../../data';
+import type { Activity } from '../../data';
+import { getPortfolioMedia } from '../../lib/portfolioMedia';
+import { usePortfolioActivities } from '../../hooks/usePortfolioActivities';
 import './ActivitySlider.css';
 
 const ActivitySlider: React.FC = () => {
@@ -17,10 +19,11 @@ const ActivitySlider: React.FC = () => {
   const trackRef = useRef<HTMLDivElement>(null);
 
   // Filter activities yang memiliki imageUrl
-  const activitiesWithImages = myActivities.filter(activity => activity.imageUrl);
+  const { activities, status } = usePortfolioActivities();
+  const activitiesWithImages = status === 'loading' ? [] : activities.filter(activity => getPortfolioMedia(activity).length > 0);
 
   useGSAP(() => {
-    if (!containerRef.current || !trackRef.current) return;
+    if (!containerRef.current || !trackRef.current || activitiesWithImages.length === 0) return;
 
     const mm = gsap.matchMedia();
 
@@ -28,7 +31,7 @@ const ActivitySlider: React.FC = () => {
       // Create a scroll trigger that translates the track horizontally
       const getScrollAmount = () => {
         const trackWidth = trackRef.current?.scrollWidth || 0;
-        return -(trackWidth - window.innerWidth + window.innerWidth * 0.1);
+        return -Math.max(0, trackWidth - window.innerWidth + window.innerWidth * 0.1);
       };
 
       const tl = gsap.timeline({
@@ -69,7 +72,7 @@ const ActivitySlider: React.FC = () => {
     });
 
     return () => mm.revert();
-  }, { scope: containerRef });
+  }, { scope: containerRef, dependencies: [activitiesWithImages.length], revertOnUpdate: true });
 
   const handleCardClick = (activity: Activity) => {
     setSelectedActivity(activity);
@@ -97,7 +100,7 @@ const ActivitySlider: React.FC = () => {
           className="gsap-activity-track"
         >
           {activitiesWithImages.map((activity, index) => (
-            <div key={index} className="gsap-activity-card-wrapper">
+            <div key={activity.id} className="gsap-activity-card-wrapper">
               <ActivityCard
                 activity={activity}
                 isActive={true}
