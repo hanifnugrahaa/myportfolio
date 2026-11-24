@@ -81,9 +81,13 @@ body {
 }
 
 @media (min-width: 769px) {
-  * {
+  html:not(:has(dialog:modal)) * {
     cursor: none !important;
   }
+}
+
+dialog:modal :is(button:not(:disabled), a[href]) {
+  cursor: pointer;
 }
 
 /* === ACCESSIBILITY === */

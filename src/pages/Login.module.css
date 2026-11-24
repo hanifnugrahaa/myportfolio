@@ -1,0 +1,200 @@
+.scene {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color-scheme: dark;
+  background:
+    radial-gradient(ellipse at 15% 27%, #344e67 0%, transparent 54%),
+    radial-gradient(ellipse at 86% 70%, #303f60 0%, transparent 54%),
+    #141d2d;
+}
+
+.scene::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    repeating-linear-gradient(115deg, transparent 0 96px, #b6c5dd12 97px, transparent 98px),
+    radial-gradient(ellipse at 70% 44%, #a9c7ec20, transparent 60%);
+  mask-image: linear-gradient(to bottom, #000, transparent 95%);
+  content: '';
+  pointer-events: none;
+}
+
+.scene::after {
+  position: absolute;
+  z-index: -1;
+  top: 48%;
+  left: 50%;
+  width: min(148vw, 56rem);
+  aspect-ratio: 1.7;
+  border: 1px solid #c9e1ff54;
+  border-radius: 50% 42% 55% 42% / 56% 45% 50% 45%;
+  background: linear-gradient(150deg, #c7e4ff38, #8cb4e118 43%, #12192b14 72%);
+  box-shadow:
+    inset 0 1px 0 #e3f1ff82,
+    inset 16px -14px 55px #9cccff35,
+    inset -12px 10px 24px #c0defd38,
+    0 25px 90px #0007;
+  transform: translate(-50%, -50%) rotate(-21deg);
+  content: '';
+  pointer-events: none;
+}
+
+.shell {
+  border: 1px solid #c5e0ff66;
+  background: #090f1aeb;
+  box-shadow: 0 30px 85px #030812ba, 0 8px 20px #070b13a6;
+}
+
+.identity {
+  background: linear-gradient(150deg, #52739743, #253a577a 48%, #090f1ce0);
+  box-shadow: inset 0 1px #ffffff3d, inset 0 -1px #bdd8fa2d;
+}
+
+.identity::before {
+  position: absolute;
+  inset: -65% -15% 3% 13%;
+  border: 1px solid #e1f2ff40;
+  border-radius: 42% 58% 54% 46% / 57% 41% 59% 43%;
+  box-shadow: inset 1px 6px 24px #d2edff29, 0 12px 48px #bfd8fb18;
+  transform: rotate(-24deg);
+  content: '';
+  pointer-events: none;
+}
+
+.formPane {
+  position: relative;
+  border-top: 1px solid #c5e0ff32;
+  background: linear-gradient(145deg, #1b283de8, #101828f2 47%, #0b1220f5);
+}
+
+.bubbles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.bubbles span {
+  position: absolute;
+  width: var(--size);
+  aspect-ratio: 1;
+  border: 1px solid #bcdcff69;
+  border-radius: 50%;
+  background:
+    radial-gradient(ellipse at 31% 26%, #f6fcff85, transparent 15%),
+    radial-gradient(ellipse at 71% 73%, #a0c5f657, transparent 36%),
+    radial-gradient(circle at 46% 45%, transparent 51%, #94c9f84f 93%);
+  box-shadow: inset 0 0 calc(var(--size) * .12) #c3e3ff44;
+}
+
+.bubbles span:nth-child(1) {
+  --size: clamp(4rem, 11vw, 10rem);
+  --drift: 5vw;
+  --time: 17s;
+  --delay: -4s;
+  left: 8%;
+  top: 63%;
+}
+
+.bubbles span:nth-child(2) {
+  --size: clamp(2rem, 5.5vw, 5rem);
+  --drift: -4vw;
+  --time: 13s;
+  --delay: -8s;
+  right: 9%;
+  top: 24%;
+}
+
+.bubbles span:nth-child(3) {
+  --size: clamp(2.5rem, 7vw, 7rem);
+  --drift: -6vw;
+  --time: 20s;
+  --delay: -2s;
+  right: 3%;
+  bottom: 10%;
+}
+
+.heading {
+  font-family: Outfit, Inter, sans-serif;
+  text-wrap: balance;
+}
+
+.back {
+  border: 1px solid #bdd3f332;
+  background: #9abce312;
+}
+
+.field {
+  border: 1px solid #a8c3e45c;
+  background: #080e19a8;
+  box-shadow: inset 0 1px 3px #03050b8c;
+}
+
+.field:focus-visible {
+  border-color: #bfdbfe;
+  outline-color: #bfdbfe;
+}
+
+.submit {
+  border: 1px solid #ffffffae;
+  background: linear-gradient(175deg, #f5faff, #b4cff0);
+  box-shadow: inset 0 1px #fff, 0 6px 16px #0004;
+}
+
+.submit:hover:enabled {
+  background: linear-gradient(175deg, #fff, #d2e6ff);
+}
+
+@media (min-width: 768px) and (hover: hover) and (pointer: fine) {
+  .formPane {
+    background: linear-gradient(145deg, #21324cba, #111a2bea 47%, #0a101ce6);
+    backdrop-filter: blur(16px) saturate(135%);
+  }
+}
+
+@media (min-width: 768px) {
+  .formPane {
+    border-top: 0;
+    border-left: 1px solid #c5e0ff38;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .scene::after {
+    animation: bubble-flow 28s linear infinite;
+  }
+
+  .bubbles span {
+    animation: bubble-drift var(--time) ease-in-out var(--delay) infinite alternate;
+  }
+}
+
+@keyframes bubble-drift {
+  from {
+    transform: translate3d(0, 5vh, 0) scale(0.96, 1.03);
+    opacity: .48;
+  }
+  to {
+    transform: translate3d(var(--drift), -11vh, 0) scale(1.06, .95);
+    opacity: .88;
+  }
+}
+
+@keyframes bubble-flow {
+  0% {
+    transform: translate(-50%, -50%) rotate(-21deg) scale(1);
+  }
+  25% {
+    transform: translate(-48%, -52%) rotate(69deg) scale(0.89, 1.12);
+  }
+  50% {
+    transform: translate(-51%, -48%) rotate(159deg) scale(1.09, 0.93);
+  }
+  75% {
+    transform: translate(-53%, -51%) rotate(249deg) scale(0.95, 1.09);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(339deg) scale(1);
+  }
+}

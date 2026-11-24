@@ -1,0 +1,125 @@
+{
+  "name": "HANIF ARDIYANTA NUGRAHA",
+  "metadata": "hanifardiyanta11@gmail.com | linkedin.com/in/hanifardiyantanugraha | nugrahax.vercel.app\nYogyakarta, Indonesia",
+  "intro": "Software Engineer with experience in end-to-end software system development, from backend and frontend design to integration with IoT-based hardware. Possesses expertise in building web applications, real-time monitoring systems, and firmware for microcontrollers such as ESP32. Accustomed to developing solutions that not only function as software but are also capable of controlling and communicating directly with physical devices via network protocols. Oriented towards building efficient, scalable system architectures that deliver a real impact on users.",
+  "sections": [
+    {
+      "title": "Education",
+      "text": "",
+      "style": "entries",
+      "rows": [
+        {
+          "title": "Universitas Gadjah Mada - Yogyakarta",
+          "period": "Jul 2023 - Aug 2027 (Expected)",
+          "details": "",
+          "tools": "",
+          "role": "Bachelor of Electronics and Instrumentation"
+        }
+      ]
+    },
+    {
+      "title": "EXPERIENCE",
+      "text": "",
+      "style": "entries",
+      "rows": [
+        {
+          "title": "Koding Next Yogyakarta - Yogyakarta",
+          "period": "Aug 2025 - Present",
+          "details": "Taught over 70 students across 6 modules, including Python Arcade, Lua (Roblox Studio), Computer Vision (Object Detection), and IoT (Intruder Detection Systems).\nAppointed as Technical Judge for the International Environment Coding Competition (IECC) 2025 for the Central Java & Yogyakarta region, selecting top participants to advance to the national level.\nDelivered a tech talk at Yogyakomtek GIK UGM 2025 to over 50 participants, discussing how hands-on coding practices can unlock digital potential for everyone.\nMentored students from the conceptual design stage to real-time hardware and software debugging, ensuring optimal project quality.",
+          "tools": "",
+          "role": "Advanced Coding Teacher"
+        },
+        {
+          "title": "Elins Research Club UGM - Yogyakarta",
+          "period": "Apr 2025 - Present",
+          "details": "Independently organized and delivered an Advanced JavaScript workshop for new members to elevate the organization's technical standards and web development competencies.\nExecuted a Community Service program at MAN 2 Yogyakarta by developing a full-stack e-learning platform using JavaScript and Python, integrated with student-made IoT devices for real-time data visualization.\nDeveloped Weather Station software as part of a community-based project, featuring real-time data monitoring, historical logging, and automated notifications based on weather conditions.\nDeveloped a specialized Nutrition Calculator web application for the National Nutrition Agency (BGN) to support the national Free Nutritious Meal (MBG) initiative.\nMaintained and optimized erc.elins.id to showcase research portfolios, community service documentation, and technical projects to institutional partners.",
+          "tools": "",
+          "role": "Senior Member of WebDev Division"
+        },
+        {
+          "title": "Electronics and Instrumentation Student Association UGM - Yogyakarta",
+          "period": "Feb 2025 - Feb 2026",
+          "details": "Initiated impactful career development programs, including a socialization event with the Apple Developer Academy @ Infinite Learning Batam, connecting students with global industry opportunities.\nImproved academic outcomes by organizing tutorial classes named \"ELINS Tutorial\" for 100+ new students and creating a centralized digital bank for exam questions and course materials (Elinsklopedia).\nInitiated and led the EFO (Elins Foundation) scholarship program, successfully establishing partnerships with alumni and donors; responsibilities ranged from direct communication and intensive consultation with faculty advisors to designing a comprehensive selection scheme and managing all administrative processes and post-acceptance accountability reports (LPJ).\nLed and coordinated a 12-member division in executing strategic programs that directly impacted student welfare and alumni-campus connections.\nDeveloped student advocacy programs to assist with academic processes and convey student rights to the faculty, and created weekly technology-based academic quizzes on the association's social media.",
+          "tools": "",
+          "role": "Head of Academic and Advocacy Division"
+        },
+        {
+          "title": "Computer and Network Systems Laboratory UGM - Yogyakarta",
+          "period": "Jul 2025 - Oct 2025",
+          "details": "Led the software architecture design and developed modular firmware (C++) for the ESP32 microcontroller as the core of an end-to-end IoT monitoring system.\nDeveloped a centralized data gateway using Python, FastAPI, and Docker to process and stream sensor data in real-time.\nDesigned and implemented an interactive data visualization dashboard using Next.js.",
+          "tools": "",
+          "role": "Software Developer"
+        },
+        {
+          "title": "Basic Electronics Laboratory UGM - Yogyakarta",
+          "period": "Feb 2025 - Jul 2025",
+          "details": "Led and facilitated practicum sessions for approximately 30 undergraduate students with full responsibility for grading and learning outcomes.\nTaught comprehensive electronics skills, including schematic and PCB layout design using EAGLE, PCB fabrication (etching, drilling, soldering), and final testing and troubleshooting.\nDesigned and evaluated case-study-based practicum exams to measure students' technical competencies and problem-solving abilities.\nProvided individual mentoring for one semester to selected students to deepen conceptual understanding and ensure project success.",
+          "tools": "",
+          "role": "Laboratory Practicum Assistant"
+        },
+        {
+          "title": "Basic Programming Laboratory UGM - Yogyakarta",
+          "period": "Aug 2025 - Dec 2025",
+          "details": "Compiled and prepared C++ programming learning modules from basic to intermediate levels in English as official practicum guidelines.\nCoordinated with lecturers and the laboratory team to ensure modules were systematic and aligned with the course's learning outcomes.\nReviewed and refined materials to ensure clarity, technical consistency, and the academic quality of the modules.\nSupported the laboratory's administrative and technical needs to ensure smooth programming learning processes.",
+          "tools": "",
+          "role": "Programming Practicum Assistant"
+        },
+        {
+          "title": "Electronics and Instrumentation UGM - Yogyakarta",
+          "period": "Aug 2025 - Dec 2025",
+          "details": "Provided structured learning over one semester to more than 60 new students to build fundamental understanding in C++ programming.\nGuided students in understanding basic to advanced concepts such as control structures, functions, arrays, pointers, and the basics of object-oriented programming.\nAssisted in Midterm (UTS) and Final Exam (UAS) preparation through question review sessions, targeted exercises, and exam simulations.\nActively answered technical questions both in class and through online discussion groups to ensure all students understood the material equally.\nHelped students develop problem-solving skills and algorithmic logic through practical approaches and case studies",
+          "tools": "",
+          "role": "Programming Course Tutor"
+        }
+      ]
+    },
+    {
+      "title": "PROJECT EXPERIENCE",
+      "text": "",
+      "style": "entries",
+      "rows": [
+        {
+          "title": "MBG Smart Nutrition Calculator - Yogyakarta",
+          "period": "Jul 2025 - Sep 2025",
+          "details": "Developed a web application to calculate food nutritional values and generate nutrition labels automatically to support the national Free Nutritious Meal (MBG) program.\nBuilt the backend using Express.js and Prisma ORM for managing food ingredient data and nutritional composition.\nIntegrated AI (Gemini) to estimate the nutritional content of new food ingredients not yet available in the database.\nDeveloped the user interface using Next.js to ensure a responsive and user-friendly experience.\nOptimized nutrition calculation accuracy through comprehensive data validation and system testing.",
+          "tools": "Next.js, Express.js, Prisma ORM, Gemini AI",
+          "role": "Software Developer"
+        },
+        {
+          "title": "G-Connect Realtime Monitoring Weather Station",
+          "period": "",
+          "details": "Led the development of an IoT-based real-time weather monitoring system integrated with ESP32 sensors to support agricultural decision-making.\nDesigned and implemented a REST API using FastAPI to process and manage environmental data (temperature, humidity, soil moisture) in real-time.\nDeveloped an interactive dashboard using Next.js featuring historical data visualization and automated notifications based on weather conditions.\nDesigned a lightweight and efficient SQLite database architecture for implementation in rural environments with limited resources.\nCollaborated with the hardware team on HTTP-based data communication integration to ensure stable data transmission.",
+          "tools": "Next.js, FastAPI, SQLite",
+          "role": "Lead Software Developer"
+        },
+        {
+          "title": "GamaSense Monitoring Air Quality",
+          "period": "",
+          "details": "Developed an IoT-based air quality monitoring system that displays real-time gas sensor data through a web dashboard.\nBuilt a data processing pipeline using Node-RED to manage and distribute sensor data efficiently.\nDeveloped a responsive interface using React + Vite with TypeScript to improve code scalability and maintainability.\nDesigned the database structure for recording air quality data and analyzing long-term trends.\nContributed to improving system stability through modular testing and application performance optimization.",
+          "tools": "Typescript, React + Vite, Node-RED, SQLite",
+          "role": "Software Developer"
+        },
+        {
+          "title": "Web Elins Research Club UGM",
+          "period": "",
+          "details": "Developed and maintained the official club website (erc.elins.id), utilizing WordPress and Elementor to build a professional organizational profile web and information center for members and the public.\nDesigned and led JavaScript training sessions for new members to accelerate technical skill development and integration into the development team.\nCollaborated within the development team to translate client needs into functional web solutions, taking primary responsibility for implementing specific features and ensuring code quality.",
+          "tools": "Wordpress Elementor",
+          "role": "Software Developer"
+        },
+        {
+          "title": "Automation AC Controller Mobile App",
+          "period": "",
+          "details": "Developed an Android application to control IoT-based AC systems using Kotlin and Jetpack Compose.\nIntegrated the application with microcontroller devices via the MQTT protocol for remote temperature and mode control.\nDesigned an intuitive UI/UX featuring real-time device status monitoring.\nImplemented command synchronization mechanisms and connection validation to ensure stable communication between the application and the device.",
+          "tools": "Kotlin, Jetpack Compose",
+          "role": "Mobile Developer"
+        }
+      ]
+    },
+    {
+      "title": "TECHNICAL SKILLS",
+      "text": "Languages: JavaScript, TypeScript, Python, C++, Kotlin, SQL\nWeb & Backend Development: React.js, Next.js, Node.js, Express.js, FastAPI, Flask\nMobile & IoT Systems: Android (Kotlin, Jetpack Compose), ESP32, MQTT, HTTP, Raspberry Pi\nDatabase & Tools: MySQL, SQLite, Prisma ORM, Git, Docker\nGamaSense Air Quality Monitoring",
+      "style": "entries",
+      "rows": []
+    }
+  ]
+}

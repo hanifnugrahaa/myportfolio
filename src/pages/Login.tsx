@@ -1,128 +1,93 @@
-import React, { useState } from 'react';
+import { useRef, useState, type FormEvent } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import { ArrowLeft, ArrowRight, Eye, EyeOff } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../lib/firebase';
-import { useNavigate } from 'react-router-dom';
-import { ShimmerButton } from '../components/magicui/shimmer-button';
-import { RetroGrid } from '../components/magicui/retro-grid';
-import { BorderBeam } from '../components/magicui/border-beam';
-import { MagicCard } from '../components/magicui/magic-card';
-import { WordPullUp } from '../components/magicui/word-pull-up';
-import { motion } from 'framer-motion';
+import styles from './Login.module.css';
 
-const Login: React.FC = () => {
+const field = `${styles.field} mt-2 block w-full rounded-xl px-3.5 py-3 text-base text-white`;
+
+export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const pending = useRef(false);
   const navigate = useNavigate();
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError('');
+  async function handleLogin(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (pending.current) return;
+    pending.current = true;
+    setError(false);
     setLoading(true);
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      navigate('/admin');
-    } catch (err: any) {
-      setError('Authentication failed. Please verify your credentials.');
+      await signInWithEmailAndPassword(auth, email.trim(), password);
+      navigate('/admin', { replace: true });
+    } catch {
+      setError(true);
     } finally {
+      pending.current = false;
       setLoading(false);
     }
-  };
+  }
 
   return (
-    <div className="relative min-h-screen w-full flex items-center justify-center bg-neutral-950 overflow-hidden selection:bg-white/20">
-      <RetroGrid className="z-0 opacity-20 mix-blend-screen" angle={60} cellSize={50} lightLineColor="#ffffff" darkLineColor="#ffffff" />
+    <main className={`${styles.scene} grid min-h-dvh place-items-center px-4 py-8 text-white sm:px-8 sm:py-12`}>
+      <div aria-hidden="true" className={styles.bubbles}>
+        <span /><span /><span />
+      </div>
+      <div className="relative z-10 w-full max-w-[56rem]">
+        <Link to="/" className={`${styles.back} mb-4 inline-flex items-center gap-2 rounded-full px-3.5 py-2 text-sm font-medium !text-slate-200 hover:!text-white`}>
+          <ArrowLeft size={16} aria-hidden="true" /> Kembali ke portofolio
+        </Link>
 
-      <motion.div 
-        initial={{ opacity: 0, y: 30, scale: 0.95 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="relative z-10 w-full max-w-md px-4 sm:px-0"
-      >
-        <MagicCard 
-          className="relative overflow-hidden rounded-3xl bg-neutral-900/40 backdrop-blur-xl border border-neutral-800 shadow-2xl"
-          gradientColor="rgba(255,255,255,0.05)"
-        >
-          <BorderBeam size={250} duration={12} delay={9} colorFrom="#ffffff" colorTo="#a3a3a3" />
-          
-          <form onSubmit={handleLogin} className="relative z-10 p-8 sm:p-10 flex flex-col gap-6">
-            <div className="text-center mb-2">
-              <WordPullUp
-                className="text-3xl font-extrabold text-white tracking-tight"
-                words="Command Center"
-              />
-              <motion.p 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5, duration: 0.5 }}
-                className="text-neutral-400 text-sm mt-3 font-medium"
-              >
-                Enter your credentials to access the secure portal.
-              </motion.p>
-            </div>
+        <div className={`${styles.shell} grid overflow-hidden rounded-[1.75rem] md:grid-cols-[minmax(0,.9fr)_minmax(0,1fr)]`}>
+          <div className={`${styles.identity} relative flex min-w-0 items-end overflow-hidden px-6 py-6 sm:px-9 md:py-10`}>
+            <p className={`${styles.heading} relative z-10 text-2xl leading-[.95] font-semibold tracking-tight md:text-6xl`}>Hanif Nugraha</p>
+          </div>
+          <section aria-labelledby="login-heading" className={`${styles.formPane} flex min-w-0 flex-col justify-center px-5 py-8 sm:px-9 sm:py-10`}>
+            <header className="mb-7">
+              <h1 id="login-heading" className={`${styles.heading} text-3xl font-semibold tracking-tight sm:text-4xl`}>Masuk ke dashboard</h1>
+              <p className="mt-3 text-sm leading-relaxed text-slate-300">Selamat datang kembali, Hanif.</p>
+            </header>
 
-            {error && (
-              <motion.div 
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                className="text-red-400 text-sm p-3 bg-red-950/50 border border-red-500/50 backdrop-blur-md rounded-lg text-center font-medium"
-              >
-                {error}
-              </motion.div>
-            )}
-            
-            <div className="flex flex-col gap-5">
-              <div className="flex flex-col gap-2">
-                <label className="text-xs font-semibold text-neutral-300 uppercase tracking-wider ml-1">Email Address</label>
-                <input 
-                  type="email" 
-                  value={email} 
-                  onChange={(e) => setEmail(e.target.value)} 
-                  required 
-                  placeholder="admin@system.local"
-                  className="w-full px-5 py-4 rounded-xl bg-neutral-900/50 border border-neutral-700/50 text-white placeholder-neutral-500 focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition-all backdrop-blur-sm"
-                />
+            <form onSubmit={handleLogin} aria-busy={loading} className="grid gap-5">
+              <div>
+                <label htmlFor="login-email" className="text-sm font-medium text-neutral-200">Email</label>
+                <input id="login-email" name="email" type="email" value={email} onChange={event => setEmail(event.target.value)}
+                  autoComplete="username" spellCheck={false} required className={field} />
               </div>
 
-              <div className="flex flex-col gap-2">
-                <label className="text-xs font-semibold text-neutral-300 uppercase tracking-wider ml-1">Password</label>
-                <input 
-                  type="password" 
-                  value={password} 
-                  onChange={(e) => setPassword(e.target.value)} 
-                  required 
-                  placeholder="••••••••"
-                  className="w-full px-5 py-4 rounded-xl bg-neutral-900/50 border border-neutral-700/50 text-white placeholder-neutral-500 focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition-all backdrop-blur-sm"
-                />
+              <div>
+                <label htmlFor="login-password" className="text-sm font-medium text-neutral-200">Kata sandi</label>
+                <div className="relative">
+                  <input id="login-password" name="password" type={showPassword ? 'text' : 'password'} value={password}
+                    onChange={event => setPassword(event.target.value)} autoComplete="current-password" required className={`${field} pr-12`} />
+                  <button type="button" aria-label={showPassword ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi'}
+                    aria-controls="login-password" onClick={() => setShowPassword(visible => !visible)}
+                    className="absolute inset-y-0 right-0 grid w-12 place-items-center rounded-r-xl text-slate-300 hover:text-white">
+                    {showPassword ? <EyeOff size={18} aria-hidden="true" /> : <Eye size={18} aria-hidden="true" />}
+                  </button>
+                </div>
               </div>
-            </div>
 
-            <div className="mt-6">
-              <ShimmerButton 
-                type="submit" 
-                className="w-full text-sm font-bold tracking-widest uppercase h-14 bg-white text-black"
-                shimmerColor="rgba(0,0,0,0.2)"
-                background="#ffffff"
-                disabled={loading}
-              >
-                <span className="text-neutral-900">{loading ? 'Authenticating...' : 'Authorize Access'}</span>
-              </ShimmerButton>
-            </div>
-            
-            <button 
-              type="button"
-              onClick={() => navigate('/')}
-              className="mt-4 text-neutral-500 hover:text-white text-sm text-center transition-colors font-medium underline-offset-4 hover:underline"
-            >
-              Return to Public Site
-            </button>
-          </form>
-        </MagicCard>
-      </motion.div>
-    </div>
+              {error && (
+                <p role="alert" className="rounded-lg border border-red-900 bg-red-950/45 px-3.5 py-2.5 text-sm text-red-200">
+                  Gagal masuk. Periksa email dan kata sandi, lalu coba lagi.
+                </p>
+              )}
+
+              <button type="submit" disabled={loading}
+                className={`${styles.submit} flex min-h-12 items-center justify-between gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-slate-950 disabled:opacity-60`}>
+                {loading ? 'Sedang masuk...' : 'Masuk'}
+                {!loading && <ArrowRight size={16} aria-hidden="true" />}
+              </button>
+            </form>
+          </section>
+        </div>
+      </div>
+    </main>
   );
-};
-
-export default Login;
-
+}

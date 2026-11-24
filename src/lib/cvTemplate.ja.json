@@ -1,0 +1,150 @@
+{
+  "name": "ハニフ・アルヂヤンタ・ヌグラハ",
+  "metadata": "2026年 03月 23日",
+  "intro": "ガジャマダ大学にて電子工学計測学を専攻し、バックエンドからフロントエンド、さらには IoT デバイスのファームウェア開発まで、エンドツーエンドのソフトウェアシステム開発の経験を積んできました。大学の研究室やプロジェクトでは、Python (FastAPI) や TypeScript (Next.js) を用いたフルスタック開発、およびGemini APIなどのAI技術を統合したシステム構築を主導しました。また、2025年よりプログラミングスクール「Koding Next」にて上級講師として70名以上の生徒の技術指導を行い、マネジメントや技術コミュニケーションの経験も有しています",
+  "sections": [
+    {
+      "title": "得意とする経験・分野・スキル",
+      "text": "・設計、構築から API 実装まで、Next.js と FastAPI を用いたフルスタック Web アプリケーション開発の経\n験\n・ESP32などのIoTデバイスとWebダッシュボードを連携させるシステム構築業務\n・プログラミング講師や大学組織のリーダーとしての、技術指導およびチームマネジメント経験\n・Gemini API等のAI技術をシステムに統合する開発経験",
+      "style": "entries",
+      "rows": []
+    },
+    {
+      "title": "会社履歴",
+      "text": "",
+      "style": "history",
+      "rows": [
+        {
+          "title": "Koding Next Yogyakarta",
+          "period": "2025年8月～現在",
+          "details": "",
+          "tools": "",
+          "role": ""
+        },
+        {
+          "title": "ガジャマダ大学 コンピュータシステム・ネットワーク研究室",
+          "period": "2025年7月～2025年10\n月",
+          "details": "",
+          "tools": "",
+          "role": ""
+        },
+        {
+          "title": "ガジャマダ大学 基礎電子工学実験室",
+          "period": "2025年2月～2025年7月",
+          "details": "",
+          "tools": "",
+          "role": ""
+        },
+        {
+          "title": "Elins Research Club UGM",
+          "period": "2024年4月～現在",
+          "details": "",
+          "tools": "",
+          "role": ""
+        },
+        {
+          "title": "ガジャマダ大学 電子工学・計測学学生自治会 (Himpunan Mahasiswa Elektronika\ndan Instrumentasi)",
+          "period": "2024年2月～2026年2月",
+          "details": "",
+          "tools": "",
+          "role": ""
+        }
+      ]
+    },
+    {
+      "title": "職務経歴詳細",
+      "text": "1．Koding Next Yogyakarta 2025年8月～現在\n事業内容： プログラミングスクール\n資本金：**百万円、売上高：**百万円、従業員数：**名 正社員",
+      "style": "table",
+      "rows": [
+        {
+          "title": "",
+          "period": "2025年8月～\n現在",
+          "details": "[概要]\n・上級講師として、Python Arcade、Lua\n(Roblox Studio)、IoT等のモジュールを指\n導 。\n・ 国際大会 (IECC 2025) にて技術審査員を\n務める 。\n[担当フェーズ]\n・カリキュラムに沿った技術指導\n・生徒のプロジェクトのデバッグおよびメンタリ\nング",
+          "tools": "・Python\n・Lua\n・C++",
+          "role": "[規模]\n・生徒数：70名以上\n[役割]\n・上級講師\n・技術審査員"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "text": "2．ガジャマダ大学 コンピュータシステム・ネットワーク研究室 2025年7月～2025年10月\n事業内容： 大学研究室\n資本金：**百万円、売上高：**百万円、従業員数：**名",
+      "style": "table",
+      "rows": [
+        {
+          "title": "",
+          "period": "2025年7月～\n2025年10月",
+          "details": "[概要]\n・IoTベースのエンドツーエンド監視システ\nムの開発 。\n[担当フェーズ]\n・要件定義、基本設計\n・ESP32のファームウェア設計\n・データゲートウェイの構築\n・インタラクティブダッシュボードの実装",
+          "tools": "・Python\n・FastAPI\n・Next.js\n・C++\n・Docker",
+          "role": "[規模]\n・ターゲットユーザ\nー：バントゥル郡ス\nリハルジョ村の農家\n[役割]\n・ソフトウェアデベ\nロッパー"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "text": "3．Elins Research Club UGM 2024年4月～現在\n事業内容： 大学公認の研究・開発団体\n資本金：**百万円、売上高：**百万円、従業員数：**名",
+      "style": "table",
+      "rows": [
+        {
+          "title": "",
+          "period": "2024年4月～\n現在",
+          "details": "[概要]\n・Web開発部門のシニアメンバーとして、組\n織のWeb運用や外部向けのシステム開発を主\n導 。\n[担当フェーズ]\n・MAN 2 Yogyakarta向けのフルスタックeラ\nーニングプラットフォーム開発とIoTデータ\n可視化 。\n・公式Webサイト (erc.elins.id) の構築・\n保守 。\n・新メンバー向けAdvanced JavaScriptワー\nクショップの企画・指導 。",
+          "tools": "・JavaScript\n・Python\n・WordPress\n・Elementor",
+          "role": "[役割]\n・Web開発部門 シニ\nアメンバー"
+        }
+      ]
+    },
+    {
+      "title": "",
+      "text": "4．ガジャマダ大学 電子工学・計測学学生自治会 (Himpunan Mahasiswa Elektronika & Instrumentasi)\n2024年2月～2026年2月\n事業内容： 学科学生会\n資本金：**百万円、売上高：**百万円、従業員数：**名",
+      "style": "table",
+      "rows": [
+        {
+          "title": "",
+          "period": "2024年2月～\n2026年2月",
+          "details": "[概要]\n・学術および学生アドボカシー（権利擁護）の\n責任者として、学生のスキル向上とキャリア\n支援を主導 。\n[担当フェーズ]\n・Apple Developer Academyとの連携によるキ\nャリア開発プログラムの立ち上げ 。\n・独自の奨学金制度 (EFO) の企画および資金\n調達 。\n・12 名の部門メンバーのマネジメントおよび\n戦略的プログラムの実行 。",
+          "tools": "-",
+          "role": "[規模]\n・マネジメント人数：\n12名\n[役割]\n・学術・アドボカシー\n部門長\n(Head of Division)"
+        }
+      ]
+    },
+    {
+      "title": "主要プロジェクト経験",
+      "text": "",
+      "style": "table",
+      "rows": [
+        {
+          "title": "",
+          "period": "2025年9月～\n2025年10月",
+          "details": "[概要]\n国家栄養庁 (BGN) 向けのMBG Smart\nNutrition Calculatorの開発\n[担当フェーズ]\n・バックエンドおよびDB設計\n・Gemini AIを用いた栄養価推定機能の統合\n・フロントエンド実装およびテスト",
+          "tools": "・Next.js\n・Express.js\n・Prisma ORM\n・Gemini AI",
+          "role": "[役割]\n・ソフトウェアデベ\nロッパー"
+        },
+        {
+          "title": "",
+          "period": "2025年7月～\n2025年9月",
+          "details": "[概要]\n農業支援システム「G-Connect」等の開発\n[担当フェーズ]\n・REST APIの設計・実装\n・ダッシュボード開発\n・ハードウェアチームとの通信統合",
+          "tools": "・Next.js\n・FastAPI\n・SQLite\n・C++",
+          "role": "[役割]\n・リードソフトウェ\nアデベロッパー"
+        }
+      ]
+    },
+    {
+      "title": "技術スキル",
+      "text": "ＯＳ：Windows, Linux\nDB：MySQL, SQLite, Prisma ORM, PostgreSQL\n開発言語：TypeScript, JavaScript, Python, C++, Kotlin, Java, SQL\nFramework・Library：Next.js, React.js, Node.js, Express.js, FastAPI, Flask, Jetpack Compose\nインフラ・ツール: Git, Docker, Node-RED, MQTT",
+      "style": "entries",
+      "rows": []
+    },
+    {
+      "title": "資格・語学",
+      "text": "2025年10月 日本語コース修了 (Sun*/ANCジャパン)\n2025年8月 EF SET 英語試験 C2レベル取得 2025年10月\n2025年2月 ウェブサイト開発能力認定証取得 (Webdev ERC - Advanced Javascript)\n語学：インドネシア語（ネイティブ）、英語（ビジネス上級）、日本語（日常会話・学習中）",
+      "style": "entries",
+      "rows": []
+    },
+    {
+      "title": "自己ＰＲ",
+      "text": "フルスタック開発と最新技術（AI・IoT）の実装力\n在学中より、フロントエンド、バックエンド、インフラ、そしてハードウェア（IoT）に至るまで、幅広いレ\nイヤーでの開発経験を積んできました。「G-Connect」や「MBG Smart Nutrition Calculator」などのプロジ\nェクトでは、要件定義からAPI設計、Gemini API等の最新AI技術の統合までを一貫して担当し、スケーラ\nブルなシステムを構築しました 。多様な技術スタックを組み合わせて、実用的なソリューションを生み出す\nアーキテクチャ設計力が私の強みです。\nマネジメントと技術コミュニケーションスキル\nプログラミングスクールでの70名以上の生徒への指導経験や、国際コーディング大会での技術審査員を通じ\nて、複雑な技術概念をわかりやすく伝えるコミュニケーション能力を培いました 。また、大学のプロジェク\nトではリードデベロッパーとしてチームを牽引し、ハードウェアチーム等の他部門との連携も円滑に行いま\nした 。この折衝力とリーダーシップを活かし、チーム開発において即戦力として貢献します。",
+      "style": "entries",
+      "rows": []
+    }
+  ]
+}

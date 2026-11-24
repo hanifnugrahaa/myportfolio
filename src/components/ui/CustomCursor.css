@@ -1,4 +1,8 @@
 /* src/components/CustomCursor.css */
+html:has(dialog:modal) :is(.custom-cursor-dot, .custom-cursor-ring) {
+  visibility: hidden;
+}
+
 .custom-cursor-dot {
   position: fixed;
   top: 0;

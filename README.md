@@ -1,6 +1,6 @@
 # 🚀 Hanif Nugraha - Interactive Portfolio
 
-A state-of-the-art, highly interactive personal portfolio built with React 19, Vite, and TypeScript. This project blends a sleek **Neo-Japan** aesthetic with **Glassmorphism**, featuring complex scroll animations, a hidden administrative dashboard, and real-time CV access tracking.
+A state-of-the-art, highly interactive personal portfolio built with React 19, Vite, and TypeScript. This project blends a sleek **Neo-Japan** aesthetic with **Glassmorphism**, featuring complex scroll animations, and an administrative dashboard for portfolio content and CV versions.
 
 [![MIT License](https://img.shields.io/github/license/hanifnugrahaa/hanifnugrahaa.github.io?style=flat-square)](https://choosealicense.com/licenses/mit/)
 [![GitHub last commit](https://img.shields.io/github/last-commit/hanifnugrahaa/hanifnugrahaa.github.io?style=flat-square)](https://github.com/hanifnugrahaa/hanifnugrahaa.github.io/commits/main)
@@ -22,9 +22,8 @@ A state-of-the-art, highly interactive personal portfolio built with React 19, V
 - **Real-time Database:** Connected to **Firebase Firestore** to manage portfolio projects dynamically without touching the codebase.
 - **Base64 Image Compression:** Client-side image compression using `Canvas API` before uploading to Firestore, bypassing the need for Firebase Storage.
 
-### 🕵️‍♂️ CV Access Logs (Guestbook)
-- **Security Clearance Gate:** Recruiter tracking system disguised as a Neo-Japan terminal. Users are prompted to leave their name/company before downloading the CV.
-- **Real-time Monitoring:** Visitor logs are instantly sent to Firestore and displayed on the Admin Dashboard for easy tracking of potential leads.
+### CV viewing
+- Visitors can open the English CV and Shokumukeirekisho directly from the About section.
 
 ### ⚡ Dynamic Data & Integrations
 - **Auto-detected Tech Icons:** Automatically renders the correct brand icon (via `react-icons`) based on the technology name specified in the project data.
@@ -40,7 +39,7 @@ Existing projects still read their original `imageUrl`. The built-in activities 
 
 ### Firebase setup
 
-Merge the following block inside the existing Firestore `match /databases/{database}/documents` block. Replace `YOUR_ADMIN_UID` with the account UID from Firebase Authentication, or use the project's existing admin authorization function. Review overlapping wildcard rules because Firebase permits a request whenever any matching rule allows it. Preserve the existing Projects and CV Logs permissions.
+Merge the following block inside the existing Firestore `match /databases/{database}/documents` block. Replace `YOUR_ADMIN_UID` with the account UID from Firebase Authentication, or use the project's existing admin authorization function. Review overlapping wildcard rules because Firebase permits a request whenever any matching rule allows it. Preserve the existing Projects permissions.
 
 ```text
 match /activities/{activityId} {
@@ -51,6 +50,32 @@ match /activities/{activityId} {
 ```
 
 After publishing the rules, verify an admin can save a temporary post and a signed-out visitor can view its slides. Removing a slide or deleting a post removes the reference from Firestore. The media host manages the original files.
+
+### CV versions
+
+In **Admin → CV**, add an English CV or Shokumukeirekisho using a direct public HTTPS link to the PDF. Use **Tampilkan** to select the version visitors see. Select a replacement before deleting an active version. The bundled PDFs are the initial versions.
+
+Use **Buat CV** to open an editable template based on the bundled CV for that language. **Simpan lokal** keeps a draft in this browser. **Simpan versi draft** adds it to the online version catalog. Use **Preview A4 → Cetak / simpan PDF** and choose **Save as PDF** in the browser print dialog. A draft created in the editor becomes public only after **Tampilkan** is selected.
+
+Add or update these matches inside the same Firestore documents block. Use the admin UID from Firebase Authentication. The public document contains only the selected PDF URL or authored CV content. The admin catalog holds the version history. A public PDF URL remains accessible to anyone who has it.
+
+```text
+match /cv_catalog/{language} {
+  allow get, create, update: if language in ['en', 'ja']
+    && request.auth != null && request.auth.uid == "YOUR_ADMIN_UID";
+}
+
+match /cv_public/{language} {
+  allow get: if language in ['en', 'ja'];
+  allow create, update: if language in ['en', 'ja']
+    && request.auth != null && request.auth.uid == "YOUR_ADMIN_UID"
+    && (
+      (request.resource.data.keys().hasOnly(['url']) && request.resource.data.url is string)
+      || (request.resource.data.keys().hasOnly(['content']) && request.resource.data.content is string
+        && request.resource.data.content.size() <= 65000)
+    );
+}
+```
 
 ## 🛠 Technology Stack
 
